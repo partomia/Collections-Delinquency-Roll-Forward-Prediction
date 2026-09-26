@@ -154,7 +154,7 @@ def simulate_loan(idx: int, seed: int) -> dict | None:
     for i in range(N_MONTHS):
         y, m = divmod(HISTORY_START.month - 1 + i, 12)
         y, m = HISTORY_START.year + y, m + 1
-        if shock_left == 0 and rng.random() < 0.012:
+        if shock_left == 0 and rng.random() < 0.008:
             shock_left = rng.randint(2, 7)
         in_shock = shock_left > 0
         shock_left = max(0, shock_left - 1)
@@ -167,6 +167,9 @@ def simulate_loan(idx: int, seed: int) -> dict | None:
 
     def stress_on(d: date) -> float:
         return stress[min(N_MONTHS - 1, max(0, month_index(d)))]
+
+    def shocked_on(d: date) -> bool:
+        return shocked[min(N_MONTHS - 1, max(0, month_index(d)))]
 
     salary_set = set(salary_dates)
 
@@ -214,25 +217,26 @@ def simulate_loan(idx: int, seed: int) -> dict | None:
             day = due + timedelta(days=t)
             z = stress_on(day)
             sal = salary_recent(day)
+            shock = shocked_on(day)
             if nach and t == REPRESENT_DAY:
-                if rng.random() < sigmoid(-0.4 - 0.8 * z + 2.0 * sal):
+                if rng.random() < sigmoid(-0.4 - 0.8 * z + 2.0 * sal - 2.0 * shock):
                     presentations.append((day, emi, "SUCCESS", None, 2))
                     cured, channel = t, "NACH"
                     break
                 presentations.append((day, emi, "BOUNCED", "INSUFFICIENT_FUNDS", 2))
             if ptp_date == day:
                 ptp_date = None
-                if rng.random() < sigmoid(0.4 - 0.9 * z + 1.0 * sal):
+                if rng.random() < sigmoid(0.4 - 0.9 * z + 1.0 * sal - 2.0 * shock):
                     cured, channel = t, "UPI"
                     break
             reached_recently = reached_on is not None and (day - reached_on).days <= 7
-            if rng.random() < sigmoid(-1.4 - 0.85 * z + 1.3 * sal + 1.2 * reached_recently):
+            if rng.random() < sigmoid(-1.2 - 0.85 * z + 1.3 * sal + 1.2 * reached_recently - 2.0 * shock):
                 cured, channel = t, rng.choice(["UPI", "NETBANKING", "CASH", "BRANCH"])
                 break
             if t >= 2 and (t - 2) % 3 == 0 and ptp_date is None and t <= 90:
                 ch = "IVR" if t <= 7 and rng.random() < 0.5 else ("FIELD" if t > 60 else "CALL")
                 hour = rng.randint(9, 18)
-                if rng.random() < sigmoid(0.4 - 0.45 * z - 0.9 * unreachable):
+                if rng.random() < sigmoid(0.4 - 0.45 * z - 0.9 * unreachable - 1.5 * shock):
                     reached_on = day
                     if rng.random() < 0.6:
                         ptp_date = day + timedelta(days=rng.randint(2, 7))

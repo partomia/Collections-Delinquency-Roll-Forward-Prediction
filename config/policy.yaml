@@ -15,6 +15,7 @@ holdout:
   # Context snapshots end this many days before the first test snapshot, so no
   # context label was observed after the test date (as if deployed then).
   gap_days: 30
+  max_rows: 20000           # sample the test weeks down to this (keeps a CPU run short)
 
 treatment:
   # Percentile of priority_score across today's SMA-0 book (0 = highest priority).
