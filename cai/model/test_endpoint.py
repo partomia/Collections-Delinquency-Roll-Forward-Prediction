@@ -45,7 +45,7 @@ def main() -> None:
     p.add_argument("--local", action="store_true", help="score in-process instead of calling the endpoint")
     p.add_argument("--stub", action="store_true", help="with --local: logistic stand-in instead of TabICL")
     p.add_argument("--context", default="file", help="with --local: impala | file | auto")
-    args = p.parse_args()
+    args, _ = p.parse_known_args()  # a Jupyter-kernel job runtime adds -f <kernel.json>
 
     if args.print_request:
         print(json.dumps(EXAMPLE, indent=2))

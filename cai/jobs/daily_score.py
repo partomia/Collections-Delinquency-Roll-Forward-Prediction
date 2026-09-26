@@ -54,7 +54,7 @@ def main() -> None:
     p.add_argument("--stub", action="store_true", help="logistic regression stand-in instead of TabICL")
     p.add_argument("--dry-run", action="store_true", help="do not write any table")
     p.add_argument("--triggered-by", default=os.environ.get("COLL_TRIGGERED_BY") or "cai-job")
-    args = p.parse_args()
+    args, _ = p.parse_known_args()  # a Jupyter-kernel job runtime adds -f <kernel.json>
 
     run_date = datetime.strptime(args.run_date, "%Y-%m-%d").date() if args.run_date else None
     out = run_daily(get_storage(args.backend), factory=StubClassifier if args.stub else new_classifier,

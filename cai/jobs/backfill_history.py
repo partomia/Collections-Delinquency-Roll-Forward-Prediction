@@ -40,7 +40,7 @@ def main() -> None:
     p.add_argument("--backend", default=None)
     p.add_argument("--context-rows", type=int, default=None)
     p.add_argument("--stub", action="store_true")
-    args = p.parse_args()
+    args, _ = p.parse_known_args()  # a Jupyter-kernel job runtime adds -f <kernel.json>
 
     storage = get_storage(args.backend)
     snap = storage.snapshot_id("collections_features")
