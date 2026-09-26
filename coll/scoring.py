@@ -117,7 +117,7 @@ def load_context(source: str = "auto") -> tuple[pd.DataFrame, dict]:
         runs = storage.read("collections_model_run")
         if runs.empty:
             raise RuntimeError("no daily run in collections_model_run yet: run cai/jobs/daily_score.py first")
-        run = runs.sort_values("run_ts").iloc[-1]
+        run = runs.sort_values(["run_date", "run_ts"]).iloc[-1]  # backfills write older dates later
         ctx = storage.features(labelled=True, date_from=pd.Timestamp(run["context_from"]).date(),
                                date_to=pd.Timestamp(run["context_to"]).date(), limit=int(run["context_rows"]),
                                snapshot_id=run["source_snapshot_id"] or None)
