@@ -1,0 +1,38 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE / editor
+.idea/
+.vscode/
+*.swp
+.cursor/
+
+# Python
+.venv/
+venv/
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Secrets & local config
+.env
+.env.*
+!.env.example
+
+# Model checkpoint, saved context, caches (downloaded / written at runtime)
+models/
+.hf_cache/
+
+# Local data (Spark warehouse, parquet exports, logs)
+data/warehouse/
+data/parquet/
+spark-warehouse/
+metastore_db/
+derby.log
+logs/
+*.log

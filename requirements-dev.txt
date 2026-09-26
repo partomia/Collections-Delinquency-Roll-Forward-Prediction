@@ -1,0 +1,4 @@
+# Local development: run the CDE Spark jobs on a laptop and the unit tests
+-r requirements.txt
+pyspark==4.0.1
+pytest

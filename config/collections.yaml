@@ -1,0 +1,58 @@
+# Single source of truth for names and runtime settings used by the CAI side
+# (daily scoring job, model endpoint, Streamlit app). The CDE Spark jobs are
+# self-contained: they take the same prefix via `--db-prefix` (default
+# rsingh_collections_delinquency_prediction) and use the same table names.
+#
+# Every key can be overridden with an env var: COLL_<SECTION>_<KEY>,
+# e.g. COLL_STORAGE_BACKEND=parquet, COLL_IMPALA_PASSWORD=... .
+
+databases:
+  prefix: rsingh_collections_delinquency_prediction   # Hive lowercases names; requested as rsingh_Collections_Delinquency_Prediction_*
+  bronze: "{prefix}_bronze"
+  silver: "{prefix}_silver"
+  gold: "{prefix}_gold"
+  ref: "{prefix}_ref"
+
+tables:
+  loan_master: "{bronze}.loan_master"
+  loan_instalments: "{bronze}.loan_instalments"
+  nach_presentations: "{bronze}.nach_presentations"
+  dialler_contacts: "{bronze}.dialler_contacts"
+  casa_credits: "{bronze}.casa_credits"
+  bureau_snapshot: "{bronze}.bureau_snapshot"
+  collector_outcomes: "{bronze}.collector_outcomes"
+  product_map: "{ref}.product_map"
+  collections_features: "{gold}.collections_features"
+  collections_call_list: "{gold}.collections_call_list"
+  collections_holdout: "{gold}.collections_holdout"
+  collections_model_run: "{gold}.collections_model_run"
+
+storage:
+  # impala  -> Cloudera Data Warehouse (CDW) Impala over HTTPS (CAI job, endpoint, app on CAI)
+  # parquet -> local folder of parquet files, one per table (laptop / Docker / offline demo)
+  backend: impala
+  parquet_dir: data/parquet
+
+impala:
+  host: coordinator-default-impala-aws.dw-go01-demo-aws.ylcu-atmi.cloudera.site  # COLL_IMPALA_HOST
+  port: 443
+  http_path: cliservice
+  use_ssl: true
+  use_http_transport: true
+  auth_mechanism: LDAP              # workload user/password; the JDBC URL's browser SSO (AuthMech=12) is interactive only
+  kerberos_service_name: impala
+  user: ""                          # COLL_IMPALA_USER
+  password: ""                      # COLL_IMPALA_PASSWORD (never commit)
+
+model:
+  hf_repo: jingang/TabICL
+  checkpoint_version: tabicl-classifier-v2-20260212.ckpt   # pinned so scores cannot change between runs
+  model_path: ""                    # local .ckpt for air-gapped installs (skips the Hugging Face download)
+  device: ""                        # "" = auto (cuda, then mps, then cpu)
+  n_estimators: 8
+  random_state: 42
+
+endpoint:
+  url: ""                           # CAI model deployment URL (COLL_ENDPOINT_URL)
+  access_key: ""                    # COLL_ENDPOINT_ACCESS_KEY
+  api_key: ""                       # COLL_ENDPOINT_API_KEY (Bearer token when auth is enabled)

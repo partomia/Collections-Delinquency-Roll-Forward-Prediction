@@ -1,0 +1,36 @@
+# Business settings for the daily call list. These belong to the collections
+# head, not to the model: changing them re-bands the book without re-scoring.
+
+label:
+  horizon_days: 30          # roll = dpd >= 31 on any day in (snapshot, snapshot + 30]
+
+context:
+  # Labelled rows given to TabICL as context, most recent first.
+  rows_gpu: 50000
+  rows_cpu: 10000
+  lookback_weeks: 52        # never older than this
+
+holdout:
+  test_weeks: 4             # latest labelled weekly snapshots scored as the test set
+  # Context snapshots end this many days before the first test snapshot, so no
+  # context label was observed after the test date (as if deployed then).
+  gap_days: 30
+
+treatment:
+  # Percentile of priority_score across today's SMA-0 book (0 = highest priority).
+  # Upper bounds, applied in order.
+  bands:
+    - code: AGENT_CALL_TODAY
+      upto_pct: 0.10
+      action: Senior agent call the same day; field visit if unreachable
+    - code: AGENT_OR_IVR
+      upto_pct: 0.40
+      action: Agent or IVR call with a payment link
+    - code: SMS_REMINDER
+      upto_pct: 1.00
+      action: SMS or WhatsApp reminder only
+
+fair_practice:
+  # RBI fair practices code for recovery agents: the model ranks, policy sets contact.
+  contact_hours: "08:00-19:00"
+  max_agent_calls_per_day: 1
