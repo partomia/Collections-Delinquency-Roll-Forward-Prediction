@@ -126,8 +126,9 @@ with tab_calls:
             view = view[view["product"].isin(prod_f)]
         if search:
             view = view[view["loan_id"].str.contains(search.strip(), case=False)]
-        st.dataframe(view[["priority_rank", "loan_id", "product", "dpd_now", "overdue_amount", "p_roll",
-                           "priority_score", "treatment", "risk_signals"]],
+        st.dataframe(view.assign(treatment=view["treatment"].map(BAND_LABEL).fillna(view["treatment"]))[
+                         ["priority_rank", "loan_id", "product", "dpd_now", "overdue_amount", "p_roll",
+                          "priority_score", "treatment", "risk_signals"]],
                      hide_index=True, width="stretch", height=430, column_config={
                          "priority_rank": st.column_config.NumberColumn("#", format="%d"),
                          "loan_id": "Loan", "product": "Product", "dpd_now": st.column_config.NumberColumn("DPD"),
