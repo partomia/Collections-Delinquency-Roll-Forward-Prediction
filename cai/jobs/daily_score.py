@@ -64,7 +64,9 @@ def main() -> None:
     print(f"\nrun {s['run_id']}: {s['scored_loans']} SMA-0 loans scored, bands {s['bands']}")
     if s.get("capture_top10") is not None:
         print(f"holdout AUC {s['holdout_auc']:.3f} | top 10% of calls catch {s['capture_top10']:.0%} of actual rolls "
-              f"(DPD alone: {s['dpd_only_capture_top10']:.0%}) and {s['value_capture_top10']:.0%} of rolled overdue INR")
+              f"(DPD alone {s['dpd_only_capture_top10']:.0%}), top 40% catch {s['capture_top40']:.0%} "
+              f"(DPD alone {s['dpd_only_capture_top40']:.0%}); top 10% catch {s['value_capture_top10']:.0%} "
+              f"of rolled overdue INR")
     print(out["collections_call_list"].head(10)[["loan_id", "dpd_now", "overdue_amount", "p_roll",
                                                   "priority_score", "treatment", "risk_signals"]].to_string(index=False))
 

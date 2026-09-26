@@ -51,6 +51,9 @@ model:
   device: ""                        # "" = auto (cuda, then mps, then cpu)
   n_estimators: 8
   random_state: 42
+  # Endpoint: the context is encoded once at start-up. kv = fastest requests, most memory
+  # (fine on a GPU); repr = ~24x less memory for the context, slower requests.
+  endpoint_kv_cache: kv
 
 endpoint:
   url: ""                           # CAI model deployment URL (COLL_ENDPOINT_URL)

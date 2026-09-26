@@ -94,11 +94,12 @@ def run_daily(storage, factory=new_classifier, run_date: date | None = None, tri
         hctx_rows = len(hctx)
         p_test = predict_roll(build_model(hctx, factory), test)
         summary, dec = ho.summarise(test, p_test), ho.deciles(test, p_test)
-        logger.info("holdout %s..%s: %d loans, roll rate %.1f%%, AUC %.3f | top 10%% of calls catch %.0f%% "
-                    "of actual rolls (%.0f%% ranking by DPD alone) and %.0f%% of rolled overdue INR",
-                    test_from, test_to, len(test), 100 * summary["holdout_roll_rate"], summary["holdout_auc"] or 0,
-                    100 * (summary["capture_top10"] or 0), 100 * (summary["dpd_only_capture_top10"] or 0),
-                    100 * (summary["value_capture_top10"] or 0))
+        pct = lambda k: 100 * (summary[k] or 0)  # noqa: E731
+        logger.info("holdout %s..%s: %d loans, roll rate %.1f%%, AUC %.3f | top 10%% of calls catch %.0f%% of "
+                    "actual rolls (DPD alone %.0f%%), top 40%% catch %.0f%% (DPD alone %.0f%%), top 10%% catch "
+                    "%.0f%% of rolled overdue INR", test_from, test_to, len(test), pct("holdout_roll_rate"),
+                    summary["holdout_auc"] or 0, pct("capture_top10"), pct("dpd_only_capture_top10"),
+                    pct("capture_top40"), pct("dpd_only_capture_top40"), pct("value_capture_top10"))
 
     ctx, ctx_from = select_context(storage, date_to=labelled[-1], rows=n_context, lookback_weeks=lookback,
                                    snapshot_id=snap_id)
@@ -127,7 +128,7 @@ def run_daily(storage, factory=new_classifier, run_date: date | None = None, tri
         "source_snapshot_id": snap_id, "holdout_test_from": test_from, "holdout_test_to": test_to,
         "holdout_context_rows": hctx_rows, **{k: summary.get(k) for k in (
             "holdout_rows", "holdout_roll_rate", "holdout_auc", "capture_top10", "capture_top40",
-            "value_capture_top10", "dpd_only_capture_top10")},
+            "value_capture_top10", "dpd_only_capture_top10", "dpd_only_capture_top40")},
         "policy_json": json.dumps(pol, sort_keys=True), "triggered_by": triggered_by,
         "duration_s": round(time.time() - t0, 1),
     }])

@@ -53,6 +53,7 @@ def summarise(test: pd.DataFrame, p: np.ndarray) -> dict:
     y = test[LABEL].to_numpy(dtype=int)
     prio = p * test["overdue_amount"].to_numpy(dtype=float)
     overdue = test["overdue_amount"].to_numpy(dtype=float)
+    dpd = test["dpd_now"].to_numpy(dtype=float)
     r = lambda x: None if x is None else round(x, 4)  # noqa: E731
     return {
         "holdout_rows": int(len(test)),
@@ -61,7 +62,8 @@ def summarise(test: pd.DataFrame, p: np.ndarray) -> dict:
         "capture_top10": r(capture_at(y, p, 0.10)),
         "capture_top40": r(capture_at(y, p, 0.40)),
         "value_capture_top10": r(capture_at(y, prio, 0.10, overdue)),
-        "dpd_only_capture_top10": r(capture_at(y, test["dpd_now"].to_numpy(dtype=float), 0.10)),
+        "dpd_only_capture_top10": r(capture_at(y, dpd, 0.10)),
+        "dpd_only_capture_top40": r(capture_at(y, dpd, 0.40)),
     }
 
 

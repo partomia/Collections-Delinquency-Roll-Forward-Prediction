@@ -25,7 +25,7 @@ OUTPUT_TABLES = {
         ("holdout_test_from", "DATE"), ("holdout_test_to", "DATE"), ("holdout_context_rows", "INT"),
         ("holdout_rows", "INT"), ("holdout_roll_rate", "DOUBLE"), ("holdout_auc", "DOUBLE"),
         ("capture_top10", "DOUBLE"), ("capture_top40", "DOUBLE"), ("value_capture_top10", "DOUBLE"),
-        ("dpd_only_capture_top10", "DOUBLE"), ("policy_json", "STRING"), ("triggered_by", "STRING"),
+        ("dpd_only_capture_top10", "DOUBLE"), ("dpd_only_capture_top40", "DOUBLE"), ("policy_json", "STRING"), ("triggered_by", "STRING"),
         ("duration_s", "DOUBLE"),
     ],
 }
