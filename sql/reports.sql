@@ -83,7 +83,7 @@ FROM (
   LIMIT 50000
 ) ctx;
 
--- labels maturing: how a snapshot's rows looked before the latest load
+-- labels maturing: how a snapshot's rows looked before the latest load (needs a day of table history)
 SELECT snapshot_date, COUNT(*) AS rows_, COUNT(rolled_to_sma1_30d) AS labelled
 FROM rsingh_collections_delinquency_prediction_gold.collections_features FOR SYSTEM_TIME AS OF now() - INTERVAL 1 DAYS
 GROUP BY snapshot_date ORDER BY snapshot_date DESC LIMIT 6;

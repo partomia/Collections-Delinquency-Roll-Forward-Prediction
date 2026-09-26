@@ -71,9 +71,9 @@ def deciles(test: pd.DataFrame, p: np.ndarray) -> pd.DataFrame:
     """Rows, rolls and cumulative capture by decile of p_roll (1 = highest)."""
     df = pd.DataFrame({"p": p, "y": test[LABEL].to_numpy(dtype=int)}).sort_values("p", ascending=False, kind="stable")
     df["decile"] = (np.arange(len(df)) * 10 // max(len(df), 1)) + 1
-    g = df.groupby("decile").agg(rows=("y", "size"), rolls=("y", "sum"), mean_p_roll=("p", "mean")).reset_index()
+    g = df.groupby("decile").agg(loans=("y", "size"), rolls=("y", "sum"), mean_p_roll=("p", "mean")).reset_index()
     total = max(int(g["rolls"].sum()), 1)
-    g["roll_rate"] = (g["rolls"] / g["rows"]).round(4)
+    g["roll_rate"] = (g["rolls"] / g["loans"]).round(4)
     g["cum_capture"] = (g["rolls"].cumsum() / total).round(4)
     g["mean_p_roll"] = g["mean_p_roll"].round(4)
     return g

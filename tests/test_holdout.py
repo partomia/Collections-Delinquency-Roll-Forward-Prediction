@@ -36,5 +36,5 @@ def test_deciles_cum_capture_ends_at_one():
     test = pd.DataFrame({LABEL: rng.integers(0, 2, 500)})
     d = ho.deciles(test, rng.random(500))
     assert list(d["decile"]) == list(range(1, 11))
-    assert d["rows"].sum() == 500
+    assert d["loans"].sum() == 500
     assert d["cum_capture"].iloc[-1] == pytest.approx(1.0)

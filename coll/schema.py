@@ -14,7 +14,7 @@ OUTPUT_TABLES = {
         ("treatment", "STRING"), ("action", "STRING"), ("risk_signals", "STRING"),
     ],
     "collections_holdout": [
-        ("run_date", "DATE"), ("run_id", "STRING"), ("decile", "INT"), ("rows", "INT"), ("rolls", "INT"),
+        ("run_date", "DATE"), ("run_id", "STRING"), ("decile", "INT"), ("loans", "INT"), ("rolls", "INT"),
         ("roll_rate", "DOUBLE"), ("mean_p_roll", "DOUBLE"), ("cum_capture", "DOUBLE"),
     ],
     "collections_model_run": [
