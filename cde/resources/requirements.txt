@@ -1,0 +1,2 @@
+# CDE python-env for the collections Spark jobs. The jobs only use PySpark and
+# the standard library today; add packages here and re-run cde/scripts/deploy_jobs.sh.
