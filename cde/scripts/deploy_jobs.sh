@@ -11,8 +11,8 @@
 #   GIT_CREDENTIAL=my-github-pat ./cde/scripts/deploy_jobs.sh
 #
 # Resources: the vcluster default (1 core / 1 GB) is too slow for ~2M
-# instalments, so every job gets a 2-core / 4 GB driver and 1-4 executors of
-# 2 cores / 4 GB.
+# instalments, so every job gets a 4-core / 8 GB driver and 2-8 executors
+# (4 at start) of 4 cores / 8 GB: 32 task slots for the generator's 30 partitions.
 
 set -euo pipefail
 
@@ -23,8 +23,9 @@ PYTHON_ENV="${PYTHON_ENV:-rsingh-coll-dlq-python-env}"
 JOB_PREFIX="${JOB_PREFIX:-rsingh-coll-dlq}"
 DB_PREFIX="${DB_PREFIX:-rsingh_collections_delinquency_prediction}"
 REQUIREMENTS="$(cd "$(dirname "$0")/.." && pwd)/resources/requirements.txt"
-RESOURCES=(--driver-cores 2 --driver-memory 4g --executor-cores 2 --executor-memory 4g
-           --min-executors 1 --max-executors 4 --conf spark.sql.shuffle.partitions=48)
+RESOURCES=(--driver-cores 4 --driver-memory 8g --executor-cores 4 --executor-memory 8g
+           --min-executors 2 --initial-executors 4 --max-executors 8
+           --conf spark.sql.shuffle.partitions=64)
 
 echo "==> Repository: ${REPO_NAME}"
 if cde repository describe --name "${REPO_NAME}" &>/dev/null; then
