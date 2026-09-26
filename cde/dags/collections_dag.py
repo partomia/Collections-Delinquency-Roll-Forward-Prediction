@@ -85,7 +85,8 @@ with DAG(
     description="LMS / NACH / dialler extracts -> bronze/silver/gold (CDE) -> TabICL call list (CAI)",
     default_args=default_args,
     schedule_interval=DAILY,
-    start_date=datetime(2026, 9, 27, 0, 30),
+    # in the past so manual triggers run; the first interval closes 27 Sep 00:30, so deploying fires no run
+    start_date=datetime(2026, 9, 26, 0, 30),
     catchup=False,
     is_paused_upon_creation=False,
     params={"as_of": ""},
