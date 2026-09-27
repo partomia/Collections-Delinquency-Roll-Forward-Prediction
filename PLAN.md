@@ -73,3 +73,14 @@ Names:
   calling the CAI API), so what-ifs always use the latest context.
 - Save a collector outcome in the app and check it reaches the next day's silver contact history.
 - Try a GPU context larger than 50,000 rows and compare holdout capture.
+- Data quality: Great Expectations suites per layer in the CDE jobs (critical = stop
+  the DAG, warning = record), results in an Iceberg table `ref.dq_results` (with the
+  checked snapshot id), Impala views for summaries; optionally write-audit-publish on
+  gold with Iceberg branches (check branch support on the vcluster first).
+- Cloudera Data Visualization (CDV 8.1.2 in this CDW environment) as the self-service
+  data-quality and operations dashboard. The laptop reaches the CDV Admin API with an
+  API key (`COLL_CDV_*` in `.env`). The shared connection `default-impala-aws` (id 91)
+  targets our warehouse but runs as a service user (no impersonation) with the cache
+  off; create our own connection `rsingh-collections-impala`, workspace and datasets via
+  the Admin API, build the dashboards in the UI, export them with the migration API
+  into `cdv/` and add an import script.
