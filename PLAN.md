@@ -73,13 +73,24 @@ Names:
   calling the CAI API), so what-ifs always use the latest context.
 - Save a collector outcome in the app and check it reaches the next day's silver contact history.
 - Try a GPU context larger than 50,000 rows and compare holdout capture.
-- Data quality: Great Expectations suites per layer in the CDE jobs (critical = stop
-  the DAG, warning = record), results in an Iceberg table `ref.dq_results` (with the
-  checked snapshot id), Impala views for summaries; optionally write-audit-publish on
-  gold with Iceberg branches (check branch support on the vcluster first).
+- [x] **Data quality** (27 Sep 2026): the `validate_bronze` gate is retired; `cde/jobs/dq_check.py`
+  runs Great Expectations suites for all three layers (bronze/silver/gold), one job reused
+  three times in the DAG (`generate → dq_bronze → silver → dq_silver → gold → dq_gold → CAI`),
+  `--layer` set per task via `overrides`. Critical failures exit 1 (DAG stops, yesterday's call
+  list stands); warnings are recorded and the run continues. Every check, pass or fail, is
+  appended to Iceberg `ref.dq_results` with the checked table's snapshot id and a
+  `pipeline_run` tag (`{{ run_id }}`) that groups one run's three layers. Impala summary
+  queries added (`sql/reports.sql` #9-11: latest run by layer, critical failures, pass-rate
+  trend). Verified end-to-end against the local Iceberg warehouse (`scripts/run_cde_local.py dq`);
+  not yet deployed to the CDE vcluster — needs `great_expectations==1.23.2` added to the
+  `rsingh-coll-dlq-python-env` resource (already in `cde/resources/requirements.txt`, picked
+  up by the next `cde/scripts/deploy_jobs.sh` run) and a redeploy of the DAG
+  (`cde/scripts/deploy_dag.sh`). Not done: write-audit-publish on gold with Iceberg branches
+  (check branch support on the vcluster first) — still optional/future.
 - Cloudera Data Visualization (CDV 8.1.2 in this CDW environment) as the self-service
-  data-quality and operations dashboard. The laptop reaches the CDV Admin API with an
-  API key (`COLL_CDV_*` in `.env`). The shared connection `default-impala-aws` (id 91)
+  data-quality and operations dashboard, now that `ref.dq_results` exists to point it at.
+  The laptop reaches the CDV Admin API with an API key (`COLL_CDV_*` in `.env`, still
+  unset — placeholders only). The shared connection `default-impala-aws` (id 91)
   targets our warehouse but runs as a service user (no impersonation) with the cache
   off; create our own connection `rsingh-collections-impala`, workspace and datasets via
   the Admin API, build the dashboards in the UI, export them with the migration API

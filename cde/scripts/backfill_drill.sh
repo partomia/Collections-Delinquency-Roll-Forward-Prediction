@@ -31,12 +31,16 @@ fi
 
 run() { cde job run --name "$1" --arg=--db-prefix --arg="${DB_PREFIX}" "${@:2}" --wait; }
 
+dq() { run "${JOB_PREFIX}-dq-check" --arg=--layer --arg="$1" --arg=--as-of --arg="$2" --arg=--pipeline-run --arg="drill-$2"; }
+
 for as_of in "${dates[@]}"; do
   echo "==================== as of ${as_of} ($(date '+%H:%M:%S'))"
   run "${JOB_PREFIX}-generate-loan-bronze" --arg=--as-of --arg="${as_of}"
-  run "${JOB_PREFIX}-validate-bronze"
+  dq bronze "${as_of}"
   run "${JOB_PREFIX}-build-silver"
+  dq silver "${as_of}"
   run "${JOB_PREFIX}-build-gold-features"
+  dq gold "${as_of}"
 done
 
 echo ""

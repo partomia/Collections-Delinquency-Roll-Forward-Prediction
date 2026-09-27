@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
-# Create/sync the CDE Repository for this GitHub repo and (re)create the four
-# Spark jobs, each reading its application file straight from the repo.
+# Create/sync the CDE Repository for this GitHub repo and (re)create the five
+# Spark jobs, each reading its application file straight from the repo. The
+# dq-check job is shared by all three data-quality DAG tasks; --layer is set
+# per task at run time (see cde/dags/collections_dag.py), so its own --layer
+# arg here is just a safe default for an ad hoc `cde job run`.
 #
 # After a code change: git push, then either re-run this script or just
 #   cde repository sync --name rsingh-coll-dlq-pipeline
@@ -65,7 +68,7 @@ create_job() {
 }
 
 create_job "${JOB_PREFIX}-generate-loan-bronze" "cde/jobs/generate_loan_bronze.py"
-create_job "${JOB_PREFIX}-validate-bronze"      "cde/jobs/validate_bronze.py"
+create_job "${JOB_PREFIX}-dq-check"             "cde/jobs/dq_check.py" --arg=--layer --arg=bronze
 create_job "${JOB_PREFIX}-build-silver"         "cde/jobs/build_silver.py"
 create_job "${JOB_PREFIX}-build-gold-features"  "cde/jobs/build_gold_features.py"
 

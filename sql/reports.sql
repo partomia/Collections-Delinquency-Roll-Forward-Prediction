@@ -2,6 +2,7 @@
 -- Tables written by Spark (CDE) or another engine may need a metadata refresh first.
 INVALIDATE METADATA rsingh_collections_delinquency_prediction_gold.collections_features;
 REFRESH rsingh_collections_delinquency_prediction_gold.collections_call_list;
+REFRESH rsingh_collections_delinquency_prediction_ref.dq_results;
 
 -- 1. Today's call list: loans and expected overdue at risk by treatment band
 WITH latest AS (SELECT MAX(run_date) AS d FROM rsingh_collections_delinquency_prediction_gold.collections_call_list)
@@ -87,3 +88,31 @@ FROM (
 SELECT snapshot_date, COUNT(*) AS rows_, COUNT(rolled_to_sma1_30d) AS labelled
 FROM rsingh_collections_delinquency_prediction_gold.collections_features FOR SYSTEM_TIME AS OF now() - INTERVAL 1 DAYS
 GROUP BY snapshot_date ORDER BY snapshot_date DESC LIMIT 6;
+
+-- 9. Data quality: pass/fail counts for the most recent dq_check run of each layer (a CDV summary tile)
+WITH latest AS (
+  SELECT layer, pipeline_run, ROW_NUMBER() OVER (PARTITION BY layer ORDER BY MAX(run_ts) DESC) AS rn
+  FROM rsingh_collections_delinquency_prediction_ref.dq_results
+  GROUP BY layer, pipeline_run
+)
+SELECT r.as_of, r.layer, r.severity, r.success, COUNT(*) AS checks
+FROM rsingh_collections_delinquency_prediction_ref.dq_results r
+JOIN latest l ON l.layer = r.layer AND l.pipeline_run = r.pipeline_run AND l.rn = 1
+GROUP BY r.as_of, r.layer, r.severity, r.success
+ORDER BY r.layer, r.severity, r.success;
+
+-- 10. Critical failures (empty on a healthy pipeline): drives an alert / a CDV big-number
+SELECT as_of, layer, table_name, check_name, observed_value, unexpected_count, element_count, run_id
+FROM rsingh_collections_delinquency_prediction_ref.dq_results
+WHERE severity = 'critical' AND NOT success
+ORDER BY as_of DESC, layer, table_name;
+
+-- 11. Data quality pass rate over time by layer, for a CDV trend chart
+SELECT as_of, layer,
+       COUNT(*)                                                          AS checks,
+       ROUND(AVG(CAST(success AS INT)), 3)                               AS pass_rate,
+       SUM(CASE WHEN NOT success AND severity = 'critical' THEN 1 ELSE 0 END) AS critical_failures,
+       SUM(CASE WHEN NOT success AND severity = 'warning' THEN 1 ELSE 0 END)  AS warnings
+FROM rsingh_collections_delinquency_prediction_ref.dq_results
+GROUP BY as_of, layer
+ORDER BY as_of DESC, layer;

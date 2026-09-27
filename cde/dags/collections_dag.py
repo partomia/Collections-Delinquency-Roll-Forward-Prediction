@@ -1,8 +1,15 @@
 """
 Airflow DAG (CDE): daily collections roll-forward pipeline.
 
-  generate_loan_bronze -> validate_bronze -> build_silver -> build_gold_features   (CDE Spark)
-    -> cai_daily_score                                                            (CAI Job via API v2)
+  generate_loan_bronze -> dq_bronze -> build_silver -> dq_silver -> build_gold_features -> dq_gold   (CDE Spark)
+    -> cai_daily_score                                                                               (CAI Job via API v2)
+
+dq_bronze/dq_silver/dq_gold are the same CDE job (cde/jobs/dq_check.py, Great
+Expectations) run three times with --layer overridden per task. Critical
+expectation failures fail the task (and stop the DAG before the next layer);
+warnings are recorded but let the run continue. Every result, pass or fail, is
+appended to <db_prefix>_ref.dq_results (Iceberg) tagged with this DAG run's
+run_id, so a run's three layers can be grouped for a summary or a CDV dashboard.
 
 The CAI step triggers the Cloudera AI job `cai/jobs/daily_score.py` and waits
 for it, so one DAG run goes from the overnight LMS / NACH / dialler extracts to
@@ -93,6 +100,17 @@ with DAG(
     tags=["collections", "sma", "tabicl", "iceberg"],
 ) as dag:
 
+    def dq_task(task_id: str, layer: str) -> CDEJobRunOperator:
+        # run-time args replace the job's own args, so repeat --db-prefix; --pipeline-run
+        # groups this run's three layers in dq_results under the DAG run_id
+        return CDEJobRunOperator(
+            task_id=task_id,
+            job_name=f"{JOB_PREFIX}-dq-check",
+            overrides={"spark": {"args": ["--db-prefix", DB_PREFIX, "--layer", layer, "--as-of", AS_OF,
+                                           "--pipeline-run", "{{ run_id }}"]}},
+            wait=True,
+        )
+
     generate = CDEJobRunOperator(
         task_id="generate_loan_bronze",
         job_name=f"{JOB_PREFIX}-generate-loan-bronze",
@@ -100,9 +118,11 @@ with DAG(
         overrides={"spark": {"args": ["--db-prefix", DB_PREFIX, "--as-of", AS_OF]}},
         wait=True,
     )
-    validate = CDEJobRunOperator(task_id="validate_bronze", job_name=f"{JOB_PREFIX}-validate-bronze", wait=True)
+    dq_bronze = dq_task("dq_bronze", "bronze")
     silver = CDEJobRunOperator(task_id="build_silver", job_name=f"{JOB_PREFIX}-build-silver", wait=True)
+    dq_silver = dq_task("dq_silver", "silver")
     gold = CDEJobRunOperator(task_id="build_gold_features", job_name=f"{JOB_PREFIX}-build-gold-features", wait=True)
+    dq_gold = dq_task("dq_gold", "gold")
     score = PythonOperator(
         task_id="cai_daily_score",
         python_callable=trigger_cai_job,
@@ -110,4 +130,4 @@ with DAG(
         retries=0,
     )
 
-    generate >> validate >> silver >> gold >> score
+    generate >> dq_bronze >> silver >> dq_silver >> gold >> dq_gold >> score

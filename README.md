@@ -16,13 +16,19 @@ gold Iceberg table: no training step, no retraining cycle.
 
 ```mermaid
 flowchart LR
-  A[CDE Spark<br/>generate_loan_bronze] --> B[validate_bronze<br/>gate]
+  A[CDE Spark<br/>generate_loan_bronze] --> B[dq_check --layer bronze<br/>Great Expectations gate]
   B --> C[build_silver]
-  C --> D[build_gold_features<br/>MERGE, snapshot per load]
-  D --> E[CAI Job<br/>daily_score<br/>TabICL v2]
+  C --> C2[dq_check --layer silver]
+  C2 --> D[build_gold_features<br/>MERGE, snapshot per load]
+  D --> D2[dq_check --layer gold]
+  D2 --> E[CAI Job<br/>daily_score<br/>TabICL v2]
   E --> F[(gold: call_list<br/>holdout, model_run)]
   F --> G[CAI Application<br/>Streamlit call list]
   F --> H[CDW Impala / Hue<br/>reports, time travel]
+  B -. every check, pass or fail .-> K[(ref: dq_results)]
+  C2 -. every check, pass or fail .-> K
+  D2 -. every check, pass or fail .-> K
+  K -. dashboards .-> L[Cloudera Data Visualization]
   G -. what-if .-> I[CAI Model endpoint<br/>predict.py]
   G -. collector outcomes .-> J[(bronze:<br/>collector_outcomes)]
   J -. tomorrow's features .-> C
@@ -53,6 +59,7 @@ CDE side). CDE resources are named `rsingh-coll-dlq-*`.
 | `bronze.bureau_snapshot` | CDE generate | customer × monthly bureau pull |
 | `bronze.collector_outcomes` | CAI app | loan × outcome recorded by a collector |
 | `ref.product_map` | CDE generate | product code → name, tenor and rate bands |
+| `ref.dq_results` | CDE dq_check (3x per run) | run × layer × check: severity, pass/fail, observed value, checked table's snapshot id |
 | `silver.{loan, instalment, nach_presentation, collection_contact, salary_credit, bureau_score}` | CDE silver | deduplicated entities; PTP kept / broken derived |
 | `gold.collections_features` | CDE gold (MERGE) | loan × weekly snapshot, SMA-0 only: 13 numeric features + label |
 | `gold.collections_call_list` | CAI job | run date × loan: p_roll, priority, rank, treatment, risk signals |
@@ -137,7 +144,7 @@ CDE CLI configured for the vcluster (`~/.cde/config.yaml`), repo pushed to GitHu
 
 Each job gets a 4-core / 8 GB driver and 2-8 executors (4 at start) of 4 cores /
 8 GB (`RESOURCES` in `deploy_jobs.sh`). Measured on the demo vcluster: generate
-3-4.5 min, validate / silver / gold about 1.5 min each (mostly pod start-up),
+3-4.5 min, dq_check / silver / gold about 1.5 min each (mostly pod start-up),
 so a full DAG run including the CAI step takes about 15 minutes. The first job
 after the vcluster has been idle can wait several minutes (up to 20+) for scale-up.
 
@@ -261,7 +268,7 @@ scored by Airflow shows `triggered_by = airflow` in `collections_model_run`.
 
 | When (IST) | What | Who |
 |---|---|---|
-| 06:00 | DAG: generate → validate → silver → gold (new Iceberg snapshot) → CAI job writes the call list | Airflow (about 15 min) |
+| 06:00 | DAG: generate → dq → silver → dq → gold → dq (new Iceberg snapshot) → CAI job writes the call list | Airflow (about 15 min) |
 | after the run | restart `collections-roll-scorer` so what-ifs use the new context | manual (or an extra DAG step) |
 | working day | collections team works the list in the app; outcomes land in `bronze.collector_outcomes` | app |
 | next 06:00 | silver unions the outcomes into contact history; tomorrow's features include them | Airflow |
@@ -286,7 +293,7 @@ and run it on parquet exports or against CDW Impala (see `Dockerfile`).
 
 ```
 coll/          shared logic: config, features, TabICL wrapper, priority bands, holdout, storage, pipeline, scoring
-cde/jobs/      Spark jobs (self-contained, PySpark + stdlib only)
+cde/jobs/      Spark jobs (generate/silver/gold: PySpark + stdlib; dq_check: + Great Expectations)
 cde/dags/      Airflow DAG (daily)
 cde/scripts/   deploy_jobs.sh, deploy_dag.sh, backfill_drill.sh
 cai/jobs/      daily_score.py, backfill_history.py
