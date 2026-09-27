@@ -1,5 +1,9 @@
 # Build plan — Collections: Delinquency Roll-Forward Prediction on Cloudera AI
 
+> Picking this up in a new session? Read `docs/PROJECT_LOG.md` first — a
+> dated, timestamped history of every build step and platform change, kept
+> current enough to fully recover context without replaying this conversation.
+
 Every day, score each SMA-0 loan (1–30 DPD) for the probability that it rolls
 into SMA-1 (31+ DPD) within 30 days, rank the book by
 `priority = p_roll × overdue_amount`, and hand the collections team a

@@ -145,7 +145,8 @@ CDE CLI configured for the vcluster (`~/.cde/config.yaml`), repo pushed to GitHu
 Each job gets a 4-core / 8 GB driver and 2-8 executors (4 at start) of 4 cores /
 8 GB (`RESOURCES` in `deploy_jobs.sh`). Measured on the demo vcluster: generate
 3-4.5 min, dq_check / silver / gold about 1.5 min each (mostly pod start-up),
-so a full DAG run including the CAI step takes about 15 minutes. The first job
+so a full DAG run including the CAI step and the three `dq_*` gates takes
+about 20 minutes (see `docs/PROJECT_LOG.md` for a measured run). The first job
 after the vcluster has been idle can wait several minutes (up to 20+) for scale-up.
 
 After a code change: `git push`, then `cde repository sync --name rsingh-coll-dlq-pipeline`
@@ -268,7 +269,7 @@ scored by Airflow shows `triggered_by = airflow` in `collections_model_run`.
 
 | When (IST) | What | Who |
 |---|---|---|
-| 06:00 | DAG: generate → dq → silver → dq → gold → dq (new Iceberg snapshot) → CAI job writes the call list | Airflow (about 15 min) |
+| 06:00 | DAG: generate → dq → silver → dq → gold → dq (new Iceberg snapshot) → CAI job writes the call list | Airflow (about 20 min) |
 | after the run | restart `collections-roll-scorer` so what-ifs use the new context | manual (or an extra DAG step) |
 | working day | collections team works the list in the app; outcomes land in `bronze.collector_outcomes` | app |
 | next 06:00 | silver unions the outcomes into contact history; tomorrow's features include them | Airflow |
@@ -301,7 +302,7 @@ cai/model/     predict.py (endpoint), test_endpoint.py
 app/           Streamlit app + CAI launcher
 config/        collections.yaml (names, storage, model), policy.yaml (context, holdout, treatment bands)
 sql/           Hue report and time-travel queries
-docs/          demo runbook
+docs/          demo runbook, PROJECT_LOG.md (dated history of the build and every platform change)
 scripts/       run_cde_local.py (CDE jobs on a laptop)
 ```
 

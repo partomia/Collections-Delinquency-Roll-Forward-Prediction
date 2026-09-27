@@ -2,14 +2,16 @@
 
 Before the demo (30 minutes ahead):
 
-- CDE Job Runs: today's 06:00 IST DAG run succeeded (all five tasks green).
+- CDE Job Runs: today's 06:00 IST DAG run succeeded (all seven tasks green,
+  including the three `dq_*` Great Expectations gates).
 - App History tab: today's run with `triggered_by = airflow`, plus 4+ backfilled run dates.
 - Model `collections-roll-scorer` restarted after today's run; its Test tab shows today's `run_date`.
 - Open the app and run one Hue query 5 minutes before: the Impala virtual
   warehouse auto-suspends and the first query after a pause can take minutes.
 - Hue open on `sql/reports.sql`; the Airflow UI open on the DAG grid.
-- Showing CDE live? Trigger the DAG 20 minutes before (a cold vcluster needs
-  a few minutes to scale up; a full run takes about 15 minutes).
+- Showing CDE live? Trigger the DAG 25 minutes before (a cold vcluster needs
+  a few minutes to scale up; a full run with the three `dq_*` gates takes
+  about 20 minutes).
 
 ## 1. The question (1 min)
 
@@ -21,8 +23,13 @@ get an IVR call with a payment link, and which only an SMS?
 ## 2. The pipeline (2 min): CDE Airflow UI
 
 - DAG `collections_roll_forward_pipeline`, daily: LMS / NACH / dialler / CASA /
-  bureau extracts → validation gate → silver → gold features (Iceberg MERGE)
-  → CAI scoring job via API.
+  bureau extracts → `dq_bronze` (Great Expectations) → silver → `dq_silver` →
+  gold features (Iceberg MERGE) → `dq_gold` → CAI scoring job via API.
+- Each `dq_*` gate is the same CDE job (`dq_check.py`) run with `--layer`
+  overridden per task. Critical failures stop the DAG (yesterday's call list
+  stands); warnings are recorded but let the run continue. Every check lands
+  in `ref.dq_results`, tagged with this DAG run's `run_id` — point at query 9
+  in `sql/reports.sql` for a pass/fail summary by layer.
 - The gold table has one row per SMA-0 loan per weekly snapshot, all numeric,
   and the label "reached SMA-1 within 30 days" fills in as it matures: each
   load is one Iceberg snapshot.
