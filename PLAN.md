@@ -81,12 +81,17 @@ Names:
   appended to Iceberg `ref.dq_results` with the checked table's snapshot id and a
   `pipeline_run` tag (`{{ run_id }}`) that groups one run's three layers. Impala summary
   queries added (`sql/reports.sql` #9-11: latest run by layer, critical failures, pass-rate
-  trend). Verified end-to-end against the local Iceberg warehouse (`scripts/run_cde_local.py dq`);
-  not yet deployed to the CDE vcluster — needs `great_expectations==1.23.2` added to the
-  `rsingh-coll-dlq-python-env` resource (already in `cde/resources/requirements.txt`, picked
-  up by the next `cde/scripts/deploy_jobs.sh` run) and a redeploy of the DAG
-  (`cde/scripts/deploy_dag.sh`). Not done: write-audit-publish on gold with Iceberg branches
-  (check branch support on the vcluster first) — still optional/future.
+  trend). Verified end-to-end against the local Iceberg warehouse (`scripts/run_cde_local.py dq`)
+  and then live on the CDE vcluster: `rsingh-coll-dlq-python-env` rebuilt with
+  `great_expectations==1.23.2`, `rsingh-coll-dlq-validate-bronze` job deleted, the new
+  `rsingh-coll-dlq-dq-check` job created (4-core/8 GB driver, 4-core/8 GB executors, same as
+  the other jobs), DAG redeployed. Ran the full chain manually for `as_of=2026-09-27`
+  (`generate → dq_bronze → silver → dq_silver → gold → dq_gold`, all `succeeded`); `ref.dq_results`
+  confirms 0 critical failures and one correctly-flagged warning (latest labelled roll rate 46.8%
+  on a small n=1306 sample, above the 10-40% band) that recorded and did not block the run. The
+  next *scheduled* DAG run (00:30 UTC) will exercise the new gate through Airflow itself. Not
+  done: write-audit-publish on gold with Iceberg branches (check branch support on the vcluster
+  first) — still optional/future.
 - Cloudera Data Visualization (CDV 8.1.2 in this CDW environment) as the self-service
   data-quality and operations dashboard, now that `ref.dq_results` exists to point it at.
   The laptop reaches the CDV Admin API with an API key (`COLL_CDV_*` in `.env`, still
