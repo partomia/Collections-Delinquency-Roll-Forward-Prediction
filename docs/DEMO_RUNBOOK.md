@@ -1,9 +1,15 @@
 # Demo runbook (about 12 minutes)
 
-Before the demo: DAG run finished, CAI backfill done (4+ daily runs), app open,
-Hue open on `sql/reports.sql`, endpoint deployed and restarted after the latest
-run. Warm the vcluster with a job run 10 minutes before if you plan to show CDE
-live.
+Before the demo (30 minutes ahead):
+
+- CDE Job Runs: today's 06:00 IST DAG run succeeded (all five tasks green).
+- App History tab: today's run with `triggered_by = airflow`, plus 4+ backfilled run dates.
+- Model `collections-roll-scorer` restarted after today's run; its Test tab shows today's `run_date`.
+- Open the app and run one Hue query 5 minutes before: the Impala virtual
+  warehouse auto-suspends and the first query after a pause can take minutes.
+- Hue open on `sql/reports.sql`; the Airflow UI open on the DAG grid.
+- Showing CDE live? Trigger the DAG 20 minutes before (a cold vcluster needs
+  a few minutes to scale up; a full run takes about 15 minutes).
 
 ## 1. The question (1 min)
 

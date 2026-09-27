@@ -61,5 +61,15 @@ Names:
 - [x] **6. Streamlit app** — call list with capacity sliders, model trust, book trend,
   what-if, collector outcomes, lineage; CAI launcher + Dockerfile. Headless app test.
 - [x] **7. Orchestration + docs** — daily Airflow DAG, CDE deploy/backfill scripts, Hue SQL, README, runbook.
-- [ ] **8. On Cloudera** — CDE jobs on the vcluster, CDW checks; then with Ravi: CAI project,
-  job, model deployment, application, Airflow variables.
+- [x] **8. On Cloudera** — CDE jobs and the daily DAG on the vcluster (scheduled run
+  27 Sep 00:30 UTC succeeded), CDW checks and Hue queries; CAI project `collections-tabicl`
+  on an NVIDIA L4, job `collections-daily-score` triggered by Airflow, model
+  `collections-roll-scorer`, application `Collections Call List`; ten run dates of history
+  (31 Jul - 26 Sep). Collector outcomes from the app not yet exercised on the platform.
+
+## Paused (27 Sep 2026) — possible next steps
+
+- Restart the model endpoint automatically after the daily run (an extra DAG step
+  calling the CAI API), so what-ifs always use the latest context.
+- Save a collector outcome in the app and check it reaches the next day's silver contact history.
+- Try a GPU context larger than 50,000 rows and compare holdout capture.
