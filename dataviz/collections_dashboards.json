@@ -1,0 +1,941 @@
+{
+ "segments": [],
+ "staticasset": [],
+ "dashboards": [
+  {
+   "model": "reports.report",
+   "pk": 7000,
+   "fields": {
+    "report_name": "Collections Roll-Forward - Call List & Model Trust",
+    "report_description": "docs/DATAVIZ.md",
+    "dataset": 7100,
+    "workspace": 3,
+    "report_type": "dashboard",
+    "report_mode": null,
+    "dashboard_url_name": "",
+    "report_data": "{\"report_title\": \"Collections Roll-Forward - Call List & Model Trust\", \"numColumns\": 64, \"report_subtitle\": \"Daily SMA-0 call list, holdout trust against DPD alone, and book trends (federal CDW)\", \"dashboard_widgets\": [{\"col\": 1, \"row\": 1, \"size_x\": 16, \"size_y\": 10, \"id\": \"uri-1-widget-7201\"}, {\"col\": 17, \"row\": 1, \"size_x\": 16, \"size_y\": 10, \"id\": \"uri-2-widget-7202\"}, {\"col\": 33, \"row\": 1, \"size_x\": 16, \"size_y\": 10, \"id\": \"uri-3-widget-7203\"}, {\"col\": 49, \"row\": 1, \"size_x\": 16, \"size_y\": 10, \"id\": \"uri-4-widget-7204\"}, {\"col\": 1, \"row\": 11, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-5-widget-7205\"}, {\"col\": 33, \"row\": 11, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-6-widget-7206\"}, {\"col\": 1, \"row\": 33, \"size_x\": 64, \"size_y\": 20, \"id\": \"uri-7-widget-7207\"}, {\"col\": 1, \"row\": 53, \"size_x\": 64, \"size_y\": 26, \"id\": \"uri-8-widget-7208\"}], \"dashboard_sheets\": [{\"sheet_id\": 1, \"order\": 1, \"sheet_handle_title\": \"Today's call list\", \"behaviors\": {}, \"visual_widgets\": [{\"col\": 1, \"row\": 1, \"size_x\": 16, \"size_y\": 10, \"id\": \"uri-1-widget-7201\"}, {\"col\": 17, \"row\": 1, \"size_x\": 16, \"size_y\": 10, \"id\": \"uri-2-widget-7202\"}, {\"col\": 33, \"row\": 1, \"size_x\": 16, \"size_y\": 10, \"id\": \"uri-3-widget-7203\"}, {\"col\": 49, \"row\": 1, \"size_x\": 16, \"size_y\": 10, \"id\": \"uri-4-widget-7204\"}, {\"col\": 1, \"row\": 11, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-5-widget-7205\"}, {\"col\": 33, \"row\": 11, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-6-widget-7206\"}, {\"col\": 1, \"row\": 33, \"size_x\": 64, \"size_y\": 20, \"id\": \"uri-7-widget-7207\"}, {\"col\": 1, \"row\": 53, \"size_x\": 64, \"size_y\": 26, \"id\": \"uri-8-widget-7208\"}], \"control_widgets\": []}, {\"sheet_id\": 2, \"order\": 2, \"sheet_handle_title\": \"Model trust\", \"behaviors\": {}, \"visual_widgets\": [{\"col\": 1, \"row\": 1, \"size_x\": 16, \"size_y\": 10, \"id\": \"uri-1-widget-7209\"}, {\"col\": 17, \"row\": 1, \"size_x\": 16, \"size_y\": 10, \"id\": \"uri-2-widget-7210\"}, {\"col\": 33, \"row\": 1, \"size_x\": 16, \"size_y\": 10, \"id\": \"uri-3-widget-7211\"}, {\"col\": 49, \"row\": 1, \"size_x\": 16, \"size_y\": 10, \"id\": \"uri-4-widget-7212\"}, {\"col\": 1, \"row\": 11, \"size_x\": 32, \"size_y\": 24, \"id\": \"uri-5-widget-7213\"}, {\"col\": 33, \"row\": 11, \"size_x\": 32, \"size_y\": 24, \"id\": \"uri-6-widget-7214\"}, {\"col\": 1, \"row\": 35, \"size_x\": 64, \"size_y\": 24, \"id\": \"uri-7-widget-7215\"}], \"control_widgets\": []}, {\"sheet_id\": 3, \"order\": 3, \"sheet_handle_title\": \"Book trends\", \"behaviors\": {}, \"visual_widgets\": [{\"col\": 1, \"row\": 1, \"size_x\": 64, \"size_y\": 24, \"id\": \"uri-1-widget-7216\"}, {\"col\": 1, \"row\": 25, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-2-widget-7217\"}, {\"col\": 33, \"row\": 25, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-3-widget-7218\"}], \"control_widgets\": []}], \"user_settings\": {\"dashboard_width\": \"1280\", \"display_filters\": \"true\", \"permit_csv_download_dashboard\": \"true\"}, \"global_control_widgets\": [], \"control_widgets\": [], \"click_behavior\": {}}",
+    "shared_visual_dashboards": "[]",
+    "parent_report": null,
+    "uuid": "0bcb7e90-ed6a-5aa9-bb73-a1909b304d1a",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": null
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 7001,
+   "fields": {
+    "report_name": "Collections Roll-Forward - Data Health",
+    "report_description": "docs/DATAVIZ.md",
+    "dataset": 7104,
+    "workspace": 3,
+    "report_type": "dashboard",
+    "report_mode": null,
+    "dashboard_url_name": "",
+    "report_data": "{\"report_title\": \"Collections Roll-Forward - Data Health\", \"numColumns\": 64, \"report_subtitle\": \"Great Expectations gates of the collections pipeline: bronze, silver, gold (ref.dq_results)\", \"dashboard_widgets\": [{\"col\": 1, \"row\": 1, \"size_x\": 11, \"size_y\": 10, \"id\": \"uri-1-widget-7219\"}, {\"col\": 12, \"row\": 1, \"size_x\": 11, \"size_y\": 10, \"id\": \"uri-2-widget-7220\"}, {\"col\": 23, \"row\": 1, \"size_x\": 10, \"size_y\": 10, \"id\": \"uri-3-widget-7221\"}, {\"col\": 33, \"row\": 1, \"size_x\": 11, \"size_y\": 10, \"id\": \"uri-4-widget-7222\"}, {\"col\": 44, \"row\": 1, \"size_x\": 10, \"size_y\": 10, \"id\": \"uri-5-widget-7223\"}, {\"col\": 54, \"row\": 1, \"size_x\": 11, \"size_y\": 10, \"id\": \"uri-6-widget-7224\"}, {\"col\": 1, \"row\": 11, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-7-widget-7225\"}, {\"col\": 33, \"row\": 11, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-8-widget-7226\"}, {\"col\": 1, \"row\": 33, \"size_x\": 64, \"size_y\": 26, \"id\": \"uri-9-widget-7227\"}], \"dashboard_sheets\": [{\"sheet_id\": 1, \"order\": 1, \"sheet_handle_title\": \"Health now\", \"behaviors\": {}, \"visual_widgets\": [{\"col\": 1, \"row\": 1, \"size_x\": 11, \"size_y\": 10, \"id\": \"uri-1-widget-7219\"}, {\"col\": 12, \"row\": 1, \"size_x\": 11, \"size_y\": 10, \"id\": \"uri-2-widget-7220\"}, {\"col\": 23, \"row\": 1, \"size_x\": 10, \"size_y\": 10, \"id\": \"uri-3-widget-7221\"}, {\"col\": 33, \"row\": 1, \"size_x\": 11, \"size_y\": 10, \"id\": \"uri-4-widget-7222\"}, {\"col\": 44, \"row\": 1, \"size_x\": 10, \"size_y\": 10, \"id\": \"uri-5-widget-7223\"}, {\"col\": 54, \"row\": 1, \"size_x\": 11, \"size_y\": 10, \"id\": \"uri-6-widget-7224\"}, {\"col\": 1, \"row\": 11, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-7-widget-7225\"}, {\"col\": 33, \"row\": 11, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-8-widget-7226\"}, {\"col\": 1, \"row\": 33, \"size_x\": 64, \"size_y\": 26, \"id\": \"uri-9-widget-7227\"}], \"control_widgets\": []}, {\"sheet_id\": 2, \"order\": 2, \"sheet_handle_title\": \"Trends\", \"behaviors\": {}, \"visual_widgets\": [{\"col\": 1, \"row\": 1, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-1-widget-7228\"}, {\"col\": 33, \"row\": 1, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-2-widget-7229\"}, {\"col\": 1, \"row\": 23, \"size_x\": 64, \"size_y\": 24, \"id\": \"uri-3-widget-7230\"}], \"control_widgets\": []}, {\"sheet_id\": 3, \"order\": 3, \"sheet_handle_title\": \"Pipeline runs\", \"behaviors\": {}, \"visual_widgets\": [{\"col\": 1, \"row\": 1, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-1-widget-7231\"}, {\"col\": 33, \"row\": 1, \"size_x\": 32, \"size_y\": 22, \"id\": \"uri-2-widget-7232\"}, {\"col\": 1, \"row\": 23, \"size_x\": 64, \"size_y\": 26, \"id\": \"uri-3-widget-7233\"}], \"control_widgets\": []}, {\"sheet_id\": 4, \"order\": 4, \"sheet_handle_title\": \"Check details\", \"behaviors\": {}, \"visual_widgets\": [{\"col\": 1, \"row\": 1, \"size_x\": 64, \"size_y\": 14, \"id\": \"uri-1-widget-7234\"}, {\"col\": 1, \"row\": 15, \"size_x\": 64, \"size_y\": 14, \"id\": \"uri-2-widget-7235\"}, {\"col\": 1, \"row\": 29, \"size_x\": 64, \"size_y\": 34, \"id\": \"uri-3-widget-7236\"}], \"control_widgets\": []}], \"user_settings\": {\"dashboard_width\": \"1280\", \"display_filters\": \"true\", \"permit_csv_download_dashboard\": \"true\"}, \"global_control_widgets\": [], \"control_widgets\": [], \"click_behavior\": {}}",
+    "shared_visual_dashboards": "[]",
+    "parent_report": null,
+    "uuid": "26af5115-cc1e-516c-9465-c01d0b577251",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": null
+   }
+  }
+ ],
+ "appgroupmembership": [],
+ "reportannotation": [],
+ "events": [],
+ "customcss": [],
+ "reportimage": [],
+ "dateranges": [],
+ "visuals": [
+  {
+   "model": "reports.report",
+   "pk": 7201,
+   "fields": {
+    "report_name": "",
+    "report_description": "Collections Roll-Forward - Call List & Model Trust / Today's call list",
+    "dataset": 7100,
+    "workspace": 3,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"SMA-0 loans on today's list\", \"report_subtitle\": \"\", \"dashboard_id\": 7000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"sum(1)\", \"expression_for_trigger\": \"sum(1)\", \"expr_hasagg\": true, \"col_alias\": \"Loans\", \"dataset_colname\": \"Loans\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"sum(1) as 'sub:Loans'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "94fb898a-068d-5c0d-98c2-d15884940484",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 7202,
+   "fields": {
+    "report_name": "",
+    "report_description": "Collections Roll-Forward - Call List & Model Trust / Today's call list",
+    "dataset": 7100,
+    "workspace": 3,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Overdue on the list (lakh INR)\", \"report_subtitle\": \"\", \"dashboard_id\": 7000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"round(sum([overdue_amount]) / 100000, 2)\", \"expression_for_trigger\": \"round(sum([overdue_amount]) / 100000, 2)\", \"expr_hasagg\": true, \"col_alias\": \"Overdue (lakh)\", \"dataset_colname\": \"Overdue (lakh)\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"round(sum([overdue_amount]) / 100000, 2) as 'sub:Overdue (lakh)'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "0103899e-bc93-5822-a301-3286af969c3e",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 7203,
+   "fields": {
+    "report_name": "",
+    "report_description": "Collections Roll-Forward - Call List & Model Trust / Today's call list",
+    "dataset": 7100,
+    "workspace": 3,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Agent calls today\", \"report_subtitle\": \"\", \"dashboard_id\": 7000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"sum(case when [treatment] = 'AGENT_CALL_TODAY' then 1 else 0 end)\", \"expression_for_trigger\": \"sum(case when [treatment] = 'AGENT_CALL_TODAY' then 1 else 0 end)\", \"expr_hasagg\": true, \"col_alias\": \"Agent calls\", \"dataset_colname\": \"Agent calls\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"sum(case when [treatment] = 'AGENT_CALL_TODAY' then 1 else 0 end) as 'sub:Agent calls'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "c0799ab5-3d94-5775-bbab-2baa7ba6acd4",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 7204,
+   "fields": {
+    "report_name": "",
+    "report_description": "Collections Roll-Forward - Call List & Model Trust / Today's call list",
+    "dataset": 7100,
+    "workspace": 3,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Expected rolls to SMA-1 without action\", \"report_subtitle\": \"\", \"dashboard_id\": 7000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"round(sum([p_roll]), 0)\", \"expression_for_trigger\": \"round(sum([p_roll]), 0)\", \"expr_hasagg\": true, \"col_alias\": \"Expected rolls\", \"dataset_colname\": \"Expected rolls\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"round(sum([p_roll]), 0) as 'sub:Expected rolls'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "03927860-c319-5fd3-b7c6-33dceafb44a0",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 7205,
+   "fields": {
+    "report_name": "",
+    "report_description": "Collections Roll-Forward - Call List & Model Trust / Today's call list",
+    "dataset": 7100,
+    "workspace": 3,
+    "report_type": "trellis-bars",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Loans by treatment and product\", \"report_subtitle\": \"\", \"dashboard_id\": 7000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"x_shelf\": [{\"dataset_colname\": \"treatment\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[treatment]\", \"col_alias\": \"Treatment\"}], \"y_shelf\": [{\"custom_expr\": \"sum(1)\", \"expression_for_trigger\": \"sum(1)\", \"expr_hasagg\": true, \"col_alias\": \"Loans\", \"dataset_colname\": \"Loans\", \"dataset_coltype\": \"DOUBLE\"}], \"color_shelf\": [{\"dataset_colname\": \"product_name\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[product_name]\", \"col_alias\": \"Product\"}], \"tooltip_shelf\": [], \"drill_shelf\": [], \"label_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"trellis-bars\", \"saved_shelf_sources\": {\"[treatment] as 'sub:Treatment'\": \"x_shelf\", \"sum(1) as 'sub:Loans'\": \"y_shelf\", \"[product_name] as 'sub:Product'\": \"color_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"color_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"drill_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"trellis-bars\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "294d0e68-89e6-5e3c-b169-25c0f01555e3",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 7206,
+   "fields": {
+    "report_name": "",
+    "report_description": "Collections Roll-Forward - Call List & Model Trust / Today's call list",
+    "dataset": 7100,
+    "workspace": 3,
+    "report_type": "trellis-bars",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Expected overdue rolling (lakh INR) by product\", \"report_subtitle\": \"\", \"dashboard_id\": 7000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"x_shelf\": [{\"dataset_colname\": \"product_name\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[product_name]\", \"col_alias\": \"Product\"}], \"y_shelf\": [{\"custom_expr\": \"sum([expected_roll_inr]) / 100000\", \"expression_for_trigger\": \"sum([expected_roll_inr]) / 100000\", \"expr_hasagg\": true, \"col_alias\": \"Expected roll (lakh)\", \"dataset_colname\": \"Expected roll (lakh)\", \"dataset_coltype\": \"DOUBLE\", \"order\": {\"priority\": 1, \"ascending\": false}}], \"color_shelf\": [], \"tooltip_shelf\": [], \"drill_shelf\": [], \"label_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"trellis-bars\", \"saved_shelf_sources\": {\"[product_name] as 'sub:Product'\": \"x_shelf\", \"sum([expected_roll_inr]) / 100000 as 'sub:Expected roll (lakh)'\": \"y_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"color_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"drill_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"trellis-bars\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "53a0c092-f196-5b44-831d-daa7fc834c06",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 7207,
+   "fields": {
+    "report_name": "",
+    "report_description": "Collections Roll-Forward - Call List & Model Trust / Today's call list",
+    "dataset": 7100,
+    "workspace": 3,
+    "report_type": "trellis-bars",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Loans by days past due and treatment\", \"report_subtitle\": \"\", \"dashboard_id\": 7000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"x_shelf\": [{\"dataset_colname\": \"dpd_bucket\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[dpd_bucket]\", \"col_alias\": \"DPD\"}], \"y_shelf\": [{\"custom_expr\": \"sum(1)\", \"expression_for_trigger\": \"sum(1)\", \"expr_hasagg\": true, \"col_alias\": \"Loans\", \"dataset_colname\": \"Loans\", \"dataset_coltype\": \"DOUBLE\"}], \"color_shelf\": [{\"dataset_colname\": \"treatment\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[treatment]\", \"col_alias\": \"Treatment\"}], \"tooltip_shelf\": [], \"drill_shelf\": [], \"label_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"trellis-bars\", \"saved_shelf_sources\": {\"[dpd_bucket] as 'sub:DPD'\": \"x_shelf\", \"sum(1) as 'sub:Loans'\": \"y_shelf\", \"[treatment] as 'sub:Treatment'\": \"color_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"color_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"drill_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"trellis-bars\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "e45df1e6-216d-5d3f-badf-0ef86ba11394",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 7208,
+   "fields": {
+    "report_name": "",
+    "report_description": "Collections Roll-Forward - Call List & Model Trust / Today's call list",
+    "dataset": 7100,
+    "workspace": 3,
+    "report_type": "table",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"The morning's top 25 calls\", \"report_subtitle\": \"\", \"dashboard_id\": 7000, \"limit\": 25, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [{\"dataset_colname\": \"priority_rank\", \"dataset_coltype\": \"INT\", \"expression_for_trigger\": \"[priority_rank]\", \"col_alias\": \"Rank\", \"order\": {\"priority\": 1, \"ascending\": true}}, {\"dataset_colname\": \"loan_id\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[loan_id]\", \"col_alias\": \"Loan\"}, {\"dataset_colname\": \"product_name\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[product_name]\", \"col_alias\": \"Product\"}, {\"dataset_colname\": \"dpd_now\", \"dataset_coltype\": \"INT\", \"expression_for_trigger\": \"[dpd_now]\", \"col_alias\": \"DPD\"}, {\"dataset_colname\": \"treatment\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[treatment]\", \"col_alias\": \"Treatment\"}, {\"dataset_colname\": \"action\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[action]\", \"col_alias\": \"Action\"}, {\"dataset_colname\": \"risk_signals\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[risk_signals]\", \"col_alias\": \"Risk signals\"}], \"aggregates_shelf\": [{\"custom_expr\": \"round(sum([overdue_amount]), 0)\", \"expression_for_trigger\": \"round(sum([overdue_amount]), 0)\", \"expr_hasagg\": true, \"col_alias\": \"Overdue (INR)\", \"dataset_colname\": \"Overdue (INR)\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"round(max([p_roll]), 3)\", \"expression_for_trigger\": \"round(max([p_roll]), 3)\", \"expr_hasagg\": true, \"col_alias\": \"p(roll)\", \"dataset_colname\": \"p(roll)\", \"dataset_coltype\": \"DOUBLE\"}], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}, {\"custom_expr\": \"[priority_rank] <= 25\", \"expression_for_trigger\": \"[priority_rank] <= 25\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"table\", \"saved_shelf_sources\": {\"[priority_rank] as 'sub:Rank'\": \"dimensions_shelf\", \"[loan_id] as 'sub:Loan'\": \"dimensions_shelf\", \"[product_name] as 'sub:Product'\": \"dimensions_shelf\", \"[dpd_now] as 'sub:DPD'\": \"dimensions_shelf\", \"[treatment] as 'sub:Treatment'\": \"dimensions_shelf\", \"[action] as 'sub:Action'\": \"dimensions_shelf\", \"[risk_signals] as 'sub:Risk signals'\": \"dimensions_shelf\", \"round(sum([overdue_amount]), 0) as 'sub:Overdue (INR)'\": \"aggregates_shelf\", \"round(max([p_roll]), 3) as 'sub:p(roll)'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\", \"[priority_rank] <= 25\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"table\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "58471b0f-5f98-5c1f-bb9d-d299204620fc",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 7209,
+   "fields": {
+    "report_name": "",
+    "report_description": "Collections Roll-Forward - Call List & Model Trust / Model trust",
+    "dataset": 7102,
+    "workspace": 3,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Holdout AUC (latest run)\", \"report_subtitle\": \"\", \"dashboard_id\": 7000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"max([holdout_auc])\", \"expression_for_trigger\": \"max([holdout_auc])\", \"expr_hasagg\": true, \"col_alias\": \"AUC\", \"dataset_colname\": \"AUC\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"max([holdout_auc]) as 'sub:AUC'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "246a1bbc-a83a-5ba4-91d8-08d1a7b0d4d6",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 7210,
+   "fields": {
+    "report_name": "",
+    "report_description": "Collections Roll-Forward - Call List & Model Trust / Model trust",
+    "dataset": 7102,
+    "workspace": 3,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Top 10% of calls catch (share of rolls)\", \"report_subtitle\": \"\", \"dashboard_id\": 7000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"max([capture_top10])\", \"expression_for_trigger\": \"max([capture_top10])\", \"expr_hasagg\": true, \"col_alias\": \"Model\", \"dataset_colname\": \"Model\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"max([capture_top10]) as 'sub:Model'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "2cd2238c-0d5a-5015-a159-93172ca5d429",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 7211,
+   "fields": {
+    "report_name": "",
+    "report_description": "Collections Roll-Forward - Call List & Model Trust / Model trust",
+    "dataset": 7102,
+    "workspace": 3,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"DPD alone, top 10%\", \"report_subtitle\": \"\", \"dashboard_id\": 7000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"max([dpd_only_capture_top10])\", \"expression_for_trigger\": \"max([dpd_only_capture_top10])\", \"expr_hasagg\": true, \"col_alias\": \"DPD alone\", \"dataset_colname\": \"DPD alone\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"max([dpd_only_capture_top10]) as 'sub:DPD alone'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "674f0d6c-bf09-5f4f-8352-712fb2f99e6f",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 7212,
+   "fields": {
+    "report_name": "",
+    "report_description": "Collections Roll-Forward - Call List & Model Trust / Model trust",
+    "dataset": 7102,
+    "workspace": 3,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Top 10% catch (share of rolled overdue INR)\", \"report_subtitle\": \"\", \"dashboard_id\": 7000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"max([value_capture_top10])\", \"expression_for_trigger\": \"max([value_capture_top10])\", \"expr_hasagg\": true, \"col_alias\": \"Value capture\", \"dataset_colname\": \"Value capture\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"max([value_capture_top10]) as 'sub:Value capture'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "6a648f7c-5488-5aa8-af8b-530375add50e",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 7213,
+   "fields": {
+    "report_name": "",
+    "report_description": "Collections Roll-Forward - Call List & Model Trust / Model trust",
+    "dataset": 7103,
+    "workspace": 3,
+    "report_type": "trellis-lines",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Holdout: share of rolls caught, calling by p(roll) against random\", \"report_subtitle\": \"\", \"dashboard_id\": 7000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"x_shelf\": [{\"dataset_colname\": \"decile\", \"dataset_coltype\": \"INT\", \"expression_for_trigger\": \"[decile]\", \"col_alias\": \"Decile (top 10% steps)\"}], \"y_shelf\": [{\"custom_expr\": \"max([cum_capture])\", \"expression_for_trigger\": \"max([cum_capture])\", \"expr_hasagg\": true, \"col_alias\": \"Model\", \"dataset_colname\": \"Model\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"max([random_cum_capture])\", \"expression_for_trigger\": \"max([random_cum_capture])\", \"expr_hasagg\": true, \"col_alias\": \"Random\", \"dataset_colname\": \"Random\", \"dataset_coltype\": \"DOUBLE\"}], \"color_shelf\": [], \"tooltip_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"trellis-lines\", \"saved_shelf_sources\": {\"[decile] as 'sub:Decile (top 10% steps)'\": \"x_shelf\", \"max([cum_capture]) as 'sub:Model'\": \"y_shelf\", \"max([random_cum_capture]) as 'sub:Random'\": \"y_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"color_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"trellis-lines\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "7e46da25-a8e2-5918-b49c-f0008af6b5d5",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 7214,
+   "fields": {
+    "report_name": "",
+    "report_description": "Collections Roll-Forward - Call List & Model Trust / Model trust",
+    "dataset": 7102,
+    "workspace": 3,
+    "report_type": "trellis-lines",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Top 10% capture per run: model against DPD alone\", \"report_subtitle\": \"\", \"dashboard_id\": 7000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"x_shelf\": [{\"dataset_colname\": \"run_date\", \"dataset_coltype\": \"DATE\", \"expression_for_trigger\": \"[run_date]\", \"col_alias\": \"Run date\"}], \"y_shelf\": [{\"custom_expr\": \"max([capture_top10])\", \"expression_for_trigger\": \"max([capture_top10])\", \"expr_hasagg\": true, \"col_alias\": \"Model\", \"dataset_colname\": \"Model\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"max([dpd_only_capture_top10])\", \"expression_for_trigger\": \"max([dpd_only_capture_top10])\", \"expr_hasagg\": true, \"col_alias\": \"DPD alone\", \"dataset_colname\": \"DPD alone\", \"dataset_coltype\": \"DOUBLE\"}], \"color_shelf\": [], \"tooltip_shelf\": [], \"filters_shelf\": [], \"core\": {\"viz_type\": \"trellis-lines\", \"saved_shelf_sources\": {\"[run_date] as 'sub:Run date'\": \"x_shelf\", \"max([capture_top10]) as 'sub:Model'\": \"y_shelf\", \"max([dpd_only_capture_top10]) as 'sub:DPD alone'\": \"y_shelf\"}, \"shelves\": [{\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"color_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"trellis-lines\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "fdedbe82-5fd0-5a1a-a287-4ba74d1e14f0",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 7215,
+   "fields": {
+    "report_name": "",
+    "report_description": "Collections Roll-Forward - Call List & Model Trust / Model trust",
+    "dataset": 7102,
+    "workspace": 3,
+    "report_type": "table",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Every run: trust numbers\", \"report_subtitle\": \"\", \"dashboard_id\": 7000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [{\"dataset_colname\": \"run_date\", \"dataset_coltype\": \"DATE\", \"expression_for_trigger\": \"[run_date]\", \"col_alias\": \"Run date\", \"order\": {\"priority\": 1, \"ascending\": false}}, {\"dataset_colname\": \"triggered_by\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[triggered_by]\", \"col_alias\": \"Triggered by\"}, {\"dataset_colname\": \"device\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[device]\", \"col_alias\": \"Device\"}], \"aggregates_shelf\": [{\"custom_expr\": \"max([holdout_auc])\", \"expression_for_trigger\": \"max([holdout_auc])\", \"expr_hasagg\": true, \"col_alias\": \"AUC\", \"dataset_colname\": \"AUC\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"max([capture_top10])\", \"expression_for_trigger\": \"max([capture_top10])\", \"expr_hasagg\": true, \"col_alias\": \"Top 10%\", \"dataset_colname\": \"Top 10%\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"max([dpd_only_capture_top10])\", \"expression_for_trigger\": \"max([dpd_only_capture_top10])\", \"expr_hasagg\": true, \"col_alias\": \"DPD top 10%\", \"dataset_colname\": \"DPD top 10%\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"max([capture_top40])\", \"expression_for_trigger\": \"max([capture_top40])\", \"expr_hasagg\": true, \"col_alias\": \"Top 40%\", \"dataset_colname\": \"Top 40%\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"max([dpd_only_capture_top40])\", \"expression_for_trigger\": \"max([dpd_only_capture_top40])\", \"expr_hasagg\": true, \"col_alias\": \"DPD top 40%\", \"dataset_colname\": \"DPD top 40%\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"max([value_capture_top10])\", \"expression_for_trigger\": \"max([value_capture_top10])\", \"expr_hasagg\": true, \"col_alias\": \"Value top 10%\", \"dataset_colname\": \"Value top 10%\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"sum([scored_loans])\", \"expression_for_trigger\": \"sum([scored_loans])\", \"expr_hasagg\": true, \"col_alias\": \"Scored\", \"dataset_colname\": \"Scored\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"max([duration_s])\", \"expression_for_trigger\": \"max([duration_s])\", \"expr_hasagg\": true, \"col_alias\": \"Seconds\", \"dataset_colname\": \"Seconds\", \"dataset_coltype\": \"DOUBLE\"}], \"filters_shelf\": [], \"core\": {\"viz_type\": \"table\", \"saved_shelf_sources\": {\"[run_date] as 'sub:Run date'\": \"dimensions_shelf\", \"[triggered_by] as 'sub:Triggered by'\": \"dimensions_shelf\", \"[device] as 'sub:Device'\": \"dimensions_shelf\", \"max([holdout_auc]) as 'sub:AUC'\": \"aggregates_shelf\", \"max([capture_top10]) as 'sub:Top 10%'\": \"aggregates_shelf\", \"max([dpd_only_capture_top10]) as 'sub:DPD top 10%'\": \"aggregates_shelf\", \"max([capture_top40]) as 'sub:Top 40%'\": \"aggregates_shelf\", \"max([dpd_only_capture_top40]) as 'sub:DPD top 40%'\": \"aggregates_shelf\", \"max([value_capture_top10]) as 'sub:Value top 10%'\": \"aggregates_shelf\", \"sum([scored_loans]) as 'sub:Scored'\": \"aggregates_shelf\", \"max([duration_s]) as 'sub:Seconds'\": \"aggregates_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"table\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "7b89b7e1-c223-5ea0-bebf-e308265564c4",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 7216,
+   "fields": {
+    "report_name": "",
+    "report_description": "Collections Roll-Forward - Call List & Model Trust / Book trends",
+    "dataset": 7101,
+    "workspace": 3,
+    "report_type": "trellis-lines",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Weekly roll rate to SMA-1 within 30 days, by product\", \"report_subtitle\": \"\", \"dashboard_id\": 7000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"x_shelf\": [{\"dataset_colname\": \"snapshot_date\", \"dataset_coltype\": \"DATE\", \"expression_for_trigger\": \"[snapshot_date]\", \"col_alias\": \"Snapshot\"}], \"y_shelf\": [{\"custom_expr\": \"sum([rolls]) / sum([labelled])\", \"expression_for_trigger\": \"sum([rolls]) / sum([labelled])\", \"expr_hasagg\": true, \"col_alias\": \"Roll rate\", \"dataset_colname\": \"Roll rate\", \"dataset_coltype\": \"DOUBLE\"}], \"color_shelf\": [{\"dataset_colname\": \"product_name\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[product_name]\", \"col_alias\": \"Product\"}], \"tooltip_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[labelled] > 0\", \"expression_for_trigger\": \"[labelled] > 0\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"trellis-lines\", \"saved_shelf_sources\": {\"[snapshot_date] as 'sub:Snapshot'\": \"x_shelf\", \"sum([rolls]) / sum([labelled]) as 'sub:Roll rate'\": \"y_shelf\", \"[product_name] as 'sub:Product'\": \"color_shelf\", \"[labelled] > 0\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"color_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"trellis-lines\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "090108a9-4f33-521d-be71-4dc684483325",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 7217,
+   "fields": {
+    "report_name": "",
+    "report_description": "Collections Roll-Forward - Call List & Model Trust / Book trends",
+    "dataset": 7101,
+    "workspace": 3,
+    "report_type": "trellis-bars",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"SMA-0 loans per weekly snapshot\", \"report_subtitle\": \"\", \"dashboard_id\": 7000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"x_shelf\": [{\"dataset_colname\": \"snapshot_date\", \"dataset_coltype\": \"DATE\", \"expression_for_trigger\": \"[snapshot_date]\", \"col_alias\": \"Snapshot\"}], \"y_shelf\": [{\"custom_expr\": \"sum([loans])\", \"expression_for_trigger\": \"sum([loans])\", \"expr_hasagg\": true, \"col_alias\": \"Loans\", \"dataset_colname\": \"Loans\", \"dataset_coltype\": \"DOUBLE\"}], \"color_shelf\": [{\"dataset_colname\": \"product_name\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[product_name]\", \"col_alias\": \"Product\"}], \"tooltip_shelf\": [], \"drill_shelf\": [], \"label_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[snapshot_date] >= '2026-04-01'\", \"expression_for_trigger\": \"[snapshot_date] >= '2026-04-01'\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"trellis-bars\", \"saved_shelf_sources\": {\"[snapshot_date] as 'sub:Snapshot'\": \"x_shelf\", \"sum([loans]) as 'sub:Loans'\": \"y_shelf\", \"[product_name] as 'sub:Product'\": \"color_shelf\", \"[snapshot_date] >= '2026-04-01'\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"color_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"drill_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"trellis-bars\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "2309b7e0-412a-5576-b17a-de69fd1d79c2",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 7218,
+   "fields": {
+    "report_name": "",
+    "report_description": "Collections Roll-Forward - Call List & Model Trust / Book trends",
+    "dataset": 7101,
+    "workspace": 3,
+    "report_type": "trellis-lines",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Overdue in the SMA-0 book (lakh INR)\", \"report_subtitle\": \"\", \"dashboard_id\": 7000, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"x_shelf\": [{\"dataset_colname\": \"snapshot_date\", \"dataset_coltype\": \"DATE\", \"expression_for_trigger\": \"[snapshot_date]\", \"col_alias\": \"Snapshot\"}], \"y_shelf\": [{\"custom_expr\": \"sum([overdue_inr]) / 100000\", \"expression_for_trigger\": \"sum([overdue_inr]) / 100000\", \"expr_hasagg\": true, \"col_alias\": \"Overdue (lakh)\", \"dataset_colname\": \"Overdue (lakh)\", \"dataset_coltype\": \"DOUBLE\"}], \"color_shelf\": [], \"tooltip_shelf\": [], \"filters_shelf\": [], \"core\": {\"viz_type\": \"trellis-lines\", \"saved_shelf_sources\": {\"[snapshot_date] as 'sub:Snapshot'\": \"x_shelf\", \"sum([overdue_inr]) / 100000 as 'sub:Overdue (lakh)'\": \"y_shelf\"}, \"shelves\": [{\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"color_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"trellis-lines\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "cb6542a1-efb0-5b64-8abc-dc31b22571f6",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 7219,
+   "fields": {
+    "report_name": "",
+    "report_description": "Collections Roll-Forward - Data Health / Health now",
+    "dataset": 7104,
+    "workspace": 3,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Checks in the latest run\", \"report_subtitle\": \"\", \"dashboard_id\": 7001, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"sum(1)\", \"expression_for_trigger\": \"sum(1)\", \"expr_hasagg\": true, \"col_alias\": \"Checks\", \"dataset_colname\": \"Checks\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"sum(1) as 'sub:Checks'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "f7fbc23b-da7f-5a54-876f-da82aa463f05",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 7220,
+   "fields": {
+    "report_name": "",
+    "report_description": "Collections Roll-Forward - Data Health / Health now",
+    "dataset": 7104,
+    "workspace": 3,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Pass rate (%)\", \"report_subtitle\": \"\", \"dashboard_id\": 7001, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"round(100 * avg([passed]), 1)\", \"expression_for_trigger\": \"round(100 * avg([passed]), 1)\", \"expr_hasagg\": true, \"col_alias\": \"Pass rate %\", \"dataset_colname\": \"Pass rate %\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"round(100 * avg([passed]), 1) as 'sub:Pass rate %'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "accf4255-117c-5e01-9b40-a22ca05c39df",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 7221,
+   "fields": {
+    "report_name": "",
+    "report_description": "Collections Roll-Forward - Data Health / Health now",
+    "dataset": 7104,
+    "workspace": 3,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Critical failures (stop the pipeline)\", \"report_subtitle\": \"\", \"dashboard_id\": 7001, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"sum(case when [severity] = 'critical' then [failed] else 0 end)\", \"expression_for_trigger\": \"sum(case when [severity] = 'critical' then [failed] else 0 end)\", \"expr_hasagg\": true, \"col_alias\": \"Critical failures\", \"dataset_colname\": \"Critical failures\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"sum(case when [severity] = 'critical' then [failed] else 0 end) as 'sub:Critical failures'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "158ffb20-8de2-5524-a813-950e974b2a4b",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 7222,
+   "fields": {
+    "report_name": "",
+    "report_description": "Collections Roll-Forward - Data Health / Health now",
+    "dataset": 7104,
+    "workspace": 3,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Warnings raised\", \"report_subtitle\": \"\", \"dashboard_id\": 7001, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"sum(case when [severity] = 'warning' then [failed] else 0 end)\", \"expression_for_trigger\": \"sum(case when [severity] = 'warning' then [failed] else 0 end)\", \"expr_hasagg\": true, \"col_alias\": \"Warnings\", \"dataset_colname\": \"Warnings\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"sum(case when [severity] = 'warning' then [failed] else 0 end) as 'sub:Warnings'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "d9ee192f-da7c-5464-93d7-d1996e75e026",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 7223,
+   "fields": {
+    "report_name": "",
+    "report_description": "Collections Roll-Forward - Data Health / Health now",
+    "dataset": 7104,
+    "workspace": 3,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Near misses (passed, with bad rows)\", \"report_subtitle\": \"\", \"dashboard_id\": 7001, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"sum([near_miss])\", \"expression_for_trigger\": \"sum([near_miss])\", \"expr_hasagg\": true, \"col_alias\": \"Near misses\", \"dataset_colname\": \"Near misses\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"sum([near_miss]) as 'sub:Near misses'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "85baf659-ccf8-51a8-a8d6-62ad0c1a06c3",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 7224,
+   "fields": {
+    "report_name": "",
+    "report_description": "Collections Roll-Forward - Data Health / Health now",
+    "dataset": 7104,
+    "workspace": 3,
+    "report_type": "kpi",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Rows under check (millions)\", \"report_subtitle\": \"\", \"dashboard_id\": 7001, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [], \"aggregates_shelf\": [{\"custom_expr\": \"round(sum([row_count]) / 1000000, 1)\", \"expression_for_trigger\": \"round(sum([row_count]) / 1000000, 1)\", \"expr_hasagg\": true, \"col_alias\": \"Rows (M)\", \"dataset_colname\": \"Rows (M)\", \"dataset_coltype\": \"DOUBLE\"}], \"compare_shelf\": [], \"label_shelf\": [], \"tooltip_shelf\": [], \"x_shelf\": [], \"y_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"kpi\", \"saved_shelf_sources\": {\"round(sum([row_count]) / 1000000, 1) as 'sub:Rows (M)'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"compare_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"kpi\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "81df7c0a-a48c-5d0f-a3c2-c155c8a7bc6d",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 7225,
+   "fields": {
+    "report_name": "",
+    "report_description": "Collections Roll-Forward - Data Health / Health now",
+    "dataset": 7104,
+    "workspace": 3,
+    "report_type": "trellis-bars",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"What is checked: checks by layer and category\", \"report_subtitle\": \"\", \"dashboard_id\": 7001, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"x_shelf\": [{\"dataset_colname\": \"layer\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[layer]\", \"col_alias\": \"Layer\"}], \"y_shelf\": [{\"custom_expr\": \"sum(1)\", \"expression_for_trigger\": \"sum(1)\", \"expr_hasagg\": true, \"col_alias\": \"Checks\", \"dataset_colname\": \"Checks\", \"dataset_coltype\": \"DOUBLE\"}], \"color_shelf\": [{\"dataset_colname\": \"category\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[category]\", \"col_alias\": \"Category\"}], \"tooltip_shelf\": [], \"drill_shelf\": [], \"label_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"trellis-bars\", \"saved_shelf_sources\": {\"[layer] as 'sub:Layer'\": \"x_shelf\", \"sum(1) as 'sub:Checks'\": \"y_shelf\", \"[category] as 'sub:Category'\": \"color_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"color_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"drill_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"trellis-bars\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "ce41f85c-7ded-5263-b68b-3ace635d57b6",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 7226,
+   "fields": {
+    "report_name": "",
+    "report_description": "Collections Roll-Forward - Data Health / Health now",
+    "dataset": 7104,
+    "workspace": 3,
+    "report_type": "trellis-bars",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"How strict: checks by category and severity\", \"report_subtitle\": \"\", \"dashboard_id\": 7001, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"x_shelf\": [{\"dataset_colname\": \"category\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[category]\", \"col_alias\": \"Category\"}], \"y_shelf\": [{\"custom_expr\": \"sum(1)\", \"expression_for_trigger\": \"sum(1)\", \"expr_hasagg\": true, \"col_alias\": \"Checks\", \"dataset_colname\": \"Checks\", \"dataset_coltype\": \"DOUBLE\", \"order\": {\"priority\": 1, \"ascending\": false}}], \"color_shelf\": [{\"dataset_colname\": \"severity\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[severity]\", \"col_alias\": \"Severity\"}], \"tooltip_shelf\": [], \"drill_shelf\": [], \"label_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"trellis-bars\", \"saved_shelf_sources\": {\"[category] as 'sub:Category'\": \"x_shelf\", \"sum(1) as 'sub:Checks'\": \"y_shelf\", \"[severity] as 'sub:Severity'\": \"color_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"color_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"drill_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"trellis-bars\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "bcd621d3-97d3-533b-b866-e5e7b5bca5b4",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 7227,
+   "fields": {
+    "report_name": "",
+    "report_description": "Collections Roll-Forward - Data Health / Health now",
+    "dataset": 7104,
+    "workspace": 3,
+    "report_type": "table",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Table scorecard (latest run of each layer)\", \"report_subtitle\": \"\", \"dashboard_id\": 7001, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [{\"dataset_colname\": \"layer_order\", \"dataset_coltype\": \"TINYINT\", \"expression_for_trigger\": \"[layer_order]\", \"col_alias\": \"Step\", \"order\": {\"priority\": 1, \"ascending\": true}}, {\"dataset_colname\": \"layer\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[layer]\", \"col_alias\": \"Layer\"}, {\"dataset_colname\": \"table_name\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[table_name]\", \"col_alias\": \"Table\"}, {\"dataset_colname\": \"run_ts\", \"dataset_coltype\": \"TIMESTAMP\", \"expression_for_trigger\": \"[run_ts]\", \"col_alias\": \"Checked at\"}], \"aggregates_shelf\": [{\"custom_expr\": \"sum(1)\", \"expression_for_trigger\": \"sum(1)\", \"expr_hasagg\": true, \"col_alias\": \"Checks\", \"dataset_colname\": \"Checks\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"sum([passed])\", \"expression_for_trigger\": \"sum([passed])\", \"expr_hasagg\": true, \"col_alias\": \"Passed\", \"dataset_colname\": \"Passed\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"sum([failed])\", \"expression_for_trigger\": \"sum([failed])\", \"expr_hasagg\": true, \"col_alias\": \"Failed\", \"dataset_colname\": \"Failed\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"sum([near_miss])\", \"expression_for_trigger\": \"sum([near_miss])\", \"expr_hasagg\": true, \"col_alias\": \"Near misses\", \"dataset_colname\": \"Near misses\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"max([row_count])\", \"expression_for_trigger\": \"max([row_count])\", \"expr_hasagg\": true, \"col_alias\": \"Rows\", \"dataset_colname\": \"Rows\", \"dataset_coltype\": \"DOUBLE\"}], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"table\", \"saved_shelf_sources\": {\"[layer_order] as 'sub:Step'\": \"dimensions_shelf\", \"[layer] as 'sub:Layer'\": \"dimensions_shelf\", \"[table_name] as 'sub:Table'\": \"dimensions_shelf\", \"[run_ts] as 'sub:Checked at'\": \"dimensions_shelf\", \"sum(1) as 'sub:Checks'\": \"aggregates_shelf\", \"sum([passed]) as 'sub:Passed'\": \"aggregates_shelf\", \"sum([failed]) as 'sub:Failed'\": \"aggregates_shelf\", \"sum([near_miss]) as 'sub:Near misses'\": \"aggregates_shelf\", \"max([row_count]) as 'sub:Rows'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"table\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "ee1ef8e3-309b-5a4a-9838-d0c59965b799",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 7228,
+   "fields": {
+    "report_name": "",
+    "report_description": "Collections Roll-Forward - Data Health / Trends",
+    "dataset": 7104,
+    "workspace": 3,
+    "report_type": "trellis-lines",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Pass rate by business date and layer\", \"report_subtitle\": \"\", \"dashboard_id\": 7001, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"x_shelf\": [{\"dataset_colname\": \"as_of\", \"dataset_coltype\": \"DATE\", \"expression_for_trigger\": \"[as_of]\", \"col_alias\": \"As of\"}], \"y_shelf\": [{\"custom_expr\": \"avg([passed])\", \"expression_for_trigger\": \"avg([passed])\", \"expr_hasagg\": true, \"col_alias\": \"Pass rate\", \"dataset_colname\": \"Pass rate\", \"dataset_coltype\": \"DOUBLE\"}], \"color_shelf\": [{\"dataset_colname\": \"layer\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[layer]\", \"col_alias\": \"Layer\"}], \"tooltip_shelf\": [], \"filters_shelf\": [], \"core\": {\"viz_type\": \"trellis-lines\", \"saved_shelf_sources\": {\"[as_of] as 'sub:As of'\": \"x_shelf\", \"avg([passed]) as 'sub:Pass rate'\": \"y_shelf\", \"[layer] as 'sub:Layer'\": \"color_shelf\"}, \"shelves\": [{\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"color_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"trellis-lines\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "a2e7dc91-6677-5aa9-acc4-35d20e00d38e",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 7229,
+   "fields": {
+    "report_name": "",
+    "report_description": "Collections Roll-Forward - Data Health / Trends",
+    "dataset": 7105,
+    "workspace": 3,
+    "report_type": "trellis-bars",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Checks passed and failed per pipeline run\", \"report_subtitle\": \"\", \"dashboard_id\": 7001, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"x_shelf\": [{\"dataset_colname\": \"run_label\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[run_label]\", \"col_alias\": \"Pipeline run\"}], \"y_shelf\": [{\"custom_expr\": \"sum([passed])\", \"expression_for_trigger\": \"sum([passed])\", \"expr_hasagg\": true, \"col_alias\": \"Passed\", \"dataset_colname\": \"Passed\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"sum([failed])\", \"expression_for_trigger\": \"sum([failed])\", \"expr_hasagg\": true, \"col_alias\": \"Failed\", \"dataset_colname\": \"Failed\", \"dataset_coltype\": \"DOUBLE\"}], \"color_shelf\": [], \"tooltip_shelf\": [], \"drill_shelf\": [], \"label_shelf\": [], \"filters_shelf\": [], \"core\": {\"viz_type\": \"trellis-bars\", \"saved_shelf_sources\": {\"[run_label] as 'sub:Pipeline run'\": \"x_shelf\", \"sum([passed]) as 'sub:Passed'\": \"y_shelf\", \"sum([failed]) as 'sub:Failed'\": \"y_shelf\"}, \"shelves\": [{\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"color_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"drill_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"trellis-bars\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "d8435de2-7f69-5f7b-b352-1248396515f0",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 7230,
+   "fields": {
+    "report_name": "",
+    "report_description": "Collections Roll-Forward - Data Health / Trends",
+    "dataset": 7104,
+    "workspace": 3,
+    "report_type": "trellis-lines",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Volume drift: bronze rows per table\", \"report_subtitle\": \"\", \"dashboard_id\": 7001, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"x_shelf\": [{\"dataset_colname\": \"as_of\", \"dataset_coltype\": \"DATE\", \"expression_for_trigger\": \"[as_of]\", \"col_alias\": \"As of\"}], \"y_shelf\": [{\"custom_expr\": \"max([row_count])\", \"expression_for_trigger\": \"max([row_count])\", \"expr_hasagg\": true, \"col_alias\": \"Rows\", \"dataset_colname\": \"Rows\", \"dataset_coltype\": \"DOUBLE\"}], \"color_shelf\": [{\"dataset_colname\": \"table_name\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[table_name]\", \"col_alias\": \"Table\"}], \"tooltip_shelf\": [], \"filters_shelf\": [{\"custom_expr\": \"[layer] = 'bronze'\", \"expression_for_trigger\": \"[layer] = 'bronze'\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}, {\"custom_expr\": \"[row_count] is not null\", \"expression_for_trigger\": \"[row_count] is not null\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"trellis-lines\", \"saved_shelf_sources\": {\"[as_of] as 'sub:As of'\": \"x_shelf\", \"max([row_count]) as 'sub:Rows'\": \"y_shelf\", \"[table_name] as 'sub:Table'\": \"color_shelf\", \"[layer] = 'bronze'\": \"filters_shelf\", \"[row_count] is not null\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"color_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"trellis-lines\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "306253d7-4661-554a-af2f-9a1df8e4f83a",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 7231,
+   "fields": {
+    "report_name": "",
+    "report_description": "Collections Roll-Forward - Data Health / Pipeline runs",
+    "dataset": 7105,
+    "workspace": 3,
+    "report_type": "trellis-bars",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"When each gate ran: minutes after the bronze gate\", \"report_subtitle\": \"\", \"dashboard_id\": 7001, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"x_shelf\": [{\"dataset_colname\": \"run_label\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[run_label]\", \"col_alias\": \"Pipeline run\"}], \"y_shelf\": [{\"custom_expr\": \"max([minutes_after_bronze])\", \"expression_for_trigger\": \"max([minutes_after_bronze])\", \"expr_hasagg\": true, \"col_alias\": \"Minutes\", \"dataset_colname\": \"Minutes\", \"dataset_coltype\": \"DOUBLE\"}], \"color_shelf\": [{\"dataset_colname\": \"layer\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[layer]\", \"col_alias\": \"Layer\"}], \"tooltip_shelf\": [], \"drill_shelf\": [], \"label_shelf\": [], \"filters_shelf\": [], \"core\": {\"viz_type\": \"trellis-bars\", \"saved_shelf_sources\": {\"[run_label] as 'sub:Pipeline run'\": \"x_shelf\", \"max([minutes_after_bronze]) as 'sub:Minutes'\": \"y_shelf\", \"[layer] as 'sub:Layer'\": \"color_shelf\"}, \"shelves\": [{\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"color_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"drill_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"trellis-bars\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "b0977693-9841-5865-bafc-8cc5cabe5d48",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 7232,
+   "fields": {
+    "report_name": "",
+    "report_description": "Collections Roll-Forward - Data Health / Pipeline runs",
+    "dataset": 7105,
+    "workspace": 3,
+    "report_type": "trellis-bars",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Rows checked per run and layer (millions)\", \"report_subtitle\": \"\", \"dashboard_id\": 7001, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"x_shelf\": [{\"dataset_colname\": \"run_label\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[run_label]\", \"col_alias\": \"Pipeline run\"}], \"y_shelf\": [{\"custom_expr\": \"sum([rows_checked]) / 1000000\", \"expression_for_trigger\": \"sum([rows_checked]) / 1000000\", \"expr_hasagg\": true, \"col_alias\": \"Rows (M)\", \"dataset_colname\": \"Rows (M)\", \"dataset_coltype\": \"DOUBLE\"}], \"color_shelf\": [{\"dataset_colname\": \"layer\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[layer]\", \"col_alias\": \"Layer\"}], \"tooltip_shelf\": [], \"drill_shelf\": [], \"label_shelf\": [], \"filters_shelf\": [], \"core\": {\"viz_type\": \"trellis-bars\", \"saved_shelf_sources\": {\"[run_label] as 'sub:Pipeline run'\": \"x_shelf\", \"sum([rows_checked]) / 1000000 as 'sub:Rows (M)'\": \"y_shelf\", \"[layer] as 'sub:Layer'\": \"color_shelf\"}, \"shelves\": [{\"name\": \"x_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"y_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"color_shelf\", \"shelf_type\": 1, \"column_type\": 3}, {\"name\": \"tooltip_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"drill_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"label_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"trellis-bars\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "d523e559-be7b-59ee-a20a-224fad4d1b94",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 7233,
+   "fields": {
+    "report_name": "",
+    "report_description": "Collections Roll-Forward - Data Health / Pipeline runs",
+    "dataset": 7105,
+    "workspace": 3,
+    "report_type": "table",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Every DQ gate run\", \"report_subtitle\": \"\", \"dashboard_id\": 7001, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [{\"dataset_colname\": \"checked_at\", \"dataset_coltype\": \"TIMESTAMP\", \"expression_for_trigger\": \"[checked_at]\", \"col_alias\": \"Checked at\", \"order\": {\"priority\": 1, \"ascending\": false}}, {\"dataset_colname\": \"run_label\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[run_label]\", \"col_alias\": \"Pipeline run\"}, {\"dataset_colname\": \"run_type\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[run_type]\", \"col_alias\": \"Type\"}, {\"dataset_colname\": \"as_of\", \"dataset_coltype\": \"DATE\", \"expression_for_trigger\": \"[as_of]\", \"col_alias\": \"Business date\"}, {\"dataset_colname\": \"layer\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[layer]\", \"col_alias\": \"Layer\"}], \"aggregates_shelf\": [{\"custom_expr\": \"max([minutes_after_bronze])\", \"expression_for_trigger\": \"max([minutes_after_bronze])\", \"expr_hasagg\": true, \"col_alias\": \"Min after bronze\", \"dataset_colname\": \"Min after bronze\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"sum([checks])\", \"expression_for_trigger\": \"sum([checks])\", \"expr_hasagg\": true, \"col_alias\": \"Checks\", \"dataset_colname\": \"Checks\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"sum([failed])\", \"expression_for_trigger\": \"sum([failed])\", \"expr_hasagg\": true, \"col_alias\": \"Failed\", \"dataset_colname\": \"Failed\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"sum([critical_failed])\", \"expression_for_trigger\": \"sum([critical_failed])\", \"expr_hasagg\": true, \"col_alias\": \"Critical\", \"dataset_colname\": \"Critical\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"sum([warnings_failed])\", \"expression_for_trigger\": \"sum([warnings_failed])\", \"expr_hasagg\": true, \"col_alias\": \"Warnings\", \"dataset_colname\": \"Warnings\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"sum([near_misses])\", \"expression_for_trigger\": \"sum([near_misses])\", \"expr_hasagg\": true, \"col_alias\": \"Near misses\", \"dataset_colname\": \"Near misses\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"sum([table_count])\", \"expression_for_trigger\": \"sum([table_count])\", \"expr_hasagg\": true, \"col_alias\": \"Tables\", \"dataset_colname\": \"Tables\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"sum([rows_checked])\", \"expression_for_trigger\": \"sum([rows_checked])\", \"expr_hasagg\": true, \"col_alias\": \"Rows checked\", \"dataset_colname\": \"Rows checked\", \"dataset_coltype\": \"DOUBLE\"}], \"filters_shelf\": [], \"core\": {\"viz_type\": \"table\", \"saved_shelf_sources\": {\"[checked_at] as 'sub:Checked at'\": \"dimensions_shelf\", \"[run_label] as 'sub:Pipeline run'\": \"dimensions_shelf\", \"[run_type] as 'sub:Type'\": \"dimensions_shelf\", \"[as_of] as 'sub:Business date'\": \"dimensions_shelf\", \"[layer] as 'sub:Layer'\": \"dimensions_shelf\", \"max([minutes_after_bronze]) as 'sub:Min after bronze'\": \"aggregates_shelf\", \"sum([checks]) as 'sub:Checks'\": \"aggregates_shelf\", \"sum([failed]) as 'sub:Failed'\": \"aggregates_shelf\", \"sum([critical_failed]) as 'sub:Critical'\": \"aggregates_shelf\", \"sum([warnings_failed]) as 'sub:Warnings'\": \"aggregates_shelf\", \"sum([near_misses]) as 'sub:Near misses'\": \"aggregates_shelf\", \"sum([table_count]) as 'sub:Tables'\": \"aggregates_shelf\", \"sum([rows_checked]) as 'sub:Rows checked'\": \"aggregates_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"table\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "f72a83cc-5dae-582c-974c-37ac27bb0a76",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 7234,
+   "fields": {
+    "report_name": "",
+    "report_description": "Collections Roll-Forward - Data Health / Check details",
+    "dataset": 7104,
+    "workspace": 3,
+    "report_type": "table",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Near misses in the latest run: passed, but found bad rows\", \"report_subtitle\": \"\", \"dashboard_id\": 7001, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [{\"dataset_colname\": \"layer\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[layer]\", \"col_alias\": \"Layer\"}, {\"dataset_colname\": \"table_name\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[table_name]\", \"col_alias\": \"Table\"}, {\"dataset_colname\": \"check_name\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[check_name]\", \"col_alias\": \"Check\"}, {\"dataset_colname\": \"column_name\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[column_name]\", \"col_alias\": \"Columns\"}, {\"dataset_colname\": \"severity\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[severity]\", \"col_alias\": \"Severity\"}], \"aggregates_shelf\": [{\"custom_expr\": \"max([unexpected_count])\", \"expression_for_trigger\": \"max([unexpected_count])\", \"expr_hasagg\": true, \"col_alias\": \"Unexpected rows\", \"dataset_colname\": \"Unexpected rows\", \"dataset_coltype\": \"DOUBLE\"}, {\"custom_expr\": \"max([unexpected_pct])\", \"expression_for_trigger\": \"max([unexpected_pct])\", \"expr_hasagg\": true, \"col_alias\": \"Unexpected %\", \"dataset_colname\": \"Unexpected %\", \"dataset_coltype\": \"DOUBLE\"}], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}, {\"custom_expr\": \"[near_miss] = 1\", \"expression_for_trigger\": \"[near_miss] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"table\", \"saved_shelf_sources\": {\"[layer] as 'sub:Layer'\": \"dimensions_shelf\", \"[table_name] as 'sub:Table'\": \"dimensions_shelf\", \"[check_name] as 'sub:Check'\": \"dimensions_shelf\", \"[column_name] as 'sub:Columns'\": \"dimensions_shelf\", \"[severity] as 'sub:Severity'\": \"dimensions_shelf\", \"max([unexpected_count]) as 'sub:Unexpected rows'\": \"aggregates_shelf\", \"max([unexpected_pct]) as 'sub:Unexpected %'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\", \"[near_miss] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"table\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "3342a3a2-cefa-5dda-b179-0036833e5495",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 7235,
+   "fields": {
+    "report_name": "",
+    "report_description": "Collections Roll-Forward - Data Health / Check details",
+    "dataset": 7104,
+    "workspace": 3,
+    "report_type": "table",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Failed checks, all runs (warnings here do not stop the pipeline)\", \"report_subtitle\": \"\", \"dashboard_id\": 7001, \"limit\": 1000, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [{\"dataset_colname\": \"as_of\", \"dataset_coltype\": \"DATE\", \"expression_for_trigger\": \"[as_of]\", \"col_alias\": \"As of\", \"order\": {\"priority\": 1, \"ascending\": false}}, {\"dataset_colname\": \"run_label\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[run_label]\", \"col_alias\": \"Pipeline run\"}, {\"dataset_colname\": \"layer\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[layer]\", \"col_alias\": \"Layer\"}, {\"dataset_colname\": \"table_name\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[table_name]\", \"col_alias\": \"Table\"}, {\"dataset_colname\": \"check_name\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[check_name]\", \"col_alias\": \"Check\"}, {\"dataset_colname\": \"severity\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[severity]\", \"col_alias\": \"Severity\"}, {\"dataset_colname\": \"observed_value\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[observed_value]\", \"col_alias\": \"Observed\"}], \"aggregates_shelf\": [{\"custom_expr\": \"sum([unexpected_count])\", \"expression_for_trigger\": \"sum([unexpected_count])\", \"expr_hasagg\": true, \"col_alias\": \"Unexpected rows\", \"dataset_colname\": \"Unexpected rows\", \"dataset_coltype\": \"DOUBLE\"}], \"filters_shelf\": [{\"custom_expr\": \"[failed] = 1\", \"expression_for_trigger\": \"[failed] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"table\", \"saved_shelf_sources\": {\"[as_of] as 'sub:As of'\": \"dimensions_shelf\", \"[run_label] as 'sub:Pipeline run'\": \"dimensions_shelf\", \"[layer] as 'sub:Layer'\": \"dimensions_shelf\", \"[table_name] as 'sub:Table'\": \"dimensions_shelf\", \"[check_name] as 'sub:Check'\": \"dimensions_shelf\", \"[severity] as 'sub:Severity'\": \"dimensions_shelf\", \"[observed_value] as 'sub:Observed'\": \"dimensions_shelf\", \"sum([unexpected_count]) as 'sub:Unexpected rows'\": \"aggregates_shelf\", \"[failed] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"table\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "a49fb9b1-6097-5df8-b806-684bc209e724",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  },
+  {
+   "model": "reports.report",
+   "pk": 7236,
+   "fields": {
+    "report_name": "",
+    "report_description": "Collections Roll-Forward - Data Health / Check details",
+    "dataset": 7104,
+    "workspace": 3,
+    "report_type": "table",
+    "report_mode": "",
+    "dashboard_url_name": "",
+    "report_data": "{\"report_data\": {\"report_title\": \"Check catalogue (latest run)\", \"report_subtitle\": \"\", \"dashboard_id\": 7001, \"limit\": 300, \"sample_pct\": \"Off\", \"selected_segments\": [], \"report_derived_data\": [], \"click_behaviors\": {}, \"sort_orders_asc\": {}, \"user_settings\": {}, \"dimensions_shelf\": [{\"dataset_colname\": \"layer_order\", \"dataset_coltype\": \"TINYINT\", \"expression_for_trigger\": \"[layer_order]\", \"col_alias\": \"Step\", \"order\": {\"priority\": 1, \"ascending\": true}}, {\"dataset_colname\": \"layer\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[layer]\", \"col_alias\": \"Layer\"}, {\"dataset_colname\": \"table_name\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[table_name]\", \"col_alias\": \"Table\"}, {\"dataset_colname\": \"category\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[category]\", \"col_alias\": \"Category\"}, {\"dataset_colname\": \"check_name\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[check_name]\", \"col_alias\": \"Check\"}, {\"dataset_colname\": \"column_name\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[column_name]\", \"col_alias\": \"Columns\"}, {\"dataset_colname\": \"severity\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[severity]\", \"col_alias\": \"Severity\"}, {\"dataset_colname\": \"observed_value\", \"dataset_coltype\": \"STRING\", \"expression_for_trigger\": \"[observed_value]\", \"col_alias\": \"Observed\"}], \"aggregates_shelf\": [{\"custom_expr\": \"sum([passed])\", \"expression_for_trigger\": \"sum([passed])\", \"expr_hasagg\": true, \"col_alias\": \"Passed\", \"dataset_colname\": \"Passed\", \"dataset_coltype\": \"DOUBLE\"}], \"filters_shelf\": [{\"custom_expr\": \"[is_latest] = 1\", \"expression_for_trigger\": \"[is_latest] = 1\", \"filter_input\": {}, \"filter_data\": [], \"dataset_colname\": \"\", \"dataset_coltype\": \"STRING\", \"filter_column\": \"\"}], \"core\": {\"viz_type\": \"table\", \"saved_shelf_sources\": {\"[layer_order] as 'sub:Step'\": \"dimensions_shelf\", \"[layer] as 'sub:Layer'\": \"dimensions_shelf\", \"[table_name] as 'sub:Table'\": \"dimensions_shelf\", \"[category] as 'sub:Category'\": \"dimensions_shelf\", \"[check_name] as 'sub:Check'\": \"dimensions_shelf\", \"[column_name] as 'sub:Columns'\": \"dimensions_shelf\", \"[severity] as 'sub:Severity'\": \"dimensions_shelf\", \"[observed_value] as 'sub:Observed'\": \"dimensions_shelf\", \"sum([passed]) as 'sub:Passed'\": \"aggregates_shelf\", \"[is_latest] = 1\": \"filters_shelf\"}, \"shelves\": [{\"name\": \"dimensions_shelf\", \"shelf_type\": 1, \"column_type\": 1}, {\"name\": \"aggregates_shelf\", \"shelf_type\": 1, \"column_type\": 2}, {\"name\": \"filters_shelf\", \"shelf_type\": 2, \"column_type\": 3}]}}, \"report_type\": \"table\"}",
+    "shared_visual_dashboards": null,
+    "parent_report": null,
+    "uuid": "c33ef209-ab7c-5517-86bc-5e274cc537c5",
+    "imported_uuid": null,
+    "has_css_styles": false,
+    "report_search_text": ""
+   }
+  }
+ ],
+ "colorpalette": [],
+ "appgroups": [],
+ "datasets": [
+  {
+   "model": "datasets.dataset",
+   "pk": 7100,
+   "fields": {
+    "dataconnection": 3,
+    "dataset_name": "Collections DLQ - Call list",
+    "dataset_type": "singletable",
+    "dataset_detail": "rsingh_collections_delinquency_prediction_report.v_call_list",
+    "dataset_description": "rsingh_collections_delinquency_prediction_report.v_call_list (sql/dataviz_views.sql)",
+    "dataset_info": "[{\"tablename\": \"rsingh_collections_delinquency_prediction_report.v_call_list\", \"columns\": [{\"alias\": \"run_date\", \"type\": \"DATE\", \"name\": \"run_date\", \"isdim\": true}, {\"alias\": \"is_latest\", \"type\": \"TINYINT\", \"name\": \"is_latest\", \"isdim\": true}, {\"alias\": \"run_id\", \"type\": \"STRING\", \"name\": \"run_id\", \"isdim\": true}, {\"alias\": \"snapshot_date\", \"type\": \"DATE\", \"name\": \"snapshot_date\", \"isdim\": true}, {\"alias\": \"loan_id\", \"type\": \"STRING\", \"name\": \"loan_id\", \"isdim\": true}, {\"alias\": \"product_code\", \"type\": \"INT\", \"name\": \"product_code\", \"isdim\": true}, {\"alias\": \"product_name\", \"type\": \"STRING\", \"name\": \"product_name\", \"isdim\": true}, {\"alias\": \"dpd_now\", \"type\": \"INT\", \"name\": \"dpd_now\", \"isdim\": true}, {\"alias\": \"dpd_bucket\", \"type\": \"STRING\", \"name\": \"dpd_bucket\", \"isdim\": true}, {\"alias\": \"overdue_amount\", \"type\": \"DOUBLE\", \"name\": \"overdue_amount\", \"isdim\": false}, {\"alias\": \"emi_amount\", \"type\": \"DOUBLE\", \"name\": \"emi_amount\", \"isdim\": false}, {\"alias\": \"p_roll\", \"type\": \"DOUBLE\", \"name\": \"p_roll\", \"isdim\": false}, {\"alias\": \"expected_roll_inr\", \"type\": \"DOUBLE\", \"name\": \"expected_roll_inr\", \"isdim\": false}, {\"alias\": \"priority_score\", \"type\": \"DOUBLE\", \"name\": \"priority_score\", \"isdim\": false}, {\"alias\": \"priority_rank\", \"type\": \"INT\", \"name\": \"priority_rank\", \"isdim\": true}, {\"alias\": \"priority_pct\", \"type\": \"DOUBLE\", \"name\": \"priority_pct\", \"isdim\": false}, {\"alias\": \"treatment\", \"type\": \"STRING\", \"name\": \"treatment\", \"isdim\": true}, {\"alias\": \"action\", \"type\": \"STRING\", \"name\": \"action\", \"isdim\": true}, {\"alias\": \"risk_signals\", \"type\": \"STRING\", \"name\": \"risk_signals\", \"isdim\": true}]}]",
+    "dataset_tablenames": "[\"rsingh_collections_delinquency_prediction_report.v_call_list\"]",
+    "uuid": "c88b12f2-aca3-5bf6-aee7-5791f0154b7c",
+    "imported_uuid": null,
+    "cache_sequence": 0,
+    "dataset_settings": "{}",
+    "search_enabled": false,
+    "dashboards": [
+     7000
+    ],
+    "version_id": 7100,
+    "version_group_id": 7100,
+    "is_active_version": true,
+    "version_name": "collections-roll-forward",
+    "is_named_version": false
+   }
+  },
+  {
+   "model": "datasets.dataset",
+   "pk": 7101,
+   "fields": {
+    "dataconnection": 3,
+    "dataset_name": "Collections DLQ - Book weekly",
+    "dataset_type": "singletable",
+    "dataset_detail": "rsingh_collections_delinquency_prediction_report.v_book_weekly",
+    "dataset_description": "rsingh_collections_delinquency_prediction_report.v_book_weekly (sql/dataviz_views.sql)",
+    "dataset_info": "[{\"tablename\": \"rsingh_collections_delinquency_prediction_report.v_book_weekly\", \"columns\": [{\"alias\": \"snapshot_date\", \"type\": \"DATE\", \"name\": \"snapshot_date\", \"isdim\": true}, {\"alias\": \"product_name\", \"type\": \"STRING\", \"name\": \"product_name\", \"isdim\": true}, {\"alias\": \"loans\", \"type\": \"BIGINT\", \"name\": \"loans\", \"isdim\": false}, {\"alias\": \"labelled\", \"type\": \"BIGINT\", \"name\": \"labelled\", \"isdim\": false}, {\"alias\": \"rolls\", \"type\": \"BIGINT\", \"name\": \"rolls\", \"isdim\": false}, {\"alias\": \"overdue_inr\", \"type\": \"DOUBLE\", \"name\": \"overdue_inr\", \"isdim\": false}, {\"alias\": \"rolled_overdue_inr\", \"type\": \"DOUBLE\", \"name\": \"rolled_overdue_inr\", \"isdim\": false}, {\"alias\": \"nach_bounces_6m\", \"type\": \"BIGINT\", \"name\": \"nach_bounces_6m\", \"isdim\": false}, {\"alias\": \"broken_ptp_3m\", \"type\": \"BIGINT\", \"name\": \"broken_ptp_3m\", \"isdim\": false}]}]",
+    "dataset_tablenames": "[\"rsingh_collections_delinquency_prediction_report.v_book_weekly\"]",
+    "uuid": "f274a995-2e50-5ca1-9d23-1e54a3f4fce9",
+    "imported_uuid": null,
+    "cache_sequence": 0,
+    "dataset_settings": "{}",
+    "search_enabled": false,
+    "dashboards": [
+     7000
+    ],
+    "version_id": 7101,
+    "version_group_id": 7101,
+    "is_active_version": true,
+    "version_name": "collections-roll-forward",
+    "is_named_version": false
+   }
+  },
+  {
+   "model": "datasets.dataset",
+   "pk": 7102,
+   "fields": {
+    "dataconnection": 3,
+    "dataset_name": "Collections DLQ - Model runs",
+    "dataset_type": "singletable",
+    "dataset_detail": "rsingh_collections_delinquency_prediction_report.v_model_run",
+    "dataset_description": "rsingh_collections_delinquency_prediction_report.v_model_run (sql/dataviz_views.sql)",
+    "dataset_info": "[{\"tablename\": \"rsingh_collections_delinquency_prediction_report.v_model_run\", \"columns\": [{\"alias\": \"run_date\", \"type\": \"DATE\", \"name\": \"run_date\", \"isdim\": true}, {\"alias\": \"is_latest\", \"type\": \"TINYINT\", \"name\": \"is_latest\", \"isdim\": true}, {\"alias\": \"run_id\", \"type\": \"STRING\", \"name\": \"run_id\", \"isdim\": true}, {\"alias\": \"run_ts\", \"type\": \"TIMESTAMP\", \"name\": \"run_ts\", \"isdim\": true}, {\"alias\": \"device\", \"type\": \"STRING\", \"name\": \"device\", \"isdim\": true}, {\"alias\": \"tabicl_version\", \"type\": \"STRING\", \"name\": \"tabicl_version\", \"isdim\": true}, {\"alias\": \"triggered_by\", \"type\": \"STRING\", \"name\": \"triggered_by\", \"isdim\": true}, {\"alias\": \"scored_loans\", \"type\": \"INT\", \"name\": \"scored_loans\", \"isdim\": false}, {\"alias\": \"context_rows\", \"type\": \"INT\", \"name\": \"context_rows\", \"isdim\": false}, {\"alias\": \"holdout_rows\", \"type\": \"INT\", \"name\": \"holdout_rows\", \"isdim\": false}, {\"alias\": \"holdout_roll_rate\", \"type\": \"DOUBLE\", \"name\": \"holdout_roll_rate\", \"isdim\": false}, {\"alias\": \"holdout_auc\", \"type\": \"DOUBLE\", \"name\": \"holdout_auc\", \"isdim\": false}, {\"alias\": \"capture_top10\", \"type\": \"DOUBLE\", \"name\": \"capture_top10\", \"isdim\": false}, {\"alias\": \"dpd_only_capture_top10\", \"type\": \"DOUBLE\", \"name\": \"dpd_only_capture_top10\", \"isdim\": false}, {\"alias\": \"uplift_top10\", \"type\": \"DOUBLE\", \"name\": \"uplift_top10\", \"isdim\": false}, {\"alias\": \"capture_top40\", \"type\": \"DOUBLE\", \"name\": \"capture_top40\", \"isdim\": false}, {\"alias\": \"dpd_only_capture_top40\", \"type\": \"DOUBLE\", \"name\": \"dpd_only_capture_top40\", \"isdim\": false}, {\"alias\": \"uplift_top40\", \"type\": \"DOUBLE\", \"name\": \"uplift_top40\", \"isdim\": false}, {\"alias\": \"value_capture_top10\", \"type\": \"DOUBLE\", \"name\": \"value_capture_top10\", \"isdim\": false}, {\"alias\": \"duration_s\", \"type\": \"DOUBLE\", \"name\": \"duration_s\", \"isdim\": false}]}]",
+    "dataset_tablenames": "[\"rsingh_collections_delinquency_prediction_report.v_model_run\"]",
+    "uuid": "4cc6fb35-1b96-5bdb-aa88-661736585041",
+    "imported_uuid": null,
+    "cache_sequence": 0,
+    "dataset_settings": "{}",
+    "search_enabled": false,
+    "dashboards": [
+     7000
+    ],
+    "version_id": 7102,
+    "version_group_id": 7102,
+    "is_active_version": true,
+    "version_name": "collections-roll-forward",
+    "is_named_version": false
+   }
+  },
+  {
+   "model": "datasets.dataset",
+   "pk": 7103,
+   "fields": {
+    "dataconnection": 3,
+    "dataset_name": "Collections DLQ - Holdout deciles",
+    "dataset_type": "singletable",
+    "dataset_detail": "rsingh_collections_delinquency_prediction_report.v_holdout",
+    "dataset_description": "rsingh_collections_delinquency_prediction_report.v_holdout (sql/dataviz_views.sql)",
+    "dataset_info": "[{\"tablename\": \"rsingh_collections_delinquency_prediction_report.v_holdout\", \"columns\": [{\"alias\": \"run_date\", \"type\": \"DATE\", \"name\": \"run_date\", \"isdim\": true}, {\"alias\": \"is_latest\", \"type\": \"TINYINT\", \"name\": \"is_latest\", \"isdim\": true}, {\"alias\": \"decile\", \"type\": \"INT\", \"name\": \"decile\", \"isdim\": true}, {\"alias\": \"loans\", \"type\": \"INT\", \"name\": \"loans\", \"isdim\": false}, {\"alias\": \"rolls\", \"type\": \"INT\", \"name\": \"rolls\", \"isdim\": false}, {\"alias\": \"roll_rate\", \"type\": \"DOUBLE\", \"name\": \"roll_rate\", \"isdim\": false}, {\"alias\": \"mean_p_roll\", \"type\": \"DOUBLE\", \"name\": \"mean_p_roll\", \"isdim\": false}, {\"alias\": \"cum_capture\", \"type\": \"DOUBLE\", \"name\": \"cum_capture\", \"isdim\": false}, {\"alias\": \"random_cum_capture\", \"type\": \"DECIMAL(17,6)\", \"name\": \"random_cum_capture\", \"isdim\": false}]}]",
+    "dataset_tablenames": "[\"rsingh_collections_delinquency_prediction_report.v_holdout\"]",
+    "uuid": "f2356b58-a58a-5259-99f7-cd0ead4f85e9",
+    "imported_uuid": null,
+    "cache_sequence": 0,
+    "dataset_settings": "{}",
+    "search_enabled": false,
+    "dashboards": [
+     7000
+    ],
+    "version_id": 7103,
+    "version_group_id": 7103,
+    "is_active_version": true,
+    "version_name": "collections-roll-forward",
+    "is_named_version": false
+   }
+  },
+  {
+   "model": "datasets.dataset",
+   "pk": 7104,
+   "fields": {
+    "dataconnection": 3,
+    "dataset_name": "Collections DLQ - Data quality",
+    "dataset_type": "singletable",
+    "dataset_detail": "rsingh_collections_delinquency_prediction_report.v_dq",
+    "dataset_description": "rsingh_collections_delinquency_prediction_report.v_dq (sql/dataviz_views.sql)",
+    "dataset_info": "[{\"tablename\": \"rsingh_collections_delinquency_prediction_report.v_dq\", \"columns\": [{\"alias\": \"pipeline_run\", \"type\": \"STRING\", \"name\": \"pipeline_run\", \"isdim\": true}, {\"alias\": \"run_type\", \"type\": \"STRING\", \"name\": \"run_type\", \"isdim\": true}, {\"alias\": \"run_label\", \"type\": \"STRING\", \"name\": \"run_label\", \"isdim\": true}, {\"alias\": \"run_ts\", \"type\": \"TIMESTAMP\", \"name\": \"run_ts\", \"isdim\": true}, {\"alias\": \"as_of\", \"type\": \"DATE\", \"name\": \"as_of\", \"isdim\": true}, {\"alias\": \"layer\", \"type\": \"STRING\", \"name\": \"layer\", \"isdim\": true}, {\"alias\": \"layer_order\", \"type\": \"TINYINT\", \"name\": \"layer_order\", \"isdim\": true}, {\"alias\": \"table_name\", \"type\": \"STRING\", \"name\": \"table_name\", \"isdim\": true}, {\"alias\": \"check_name\", \"type\": \"STRING\", \"name\": \"check_name\", \"isdim\": true}, {\"alias\": \"expectation_type\", \"type\": \"STRING\", \"name\": \"expectation_type\", \"isdim\": true}, {\"alias\": \"category\", \"type\": \"STRING\", \"name\": \"category\", \"isdim\": true}, {\"alias\": \"column_name\", \"type\": \"STRING\", \"name\": \"column_name\", \"isdim\": true}, {\"alias\": \"severity\", \"type\": \"STRING\", \"name\": \"severity\", \"isdim\": true}, {\"alias\": \"passed\", \"type\": \"INT\", \"name\": \"passed\", \"isdim\": false}, {\"alias\": \"failed\", \"type\": \"BIGINT\", \"name\": \"failed\", \"isdim\": false}, {\"alias\": \"near_miss\", \"type\": \"TINYINT\", \"name\": \"near_miss\", \"isdim\": false}, {\"alias\": \"observed_value\", \"type\": \"STRING\", \"name\": \"observed_value\", \"isdim\": true}, {\"alias\": \"unexpected_count\", \"type\": \"BIGINT\", \"name\": \"unexpected_count\", \"isdim\": false}, {\"alias\": \"unexpected_pct\", \"type\": \"DOUBLE\", \"name\": \"unexpected_pct\", \"isdim\": false}, {\"alias\": \"element_count\", \"type\": \"BIGINT\", \"name\": \"element_count\", \"isdim\": false}, {\"alias\": \"row_count\", \"type\": \"BIGINT\", \"name\": \"row_count\", \"isdim\": false}, {\"alias\": \"is_latest\", \"type\": \"TINYINT\", \"name\": \"is_latest\", \"isdim\": true}]}]",
+    "dataset_tablenames": "[\"rsingh_collections_delinquency_prediction_report.v_dq\"]",
+    "uuid": "b3dc4408-5d13-5909-a6f7-c1091e4ab6da",
+    "imported_uuid": null,
+    "cache_sequence": 0,
+    "dataset_settings": "{}",
+    "search_enabled": false,
+    "dashboards": [
+     7001
+    ],
+    "version_id": 7104,
+    "version_group_id": 7104,
+    "is_active_version": true,
+    "version_name": "collections-roll-forward",
+    "is_named_version": false
+   }
+  },
+  {
+   "model": "datasets.dataset",
+   "pk": 7105,
+   "fields": {
+    "dataconnection": 3,
+    "dataset_name": "Collections DLQ - DQ runs",
+    "dataset_type": "singletable",
+    "dataset_detail": "rsingh_collections_delinquency_prediction_report.v_dq_run",
+    "dataset_description": "rsingh_collections_delinquency_prediction_report.v_dq_run (sql/dataviz_views.sql)",
+    "dataset_info": "[{\"tablename\": \"rsingh_collections_delinquency_prediction_report.v_dq_run\", \"columns\": [{\"alias\": \"pipeline_run\", \"type\": \"STRING\", \"name\": \"pipeline_run\", \"isdim\": true}, {\"alias\": \"run_type\", \"type\": \"STRING\", \"name\": \"run_type\", \"isdim\": true}, {\"alias\": \"run_label\", \"type\": \"STRING\", \"name\": \"run_label\", \"isdim\": true}, {\"alias\": \"as_of\", \"type\": \"DATE\", \"name\": \"as_of\", \"isdim\": true}, {\"alias\": \"layer\", \"type\": \"STRING\", \"name\": \"layer\", \"isdim\": true}, {\"alias\": \"layer_order\", \"type\": \"TINYINT\", \"name\": \"layer_order\", \"isdim\": true}, {\"alias\": \"is_latest\", \"type\": \"TINYINT\", \"name\": \"is_latest\", \"isdim\": true}, {\"alias\": \"checked_at\", \"type\": \"TIMESTAMP\", \"name\": \"checked_at\", \"isdim\": true}, {\"alias\": \"minutes_after_bronze\", \"type\": \"DOUBLE\", \"name\": \"minutes_after_bronze\", \"isdim\": false}, {\"alias\": \"checks\", \"type\": \"BIGINT\", \"name\": \"checks\", \"isdim\": false}, {\"alias\": \"passed\", \"type\": \"BIGINT\", \"name\": \"passed\", \"isdim\": false}, {\"alias\": \"failed\", \"type\": \"BIGINT\", \"name\": \"failed\", \"isdim\": false}, {\"alias\": \"critical_failed\", \"type\": \"BIGINT\", \"name\": \"critical_failed\", \"isdim\": false}, {\"alias\": \"warnings_failed\", \"type\": \"BIGINT\", \"name\": \"warnings_failed\", \"isdim\": false}, {\"alias\": \"near_misses\", \"type\": \"BIGINT\", \"name\": \"near_misses\", \"isdim\": false}, {\"alias\": \"table_count\", \"type\": \"BIGINT\", \"name\": \"table_count\", \"isdim\": false}, {\"alias\": \"rows_checked\", \"type\": \"BIGINT\", \"name\": \"rows_checked\", \"isdim\": false}]}]",
+    "dataset_tablenames": "[\"rsingh_collections_delinquency_prediction_report.v_dq_run\"]",
+    "uuid": "9dca4034-f583-5baa-a9b7-773fba27b040",
+    "imported_uuid": null,
+    "cache_sequence": 0,
+    "dataset_settings": "{}",
+    "search_enabled": false,
+    "dashboards": [
+     7001
+    ],
+    "version_id": 7105,
+    "version_group_id": 7105,
+    "is_active_version": true,
+    "version_name": "collections-roll-forward",
+    "is_named_version": false
+   }
+  }
+ ],
+ "version": {
+  "Arcviz Version": "8.1.4.1000",
+  "Raw Timestamp of last commit": "1789380895",
+  "Timestamp of last commit": "Mon Sep 14 12:14:55 2026 +0200",
+  "SHA of last commit": "f57d558a7dcd7cda432e8fffd9d3c1fc60cdfad9",
+  "Description": "8.1.4.1000-4"
+ }
+}

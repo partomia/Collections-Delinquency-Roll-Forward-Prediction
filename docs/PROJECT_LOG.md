@@ -272,6 +272,31 @@ Moved end to end from go01 to federal, the same way as Customer-Churn-Prediction
   recreated (13:05 UTC) and synced, the jobs pointed back and the temporary repository
   deleted. Airflow afterwards: DAG not paused, active, no import errors, next run the
   2026-10-03 interval (4 Oct 00:30 UTC). No job had to be re-run.
+
+### Data Visualization dashboards (2026-10-03)
+
+- Instance: the federal CDW Data Visualization at `COLL_CDV_URL` (8.1.4.1000), shared with
+  the Spend project; the API key reaches the admin API as the workload user (superuser). Its own
+  connection `federal-impala-1` uses a cluster-internal host as a service user.
+- `sql/dataviz_views.sql`: 6 views in `rsingh_collections_delinquency_prediction_report`,
+  13 statements in 29 s. Checks: 756 loans on the 2026-10-02 list, 73.3 lakh overdue, 75
+  agent calls, 448 expected rolls; nine model runs, top 10% capture 0.6-2.4 points above
+  DPD alone on every run; latest DQ runs 55 / 25 / 24 checks (bronze / silver / gold),
+  one failed (the gold roll-rate warning), 3 near misses.
+- `dataviz/build_dashboard.py`: connection `rsingh-coll-dlq-impala` (id 3, public endpoint
+  443, LDAP), workspace `rsingh-coll-dlq` (id 3; the workload user manages, Everyone views), export file
+  116 KB (6 datasets, 36 visuals, 2 dashboards of 7 sheets), import 2 s; datasets 26-31,
+  dashboards 203 and 204.
+- The import ignores the file's workspace (`workspace_update: false`) and put both
+  dashboards in the workload user's Private workspace. A POST of the full record to
+  `/arc/adminapi/v1/visuals` created a copy (221, deleted); a POST to
+  `/arc/adminapi/v1/visuals/<id>` updates in place. The script now moves this project's
+  visuals after every import; the re-import kept ids 203 / 204 (matched by UUID).
+- `v_dq.run_type` first labelled `manual-2026-10-02` as a DAG manual run: `_` is a LIKE
+  wildcard, so `'manual__%'` matched it; the patterns are escaped now.
+- `--verify`: all 36 visuals return rows through Data Visualization's connection, 32 s.
+- A workspace `rsingh-casa-alb` (id 4) appeared on the instance meanwhile; not this
+  project's, left alone.
 - `set_airflow_variables.py`: the four `COLL_CAI_*` Variables created; a second run
   reports them up to date. `deploy_dag.sh`: `rsingh-coll-dlq-orchestration` created,
   schedule `30 0 * * *`, `paused: true`, `pausedUponCreation: true`, no runs.

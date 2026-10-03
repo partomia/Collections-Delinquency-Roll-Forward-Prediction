@@ -299,6 +299,19 @@ scoring with TabICL, no table written). It needs the repository secrets
 `CAI_URL`, `CAI_API_KEY` and `CAI_PROJECT_ID`; until `CAI_URL` is set it prints a
 notice and passes. The daily DAG is what publishes.
 
+### 5c. Data Visualization dashboards
+
+Two dashboards in the federal CDW Data Visualization instance (`COLL_CDV_URL`, shared with
+other projects), in the workspace `rsingh-coll-dlq`: **Collections Roll-Forward - Call List &
+Model Trust** and **Collections Roll-Forward - Data Health**. They read six views in
+`rsingh_collections_delinquency_prediction_report` (`sql/dataviz_views.sql`); no table
+changes. Build, import and check: `docs/DATAVIZ.md`.
+
+```bash
+python scripts/run_impala_sql.py sql/dataviz_views.sql
+python dataviz/build_dashboard.py && python dataviz/build_dashboard.py --verify
+```
+
 ### Daily operation
 
 | When (IST) | What | Who |
@@ -341,9 +354,10 @@ ci/            CAI resources (cai_jobs.py), setup_cai.py (API v2), trigger_cai_p
 cai/model/     predict.py (endpoint), test_endpoint.py
 app/           Streamlit app + CAI launcher
 config/        collections.yaml (names, storage, model), policy.yaml (context, holdout, treatment bands)
-sql/           Hue report and time-travel queries
-docs/          demo runbook, PROJECT_LOG.md (dated history of the build and every platform change)
-scripts/       run_cde_local.py (CDE jobs on a laptop)
+sql/           Hue report and time-travel queries, dataviz_views.sql (Data Visualization views)
+dataviz/       build_dashboard.py (dashboards as code), collections_dashboards.json (export file)
+docs/          demo runbook, DATAVIZ.md, PROJECT_LOG.md (dated history of the build and every platform change)
+scripts/       run_cde_local.py (CDE jobs on a laptop), run_impala_sql.py
 ```
 
 ## Sources

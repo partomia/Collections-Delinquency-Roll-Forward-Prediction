@@ -165,11 +165,9 @@ Names:
   next *scheduled* DAG run (00:30 UTC) will exercise the new gate through Airflow itself. Not
   done: write-audit-publish on gold with Iceberg branches (check branch support on the vcluster
   first) — still optional/future.
-- Cloudera Data Visualization (CDV 8.1.2 in this CDW environment) as the self-service
-  data-quality and operations dashboard, now that `ref.dq_results` exists to point it at.
-  The laptop reaches the CDV Admin API with an API key (`COLL_CDV_*` in `.env`, still
-  unset — placeholders only). The shared connection `default-impala-aws` (id 91)
-  targets our warehouse but runs as a service user (no impersonation) with the cache
-  off; create our own connection `rsingh-collections-impala`, workspace and datasets via
-  the Admin API, build the dashboards in the UI, export them with the migration API
-  into `cdv/` and add an import script.
+- [x] **Cloudera Data Visualization** (3 Oct 2026, federal): two dashboards as code
+  (`dataviz/build_dashboard.py`, `docs/DATAVIZ.md`) in the federal CDW instance shared with
+  the Spend project, in this project's workspace `rsingh-coll-dlq`, through our own
+  connection `rsingh-coll-dlq-impala` (public endpoint, LDAP). Six views in
+  `rsingh_collections_delinquency_prediction_report`; no table changes. Built in the UI
+  is no longer needed: the export file is generated and imported by the script.
