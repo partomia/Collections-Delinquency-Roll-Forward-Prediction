@@ -130,6 +130,9 @@ Names:
 ## Open (federal, 3 Oct 2026)
 
 - First scheduled DAG run, 4 Oct 00:30 UTC: not yet observed.
+- CDE repository `rsingh-coll-dlq-pipeline` still holds the pre-rewrite commits
+  (`cde repository sync`: "non-fast-forward update"); same job files, but recreate it
+  (delete, then `deploy_jobs.sh`) before the next code change has to reach CDE.
 - A CAI engine that is killed can be reported as `ENGINE_SUCCEEDED` (decision 12).
   The daily job is one date (peak ~9-10 GiB of 16 GB), but Airflow would not notice a
   silent end; a check that the run date reached `collections_model_run` would.
