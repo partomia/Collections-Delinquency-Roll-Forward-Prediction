@@ -1,5 +1,5 @@
 # CAI runtime (Python 3.11): daily scoring job, model endpoint, Streamlit app.
-# The default Linux torch wheel includes CUDA, so the same file serves GPU sessions and jobs.
+# The default Linux torch wheel includes CUDA; on federal the jobs and model run it on CPU.
 tabicl==2.2.0
 scikit-learn
 numpy

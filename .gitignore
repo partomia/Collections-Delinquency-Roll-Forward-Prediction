@@ -36,3 +36,6 @@ metastore_db/
 derby.log
 logs/
 *.log
+
+# CAI project state written by jobs (sync-code hash marker)
+artifacts/

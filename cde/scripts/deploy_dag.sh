@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Register/update the Airflow DAG as a `--type airflow` CDE job sourced from
 # the repository. Re-run after every DAG change: `cde repository sync` alone
-# does not refresh an already-registered DAG.
+# does not refresh an already-registered DAG. Set the COLL_CAI_* Airflow
+# Variables first (cde/scripts/set_airflow_variables.py).
 
 set -euo pipefail
 
@@ -26,5 +27,7 @@ fi
 
 echo "==> Creating ${DAG_JOB_NAME}"
 cde job create --name "${DAG_JOB_NAME}" --type airflow --dag-file "${DAG_PATH}" --mount-1-resource "${REPO_NAME}"
-echo "DAG collections_roll_forward_pipeline registered (daily, 00:30 UTC). Run now:"
-echo "  cde job run --name ${DAG_JOB_NAME}"
+echo "DAG collections_roll_forward_pipeline registered paused (daily, 00:30 UTC)."
+echo "Unpausing runs the latest closed interval at once:"
+echo "  cde job schedule unpause --name ${DAG_JOB_NAME}"
+echo "Run by hand: cde job run --name ${DAG_JOB_NAME} --config-json '{\"as_of\": \"YYYY-MM-DD\"}'"

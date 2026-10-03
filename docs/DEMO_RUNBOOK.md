@@ -1,17 +1,59 @@
 # Demo runbook (about 12 minutes)
 
-Before the demo (30 minutes ahead):
+On the federal environment (from 3 Oct 2026). Secrets (`COLL_IMPALA_PASSWORD`,
+the model access key, any API key) are never written out; take them from `.env`
+or your own User Settings each time.
+
+| What | Name | ID |
+|---|---|---|
+| CAI workbench | federal | `https://federal-cml.federal.dp5i-5vkq.cloudera.site` |
+| CAI project | `rsingh-coll-dlq` | (set by `ci/setup_cai.py`) |
+| CAI jobs | `rsingh-coll-dlq-daily-score`, `rsingh-coll-dlq-sync-code`, `rsingh-coll-dlq-backfill-history` | |
+| Model | `rsingh-coll-dlq-roll-scorer` | |
+| Application | `rsingh-coll-dlq-call-list` | |
+| CDE jobs | `rsingh-coll-dlq-{generate-loan-bronze,dq-check,build-silver,build-gold-features}` | |
+| CDE DAG job | `rsingh-coll-dlq-orchestration` | dagID `collections_roll_forward_pipeline` |
+
+## Setup (one-time, scripted from the laptop)
+
+```bash
+set -a; source .env; set +a
+./cde/scripts/deploy_jobs.sh                          # CDE: repository, env, Spark jobs
+python ci/setup_cai.py --dry-run                      # CAI: what would change
+python ci/setup_cai.py --no-serving --sync            # CAI: project, environment, jobs; then sync-code
+python ci/setup_cai.py --sync                         # + model and app, once a run is published
+python cde/scripts/set_airflow_variables.py --dry-run
+python cde/scripts/set_airflow_variables.py           # Airflow: COLL_CAI_* Variables
+./cde/scripts/deploy_dag.sh                           # CDE: DAG, registered paused
+```
+
+The CAI jobs (`ci/cai_jobs.py`; the tests keep this table and the code in step):
+
+| Job | Script | Size | Timeout |
+|---|---|---|---|
+| `rsingh-coll-dlq-sync-code` | `cai/jobs/sync_code.py` | 2 vCPU / 8 GB / 0 GPU | 60 min |
+| `rsingh-coll-dlq-daily-score` | `cai/jobs/daily_score.py` | 4 vCPU / 16 GB / 0 GPU | 60 min |
+| `rsingh-coll-dlq-backfill-history` | `cai/jobs/backfill_history.py` | 4 vCPU / 16 GB / 0 GPU | 300 min |
+
+`rsingh-coll-dlq-backfill-history` is a one-off, started by hand with
+`COLL_BACKFILL_WEEKS` in the run's environment (default 8).
+
+CPU only on federal: a GPU, or 8 vCPU / 32 GB, cannot be scheduled from this
+project, so the job and model run TabICL on CPU with the 10,000-row context
+(`config/policy.yaml` `rows_cpu`). go01 ran them on an NVIDIA L4 with 50,000 rows.
+
+## Before the demo (30 minutes ahead)
 
 - CDE Job Runs: today's 06:00 IST DAG run succeeded (all seven tasks green,
   including the three `dq_*` Great Expectations gates).
 - App History tab: today's run with `triggered_by = airflow`, plus 4+ backfilled run dates.
-- Model `collections-roll-scorer` restarted after today's run; its Test tab shows today's `run_date`.
+- Model `rsingh-coll-dlq-roll-scorer` restarted after today's run; its Test tab shows today's `run_date`.
 - Open the app and run one Hue query 5 minutes before: the Impala virtual
   warehouse auto-suspends and the first query after a pause can take minutes.
 - Hue open on `sql/reports.sql`; the Airflow UI open on the DAG grid.
-- Showing CDE live? Trigger the DAG 25 minutes before (a cold vcluster needs
-  a few minutes to scale up; a full run with the three `dq_*` gates takes
-  about 20 minutes).
+- Showing CDE live? Check `cde run list --filter 'status[eq]running'` first (the
+  vcluster queue is shared), then trigger the DAG well ahead: a cold vcluster
+  needs a few minutes to scale up (measured run times: `docs/PROJECT_LOG.md`).
 
 ## 1. The question (1 min)
 

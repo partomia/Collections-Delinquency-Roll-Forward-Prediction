@@ -16,8 +16,15 @@ The model only ranks accounts; contact rules follow the RBI fair practices code.
 
 ## Platform mapping
 
-Same CDP environment as `partomia/ALM-IRRBB-CASA-Behavioural-Forecasting` and
-`partomia/insurance-claim-approval` (same CDE vcluster, CDW Impala VW, CAI workbench).
+Built on go01 (26-27 Sep 2026; left as it was), moved to the **federal**
+environment from 3 Oct 2026, the same way as Customer-Churn-Prediction,
+Mule-Account-Identifier and Spend-Analytics: CDE vcluster `bxjjm2cr` (shared by
+those projects), CDW Impala
+`coordinator-federal-impala-1.dw-federal-cdp-env.dp5i-5vkq.cloudera.site:443`
+(`cliservice`, LDAP workload user), CAI workbench
+`https://federal-cml.federal.dp5i-5vkq.cloudera.site`. Federal Iceberg tables live
+under `s3a://federal-buk-574bcea0/data/warehouse/tablespace/external/hive/`; the
+databases were rebuilt from scratch with the generator, not copied.
 
 | Layer | Service | What runs there |
 |---|---|---|
@@ -35,21 +42,52 @@ Names:
   names lowercase). Prefix set once in `config/collections.yaml`, `--db-prefix`
   / `DB_PREFIX` on the CDE side.
 - CDE resources: `rsingh-coll-dlq-*` (repository, python-env, jobs, DAG).
-- CAI project: `collections-tabicl`; model `collections-roll-scorer`;
-  job `collections-daily-score`; application `Collections Call List`.
+- CAI (federal, all in `ci/cai_jobs.py`): project `rsingh-coll-dlq`; jobs
+  `rsingh-coll-dlq-daily-score` and `rsingh-coll-dlq-sync-code`; model
+  `rsingh-coll-dlq-roll-scorer`; application `rsingh-coll-dlq-call-list`.
+  On go01: project `collections-tabicl`, model `collections-roll-scorer`, job
+  `collections-daily-score`, application `Collections Call List`.
+- Schedule: daily 00:30 UTC. Neighbours on the shared vcluster: Mule 20:30,
+  Spend 21:00, Churn 22:00 UTC (`cde job list`, 3 Oct 2026).
 
 ## Decisions
 
 1. CAI reads and writes Iceberg through CDW Impala with `impyla`, as in the ALM
    project. Where the design doc and the ALM project differ, the ALM pattern wins.
 2. Weekly snapshots (every Friday) plus the as-of date.
-3. GPU is available in CAI: context defaults to 50,000 rows on GPU, 10,000 on CPU.
+3. Context defaults to 50,000 rows on GPU, 10,000 on CPU (go01 had a GPU; federal
+   does not, decision 10).
 4. Call list, holdout and model run are kept per run date (DELETE + INSERT on a
    rerun), not replaced, so past call lists stay queryable.
 5. Every run pins the gold Iceberg snapshot it reads and records the context
    window; the endpoint rebuilds that exact context at start-up instead of
    relying on a file copied at model build time.
 6. Contact history includes collector outcomes from the app (closing the loop).
+7. **CAI is set up over the API v2 from the laptop**, as in Churn and Spend.
+   `ci/cai_jobs.py` holds every CAI resource (60-min job timeout, not the UI's 15),
+   `ci/setup_cai.py` creates or adopts them by name and corrects drift
+   (`--dry-run`, `--no-serving` until a run is published, `--sync`), and
+   `cde/scripts/set_airflow_variables.py` sets only the four `COLL_CAI_*` Variables
+   through the vcluster's Airflow API. Names carry the `rsingh-coll-dlq` prefix.
+8. **`rsingh-coll-dlq-sync-code` replaces `git pull` in a session, and GitHub checks
+   each push on CAI.** On a push to main, `cai-pipeline` (after `test`) runs sync-code
+   to the pushed commit, then the daily job with `COLL_DRY_RUN=1`: real model,
+   holdout and book scoring, no table written. A notice and green until the
+   `CAI_URL` secret is set. The daily DAG publishes.
+9. **The DAG registers paused** (`is_paused_upon_creation=True`): an unpaused
+   registration, or unpausing later, runs the latest closed interval at once. Its
+   CAI poll survives a dropped connection (RequestException and 5xx retried, up to
+   10 polls in a row; 4xx re-raised), since a task retry would start a second CAI run.
+10. **CAI runs on CPU on federal.** GPUs cannot be scheduled from these projects (in
+   the churn move a 1-GPU run, and 8 vCPU / 32 GB, sat in `ENGINE_SCHEDULING`), so the
+   daily job and the model are 4 vCPU / 16 GB with no GPU. This project has no model
+   family switch: TabICL picks `cuda`, then `mps`, then `cpu`, and without CUDA the
+   context is `rows_cpu` = 10,000 rows (go01: 50,000 on an L4). Gate numbers on CPU
+   against go01: phase 10.
+11. **CDE jobs are sized for the shared federal queue** (27 vCPU / ~110 GB): a 2-core /
+   4 GB driver and 4-core / 8 GB executors, 1 min / 2 initial / 4 max, all overridable
+   in `deploy_jobs.sh`. go01's 4-core driver with 4 initial executors is rejected
+   before it starts ("cannot fit application").
 
 ## Phases
 
@@ -70,6 +108,13 @@ Names:
   on an NVIDIA L4, job `collections-daily-score` triggered by Airflow, model
   `collections-roll-scorer`, application `Collections Call List`; ten run dates of history
   (31 Jul - 26 Sep). Collector outcomes from the app not yet exercised on the platform.
+- [x] **9. Scripted Cloudera setup** (decisions 7-9): `ci/cai_jobs.py`, `ci/setup_cai.py`,
+  `ci/trigger_cai_pipeline.py`, `cai/jobs/sync_code.py`, `cde/scripts/set_airflow_variables.py`,
+  `.github/workflows/ci.yml` (`test` + `cai-pipeline`), DAG paused on creation with a
+  tolerant CAI poll, federal Impala host and CDE sizing (decisions 10-11).
+- [ ] **10. Federal, from scratch**: CDE jobs and the chain for one as_of, CAI project and
+  first CPU run, model and app, 8-week backfill, Airflow Variables, DAG (paused, then
+  unpaused), first scheduled run, GitHub -> CAI check.
 
 ## Paused (27 Sep 2026) — possible next steps
 

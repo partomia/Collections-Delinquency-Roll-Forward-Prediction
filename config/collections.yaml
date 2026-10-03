@@ -34,7 +34,7 @@ storage:
   parquet_dir: data/parquet
 
 impala:
-  host: coordinator-default-impala-aws.dw-go01-demo-aws.ylcu-atmi.cloudera.site  # COLL_IMPALA_HOST
+  host: coordinator-federal-impala-1.dw-federal-cdp-env.dp5i-5vkq.cloudera.site  # COLL_IMPALA_HOST
   port: 443
   http_path: cliservice
   use_ssl: true
@@ -51,8 +51,8 @@ model:
   device: ""                        # "" = auto (cuda, then mps, then cpu)
   n_estimators: 8
   random_state: 42
-  # Endpoint: the context is encoded once at start-up. kv = fastest requests, most memory
-  # (fine on a GPU); repr = ~24x less memory for the context, slower requests.
+  # Endpoint: the context is encoded once at start-up. kv = fastest requests, most memory;
+  # repr = ~24x less memory for the context, slower requests.
   endpoint_kv_cache: kv
 
 endpoint:

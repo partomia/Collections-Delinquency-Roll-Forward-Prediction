@@ -82,7 +82,7 @@ def export_parquet(spark, db_prefix: str, out_dir: Path) -> None:
             name = "loan_master" if table == "loan" else table
             path = out_dir / f"{name}.parquet"
             pdf.to_parquet(path, index=False)
-            print(f"exported {len(pdf)} rows -> {path.relative_to(ROOT)}")
+            print(f"exported {len(pdf)} rows -> {path.relative_to(ROOT) if path.is_relative_to(ROOT) else path}")
 
 
 def main() -> None:

@@ -7,6 +7,9 @@ so the history is what the job would have produced on those days.
 
   python cai/jobs/backfill_history.py --weeks 8
   python cai/jobs/backfill_history.py --weeks 4 --backend parquet --stub
+
+As the CAI job rsingh-coll-dlq-backfill-history (ci/cai_jobs.py), a run ignores
+arguments: set COLL_BACKFILL_WEEKS in the run's environment (default 8).
 """
 
 from __future__ import annotations
@@ -36,7 +39,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name
 
 def main() -> None:
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument("--weeks", type=int, default=8)
+    p.add_argument("--weeks", type=int, default=int(os.environ.get("COLL_BACKFILL_WEEKS") or 8))
     p.add_argument("--backend", default=None)
     p.add_argument("--context-rows", type=int, default=None)
     p.add_argument("--stub", action="store_true")

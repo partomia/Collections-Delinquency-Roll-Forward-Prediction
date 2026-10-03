@@ -124,25 +124,61 @@ Picked up from the uncommitted Cursor diff (`git status` showed `scripts/run_cde
     `dq_*` gates named explicitly; ~20 min measured run time; pointers to
     this log added).
 
+## 2026-10-03 — Move to the federal environment (Cursor, Opus 5.5)
+
+Moved end to end from go01 to federal, the same way as Customer-Churn-Prediction
+(its PLAN decisions 14-18, PROJECT_LOG phases 9-10). go01 resources were left as they were.
+
+### Phase 9: scripted Cloudera setup, federal config (code)
+
+- Read-only checks on federal first: `cde job list` shows the scheduled DAGs Mule
+  20:30, Spend 21:00, Churn 22:00 UTC (gdl paused), so 00:30 UTC stays; no running
+  runs; runtime `ml-runtime-pbj-jupyterlab-python3.11-standard:2026.08.1-b5`
+  `ENABLED` in the CAI API; no `rsingh-coll-dlq` project; Impala LDAP login works
+  and no `rsingh_coll*` database exists.
+- `config/collections.yaml`: Impala host `coordinator-federal-impala-1.dw-federal-cdp-env.dp5i-5vkq.cloudera.site`.
+- `deploy_jobs.sh`: 2-core / 4 GB driver, 4-core / 8 GB executors, 1 / 2 / 4, each
+  overridable by environment variable; exits if the python-env is not ready.
+- DAG: `is_paused_upon_creation=True`; the CAI poll retries RequestException and 5xx
+  (up to 10 in a row), re-raises 4xx; deadline 90 min.
+- New: `ci/cai_jobs.py`, `ci/setup_cai.py`, `ci/trigger_cai_pipeline.py`,
+  `cai/jobs/sync_code.py`, `cde/scripts/set_airflow_variables.py`,
+  `.github/workflows/ci.yml` (`test` + `cai-pipeline`), `requirements-ci.txt`,
+  `COLL_DRY_RUN` in `daily_score.py`, `COLL_BACKFILL_WEEKS` in `backfill_history.py`
+  and a manual `rsingh-coll-dlq-backfill-history` job, `tests/test_ci_trigger.py`,
+  `tests/test_orchestration.py`.
+- CI steps reproduced locally in scratch folders: `run_cde_local.py all --loans 5000`
+  in 50 s, then the stub scoring. It found that `export` failed with a
+  `--parquet-dir` outside the repo (printing a relative path); fixed.
+- TabICL on the laptop CPU (`COLL_MODEL_DEVICE=cpu`), 10,000-row context: fit 6.1 s,
+  61 rows/s scoring.
+
 ## Recovery cheat-sheet
 
+**Environment.** Federal from 3 Oct 2026 (go01 before, left as it was): see
+`PLAN.md` platform mapping. Iceberg on
+`s3a://federal-buk-574bcea0/data/warehouse/tablespace/external/hive/<db>.db/<table>`
+(go01: `s3a://go01-demo/warehouse/tablespace/external/hive/`).
+
 **Naming.** `DB_PREFIX = rsingh_collections_delinquency_prediction`; four
-Iceberg databases (`_bronze`, `_silver`, `_gold`, `_ref`), each on S3 at
-`s3a://go01-demo/warehouse/tablespace/external/hive/<db>.db/<table>`. Tables
+Iceberg databases (`_bronze`, `_silver`, `_gold`, `_ref`). Tables
 inside a database are **not** re-prefixed (`dq_results`, `product_map`,
 `loan_master`, `collections_features`, …) — the prefix lives on the database
 only, consistently, project-wide. CDE resources: `rsingh-coll-dlq-*`
 (repository `rsingh-coll-dlq-pipeline`, python-env
 `rsingh-coll-dlq-python-env`, jobs `rsingh-coll-dlq-{generate-loan-bronze,
 dq-check, build-silver, build-gold-features}`, DAG job
-`rsingh-coll-dlq-orchestration`). CAI: project `collections-tabicl`, model
-`collections-roll-scorer`, job `collections-daily-score`, app
-`Collections Call List`.
+`rsingh-coll-dlq-orchestration`). CAI on federal (`ci/cai_jobs.py`): project
+`rsingh-coll-dlq`, jobs `rsingh-coll-dlq-{daily-score,sync-code,backfill-history}`,
+model `rsingh-coll-dlq-roll-scorer`, app `rsingh-coll-dlq-call-list`. On go01:
+project `collections-tabicl`, model `collections-roll-scorer`, job
+`collections-daily-score`, app `Collections Call List`.
 
 **Redeploy after a code change:**
 ```bash
-git push
+git push                          # GitHub cai-pipeline runs sync-code + a dry-run score on CAI
 cde repository sync --name rsingh-coll-dlq-pipeline
+set -a; source .env; set +a; python ci/setup_cai.py --sync   # CAI project to origin/main (if no GitHub check)
 # only if cde/resources/requirements.txt changed:
 cde resource upload --name rsingh-coll-dlq-python-env --local-path cde/resources/requirements.txt
 # poll: cde resource describe --name rsingh-coll-dlq-python-env   (until status == ready)

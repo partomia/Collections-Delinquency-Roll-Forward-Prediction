@@ -40,7 +40,7 @@ flowchart LR
 |---|---|---|
 | Ingest + medallion | CDE Spark, Iceberg | `cde/jobs/` |
 | Orchestration | CDE Airflow | `cde/dags/collections_dag.py` |
-| Daily scoring | CAI Job (GPU) | `cai/jobs/daily_score.py` |
+| Daily scoring | CAI Job (CPU on federal) | `cai/jobs/daily_score.py` |
 | On-demand / what-if API | CAI Model Deployment | `cai/model/predict.py` |
 | Reports, time travel | CDW Impala (Hue) | `sql/reports.sql` |
 | Demo UI | CAI Application | `app/` |
@@ -91,7 +91,7 @@ CDE side). CDE resources are named `rsingh-coll-dlq-*`.
   and the Iceberg snapshot id of gold it read; the endpoint rebuilds exactly that
   context with `FOR SYSTEM_VERSION AS OF`.
 
-Results on the demo platform (GPU, 50,000-row context, nine daily runs
+Results on go01 (NVIDIA L4, 50,000-row context, nine daily runs
 31 Jul - 25 Sep 2026): holdout AUC 0.85-0.87; the top 10% of calls catch 30-37%
 of the loans that rolled (DPD alone 28-30%) and 52-56% of the rolled overdue
 amount; the agent bands (top 40%) catch 80-82% (DPD alone 72-74%). DPD is a strong
@@ -132,50 +132,92 @@ Add `--stub` to the CAI scripts for a logistic-regression stand-in (no checkpoin
 
 ## Deploy on Cloudera
 
+The environment is **federal** (from 3 Oct 2026; go01 until then, left as it was):
+CDE vcluster `bxjjm2cr` (shared by several projects), CDW Impala
+`coordinator-federal-impala-1.dw-federal-cdp-env.dp5i-5vkq.cloudera.site:443`
+(HTTP transport, `cliservice`, SSL, LDAP workload user), CAI workbench
+`https://federal-cml.federal.dp5i-5vkq.cloudera.site`. Iceberg tables live under
+`s3a://federal-buk-574bcea0/data/warehouse/tablespace/external/hive/<db>.db/<table>`.
+Every resource is created from the laptop by idempotent scripts; the IDs are in
+`docs/DEMO_RUNBOOK.md`.
+
+```bash
+set -a; source .env; set +a                         # COLL_IMPALA_*, COLL_CAI_HOST, COLL_CAI_API_KEY
+./cde/scripts/deploy_jobs.sh                        # CDE: repository, python-env, 4 Spark jobs
+python ci/setup_cai.py --no-serving --sync          # CAI: project, environment, jobs; sync-code
+#   ... first daily run published (CAI job rsingh-coll-dlq-daily-score) ...
+COLL_ENDPOINT_API_KEY=... python ci/setup_cai.py    # CAI: model, then the application
+python cde/scripts/set_airflow_variables.py         # Airflow: the four COLL_CAI_* Variables
+./cde/scripts/deploy_dag.sh                         # CDE: the DAG, registered paused
+```
+
 ### 1. CDE: Spark jobs and Airflow DAG
 
 CDE CLI configured for the vcluster (`~/.cde/config.yaml`), repo pushed to GitHub.
 
 ```bash
 ./cde/scripts/deploy_jobs.sh      # CDE Repository rsingh-coll-dlq-pipeline + 4 Spark jobs
-./cde/scripts/deploy_dag.sh       # Airflow job rsingh-coll-dlq-orchestration (daily)
+./cde/scripts/deploy_dag.sh       # Airflow job rsingh-coll-dlq-orchestration (daily, registered paused)
 ./cde/scripts/backfill_drill.sh   # optional: a few daily loads = a few gold snapshots
 ```
 
-Each job gets a 4-core / 8 GB driver and 2-8 executors (4 at start) of 4 cores /
-8 GB (`RESOURCES` in `deploy_jobs.sh`). Measured on the demo vcluster: generate
-3-4.5 min, dq_check / silver / gold about 1.5 min each (mostly pod start-up),
-so a full DAG run including the CAI step and the three `dq_*` gates takes
-about 20 minutes (see `docs/PROJECT_LOG.md` for a measured run). The first job
-after the vcluster has been idle can wait several minutes (up to 20+) for scale-up.
+Each job gets a 2-core / 4 GB driver and 1-4 executors (2 at start) of 4 cores /
+8 GB (`RESOURCES` in `deploy_jobs.sh`, every value overridable: `DRIVER_CORES`,
+`DRIVER_MEMORY`, `EXECUTOR_CORES`, `EXECUTOR_MEMORY`, `MIN_EXECUTORS`,
+`INITIAL_EXECUTORS`, `MAX_EXECUTORS`). The federal queue caps at 27 vCPU / ~110 GB
+for all projects on the vcluster, and a run whose driver plus initial executors
+do not fit is rejected before it starts ("cannot fit application"); go01's
+4-core driver with 4 initial executors does not fit. `cde job run --wait` can
+return before the run ends on this vcluster: poll `cde run describe --id <id>`.
+The first job after the vcluster has been idle can wait several minutes for scale-up.
+Stage timings on federal: `docs/PROJECT_LOG.md`.
 
 After a code change: `git push`, then `cde repository sync --name rsingh-coll-dlq-pipeline`
 (re-run `deploy_dag.sh` if the DAG changed, `deploy_jobs.sh` if resources changed).
 
-Run the DAG by hand: Airflow UI > `collections_roll_forward_pipeline` > Trigger
+The DAG registers **paused** (`is_paused_upon_creation=True`): an unpaused
+registration, or unpausing later, runs the latest closed interval at once.
+Unpause with `cde job schedule unpause --name rsingh-coll-dlq-orchestration`.
+Run it by hand: Airflow UI > `collections_roll_forward_pipeline` > Trigger
 (optional config `{"as_of": "2026-09-25"}`; empty = yesterday), or
 `cde job run --name rsingh-coll-dlq-orchestration`. The DAG's `start_date` must be
 in the past: while it is in the future Airflow greys out the trigger button and a
 run started from CDE "succeeds" in seconds without running any task.
 
-### 2. CAI project and session
+### 2. CAI project (scripted)
 
-New project `collections-tabicl` from this Git repo, Python 3.11 runtime.
-Project Settings > Advanced > environment variables (inherited by sessions,
-jobs, models and apps):
+`ci/setup_cai.py` drives the CAI API v2 from the laptop (`COLL_CAI_HOST`, and
+`COLL_CAI_API_KEY`, an **API v2** key from User Settings > API Keys). It finds
+each resource by name, creates what is missing and corrects what drifted
+(`--dry-run` shows the changes). The resources are defined in `ci/cai_jobs.py`:
+project `rsingh-coll-dlq` cloned from this repo, runtime
+`ml-runtime-pbj-jupyterlab-python3.11-standard:2026.08.1-b5`, project
+environment variables `HF_HOME=/home/cdsw/.hf_cache`, `COLL_IMPALA_USER` and
+`COLL_IMPALA_PASSWORD` (copied from the caller, never printed), and:
 
-| Variable | Value |
-|---|---|
-| `HF_HOME` | `/home/cdsw/.hf_cache` |
-| `COLL_IMPALA_USER` / `COLL_IMPALA_PASSWORD` | workload user / password (LDAP) |
-| `COLL_IMPALA_HOST` | only if not the VW host in `config/collections.yaml` |
+| Resource | Name | Size |
+|---|---|---|
+| Job | `rsingh-coll-dlq-sync-code` (`cai/jobs/sync_code.py`) | 2 vCPU / 8 GB, CPU |
+| Job | `rsingh-coll-dlq-daily-score` (`cai/jobs/daily_score.py`) | 4 vCPU / 16 GB, CPU |
+| Job | `rsingh-coll-dlq-backfill-history` (`cai/jobs/backfill_history.py`, one-off, `COLL_BACKFILL_WEEKS`) | 4 vCPU / 16 GB, CPU |
+| Model | `rsingh-coll-dlq-roll-scorer` (`cai/model/predict.py`, `predict`) | 4 vCPU / 16 GB, CPU, 1 replica, authentication on |
+| Application | `rsingh-coll-dlq-call-list` (`app/run.py`) | 2 vCPU / 4 GB |
 
-Session terminal (GPU profile if available):
+`rsingh-coll-dlq-sync-code` replaces `git pull` in a session: `git fetch` +
+`reset --hard` to `origin/main`, then `pip install -r requirements.txt` when the
+file changed. Run it after every push (`setup_cai.py --sync` does); restart the
+model and app to load new code.
+
+**CPU only on federal.** GPUs cannot be scheduled from this project: a 1-GPU
+run, and 8 vCPU / 32 GB, sat in `ENGINE_SCHEDULING`, while 4 vCPU / 16 GB starts
+at once. TabICL picks `cuda`, then `mps`, then `cpu`, and the context size
+follows: 50,000 rows with CUDA, 10,000 without (`config/policy.yaml`). go01 ran
+the job and model on an NVIDIA L4 with the 50,000-row context.
+
+Session sanity checks (a session terminal in the project):
 
 ```bash
-git pull
-pip3 install -r requirements.txt
-python -c "from importlib.metadata import version; import torch; print('tabicl', version('tabicl'), '| torch', torch.__version__, torch.version.cuda, '| cuda', torch.cuda.is_available())"
+python -c "from importlib.metadata import version; import torch; print('tabicl', version('tabicl'), '| torch', torch.__version__, '| cuda', torch.cuda.is_available())"
 
 # Impala reachable with the project credentials
 python -c "from coll.storage import get_storage; print(get_storage('impala').query('SELECT COUNT(*) n, MAX(snapshot_date) d FROM rsingh_collections_delinquency_prediction_gold.collections_features'))"
@@ -187,90 +229,73 @@ python cai/jobs/daily_score.py --dry-run
 python cai/model/test_endpoint.py --local --context impala
 ```
 
-`pip` installs the latest torch, currently built for CUDA 13, which needs NVIDIA
-driver 580+ (`nvidia-smi`). On an older driver, reinstall torch from the matching
-index, e.g. `pip3 install --force-reinstall --no-deps torch --index-url https://download.pytorch.org/whl/cu126`.
-The resolver warnings about `mlflow`, `cml` and `protobuf` after the install are
-harmless for this project. Project environment variables only reach sessions
-started after they were saved.
-
-Measured on an NVIDIA L4 (24 GB): dry run with a 50,000-row context about 1 min
-(plus a one-off ~110 MB checkpoint download into `HF_HOME`); the endpoint builds
-its context in about 11 s and scores a request in 0.3 s.
-
-For an air-gapped customer: download `tabicl-classifier-v2-20260212.ckpt` from
-`jingang/TabICL` on a connected machine, upload it to `models/`, and set
+Project environment variables only reach sessions started after they were
+saved. For an air-gapped customer: download `tabicl-classifier-v2-20260212.ckpt`
+from `jingang/TabICL` on a connected machine, upload it to `models/`, and set
 `COLL_MODEL_MODEL_PATH=/home/cdsw/models/tabicl-classifier-v2-20260212.ckpt`.
 
-### 3. CAI Job
+### 3. CAI Job `rsingh-coll-dlq-daily-score`
 
-Jobs > New Job: name `collections-daily-score`, script `cai/jobs/daily_score.py`,
-arguments empty (Airflow passes `COLL_RUN_DATE` and `COLL_TRIGGERED_BY`),
-Python 3.11 (Workbench or JupyterLab editor; the scripts ignore the `-f` argument
-a Jupyter-kernel runtime adds), GPU profile (or 4 vCPU / 16 GB), schedule Manual.
-Run it once (about 1.5 min on the GPU), then `python cai/jobs/backfill_history.py --weeks 8`
-from a session so the app's trust and history tabs have several run dates
-(about 1.5 min per week on the GPU).
+Script `cai/jobs/daily_score.py`, arguments empty (Airflow passes `COLL_RUN_DATE`
+and `COLL_TRIGGERED_BY` in the run's environment; the GitHub check passes
+`COLL_DRY_RUN=1`), schedule Manual, timeout 60 min (the UI default of 15 min is
+too short). The scripts ignore the `-f` argument a Jupyter-kernel runtime adds.
+Run it once, then `rsingh-coll-dlq-backfill-history` (8 weeks by default) so the
+app's trust and history tabs have several run dates. Measured times on federal CPU: `docs/PROJECT_LOG.md`.
 
-### 4. CAI Model Deployment
+### 4. CAI Model `rsingh-coll-dlq-roll-scorer`
 
-Model Deployments > New Model: name `collections-roll-scorer`, file
-`cai/model/predict.py`, function `predict`, Python 3.11, GPU profile (or 4 vCPU /
-16 GB), 1 replica, authentication on. Example input: the output of
-`python cai/model/test_endpoint.py --print-request`. The first build installs
-`requirements.txt` (torch is large) and takes several minutes.
+Created, built and deployed once by `setup_cai.py` (without `--no-serving`) once
+a published run exists: file `cai/model/predict.py`, function `predict`,
+4 vCPU / 16 GB, 1 replica, authentication on. The first build installs
+`requirements.txt` (torch is large) and takes several minutes. Example input:
+the output of `python cai/model/test_endpoint.py --print-request`.
 
 Each replica rebuilds the context of the latest daily run (latest run date) from
 gold at start-up, so **restart** the model after the morning run to serve the new
 context. A code change needs **Deploy New Build** (a restart keeps the old build).
 Check in the Test tab: the `model` block shows the run date, context window and
-`"context_rows": 50000`.
+`"context_rows": 10000` (CPU).
 
-### 5. CAI Application
+### 5. CAI Application `rsingh-coll-dlq-call-list`
 
-Applications > New Application: name `Collections Call List`, subdomain
-`collections`, script `app/run.py`, Python 3.11, 2 vCPU / 4 GB. So what-ifs call
-the model endpoint, set:
-
-| Variable | Where to find it |
-|---|---|
-| `COLL_ENDPOINT_URL` | model Overview, URL in the sample curl (`https://modelservice.<domain>/model`) |
-| `COLL_ENDPOINT_ACCESS_KEY` | model Settings |
-| `COLL_ENDPOINT_API_KEY` | User Settings > API Keys, Model API key (authentication is on) |
-
-The Impala credentials come from the project. In the Loan what-if tab the result
-says whether it was scored by the endpoint or in-process (the fallback when the
-endpoint variables are missing). After a code change: `git pull` in a session,
-then restart the application.
+Script `app/run.py`, 2 vCPU / 4 GB, subdomain `rsingh-coll-dlq-call-list`.
+`setup_cai.py` writes `COLL_ENDPOINT_URL` and `COLL_ENDPOINT_ACCESS_KEY` from the
+model into the project environment, plus `COLL_ENDPOINT_API_KEY` when the caller
+sets it (a Model API key, or a CAI API key the endpoint accepts), and creates the
+application only once that key is in the project. The Impala credentials come
+from the project. In the Loan what-if tab the result says whether it was scored
+by the endpoint or in-process (the fallback when the endpoint variables are
+missing). After a code change: run `rsingh-coll-dlq-sync-code`, then restart the
+application.
 
 ### 5a. Airflow triggers the CAI Job
 
-Print the ids in a session terminal:
+`python cde/scripts/set_airflow_variables.py` (`--dry-run` first) sets
+`COLL_CAI_HOST`, `COLL_CAI_PROJECT_ID`, `COLL_CAI_JOB_ID` (looked up by name) and
+`COLL_CAI_API_KEY` through the vcluster's Airflow REST API, with a Knox token for
+the workload user. It touches only these four keys and never prints a value.
+Without `COLL_CAI_HOST` the DAG skips the CAI step. A run scored by Airflow shows
+`triggered_by = airflow` in `collections_model_run`. The DAG polls the CAI run
+every 30 s for up to 90 min; a dropped connection or a 5xx is retried (up to 10
+polls in a row), a 4xx fails the task.
 
-```bash
-python -c "
-import os, cmlapi
-c = cmlapi.default_client()
-pid = os.environ['CDSW_PROJECT_ID']
-print('COLL_CAI_HOST       =', 'https://' + os.environ['CDSW_DOMAIN'])
-print('COLL_CAI_PROJECT_ID =', pid)
-for j in c.list_jobs(pid).jobs:
-    print('COLL_CAI_JOB_ID     =', j.id, '(' + j.name + ')')
-"
-```
+### 5b. GitHub -> CAI check
 
-Create an **API v2** key (User Settings > API Keys; not the Model API key used by
-the app), then in the CDE Airflow UI > Admin > Variables set `COLL_CAI_HOST`,
-`COLL_CAI_PROJECT_ID`, `COLL_CAI_JOB_ID` (the id of `collections-daily-score`) and
-`COLL_CAI_API_KEY`. Without `COLL_CAI_HOST` the DAG skips the CAI step. A run
-scored by Airflow shows `triggered_by = airflow` in `collections_model_run`.
+`.github/workflows/ci.yml` runs the unit tests and a small local pipeline on every
+push and pull request. On a push to main, `cai-pipeline` then runs
+`ci/trigger_cai_pipeline.py`: `rsingh-coll-dlq-sync-code` to the pushed commit,
+then `rsingh-coll-dlq-daily-score` with `COLL_DRY_RUN=1` (holdout and book
+scoring with TabICL, no table written). It needs the repository secrets
+`CAI_URL`, `CAI_API_KEY` and `CAI_PROJECT_ID`; until `CAI_URL` is set it prints a
+notice and passes. The daily DAG is what publishes.
 
 ### Daily operation
 
 | When (IST) | What | Who |
 |---|---|---|
-| 06:00 | DAG: generate → dq → silver → dq → gold → dq (new Iceberg snapshot) → CAI job writes the call list | Airflow (about 20 min) |
-| after the run | restart `collections-roll-scorer` so what-ifs use the new context | manual (or an extra DAG step) |
+| 06:00 | DAG: generate → dq → silver → dq → gold → dq (new Iceberg snapshot) → CAI job writes the call list | Airflow |
+| after the run | restart `rsingh-coll-dlq-roll-scorer` so what-ifs use the new context | manual (or an extra DAG step) |
 | working day | collections team works the list in the app; outcomes land in `bronze.collector_outcomes` | app |
 | next 06:00 | silver unions the outcomes into contact history; tomorrow's features include them | Airflow |
 
@@ -283,7 +308,11 @@ Troubleshooting seen while deploying:
 | Endpoint serves an older run date | backfills write older dates later; the endpoint picks the latest run date (fixed), restart after new runs |
 | `ParseException` on insert | Impala reserved word as a column name (e.g. `rows`); rename the column |
 | First Impala query hangs for minutes | the virtual warehouse is resuming from auto-suspend; wait, or open the app a few minutes before a demo |
-| `cuda False` on a GPU session | torch built for a newer CUDA than the driver; see the torch note in section 2 |
+| `cuda False` on a GPU session (go01) | torch built for a newer CUDA than the driver: `pip3 install --force-reinstall --no-deps torch --index-url https://download.pytorch.org/whl/cu126` |
+| CDE run rejected: "queue ... cannot fit application" | driver plus initial executors exceed the shared federal queue; use the `deploy_jobs.sh` defaults |
+| `cde job run --wait` returns while the run is still going | poll `cde run describe --id <id>` until `succeeded` / `failed` |
+| CAI job or model stays in `ENGINE_SCHEDULING` | a GPU, or more than 4 vCPU / 16 GB, cannot be scheduled from this project on federal; keep `ci/cai_jobs.py` at 4 vCPU / 16 GB / 0 GPU |
+| Airflow task fails on one CAI poll (`Connection reset by peer`) | the CAI run goes on; the DAG now retries failed polls instead of failing |
 
 ### 6. Run anywhere else
 
@@ -296,8 +325,9 @@ and run it on parquet exports or against CDW Impala (see `Dockerfile`).
 coll/          shared logic: config, features, TabICL wrapper, priority bands, holdout, storage, pipeline, scoring
 cde/jobs/      Spark jobs (generate/silver/gold: PySpark + stdlib; dq_check: + Great Expectations)
 cde/dags/      Airflow DAG (daily)
-cde/scripts/   deploy_jobs.sh, deploy_dag.sh, backfill_drill.sh
-cai/jobs/      daily_score.py, backfill_history.py
+cde/scripts/   deploy_jobs.sh, deploy_dag.sh, backfill_drill.sh, set_airflow_variables.py
+cai/jobs/      daily_score.py, backfill_history.py, sync_code.py
+ci/            CAI resources (cai_jobs.py), setup_cai.py (API v2), trigger_cai_pipeline.py (GitHub -> CAI)
 cai/model/     predict.py (endpoint), test_endpoint.py
 app/           Streamlit app + CAI launcher
 config/        collections.yaml (names, storage, model), policy.yaml (context, holdout, treatment bands)

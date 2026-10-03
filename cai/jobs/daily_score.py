@@ -9,10 +9,10 @@ CAI Job: daily roll-forward scoring of the SMA-0 book.
   3. Scores today's SMA-0 loans, ranks by p_roll x overdue amount, assigns
      treatment bands, writes gold.collections_call_list / _holdout / _model_run.
 
-Jobs > New Job: script cai/jobs/daily_score.py, Python 3.11 runtime, GPU
-profile if available. Airflow passes the run date and trigger through the
+CAI job rsingh-coll-dlq-daily-score (ci/cai_jobs.py): Python 3.11 runtime,
+4 vCPU / 16 GB, CPU only. Airflow passes the run date and trigger through the
 environment (COLL_RUN_DATE, COLL_TRIGGERED_BY), since a job run ignores
-arguments.
+arguments; the GitHub -> CAI check sets COLL_DRY_RUN=1.
 
   python cai/jobs/daily_score.py --dry-run                 # reads, scores, writes nothing
   python cai/jobs/daily_score.py --backend parquet --stub  # offline smoke run, no checkpoint
@@ -52,7 +52,8 @@ def main() -> None:
     p.add_argument("--context-rows", type=int, default=None, help="override the policy context size")
     p.add_argument("--no-holdout", action="store_true")
     p.add_argument("--stub", action="store_true", help="logistic regression stand-in instead of TabICL")
-    p.add_argument("--dry-run", action="store_true", help="do not write any table")
+    p.add_argument("--dry-run", action="store_true", default=os.environ.get("COLL_DRY_RUN") == "1",
+                   help="do not write any table (env COLL_DRY_RUN=1: the GitHub -> CAI check)")
     p.add_argument("--triggered-by", default=os.environ.get("COLL_TRIGGERED_BY") or "cai-job")
     args, _ = p.parse_known_args()  # a Jupyter-kernel job runtime adds -f <kernel.json>
 

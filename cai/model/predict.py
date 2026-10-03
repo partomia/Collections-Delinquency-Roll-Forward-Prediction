@@ -2,9 +2,9 @@
 CAI Model Deployment: roll probability for loans sent on demand, e.g. when a
 collector opens an account or a what-if changes salary_credit_last_30d.
 
-Model Deployments > New Model: File cai/model/predict.py, Function predict,
-Python 3.11 runtime, GPU profile if available (4 vCPU / 16 GB otherwise).
-The model build runs cdsw-build.sh.
+Model rsingh-coll-dlq-roll-scorer (ci/cai_jobs.py, created by ci/setup_cai.py):
+File cai/model/predict.py, Function predict, Python 3.11 runtime, 4 vCPU / 16 GB,
+CPU only. The model build runs cdsw-build.sh.
 
 At start-up each replica rebuilds the context of the latest daily run from
 gold via Impala (same Iceberg snapshot, window and row count; needs
