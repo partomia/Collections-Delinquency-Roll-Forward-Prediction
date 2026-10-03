@@ -59,7 +59,7 @@ Picked up from the uncommitted Cursor diff (`git status` showed `scripts/run_cde
    - `cde/jobs/validate_bronze.py` deleted (`dq_check.py`'s bronze checks are a strict superset).
    - `great_expectations==1.23.2` pinned in `cde/resources/requirements.txt` and `requirements-dev.txt`.
    - `README.md` (architecture diagram, table list, timings), `sql/reports.sql` (+3 Impala summary queries over `ref.dq_results`), `PLAN.md` updated.
-5. **14:36** — commit `3236fa8` "CDE: replace validate_bronze with a Great Expectations dq_check gate"; pushed to `origin/main`.
+5. **14:36** — commit `308fe10` "CDE: replace validate_bronze with a Great Expectations dq_check gate"; pushed to `origin/main`.
 6. **14:36–14:44** — `cde repository sync`; rebuilt `rsingh-coll-dlq-python-env` with `great_expectations` added (took ~6 min — longer than the "1-3 min" the deploy script's comment expects, since GX pulls in real dependencies where the env was previously empty).
 7. Ran `cde/scripts/deploy_jobs.sh`: recreated the 4 existing jobs plus the new `rsingh-coll-dlq-dq-check` (4-core/8 GB driver, 4-core/8 GB executors — same sizing as the rest). The script doesn't delete jobs it no longer creates, so manually deleted the now-orphaned `rsingh-coll-dlq-validate-bronze`. Ran `cde/scripts/deploy_dag.sh` to redeploy the DAG.
 8. **09:22:44–09:39:51 UTC** (14:52:44–15:09:51 IST) — ran the full CDE chain **manually** (`cde job run`, bypassing Airflow) for `as_of=2026-09-27`, to validate on the live vcluster before touching the DAG:
@@ -77,7 +77,7 @@ Picked up from the uncommitted Cursor diff (`git status` showed `scripts/run_cde
    codes: `cde run logs` truncates/garbles output on this vcluster once GX's
    `tqdm` progress bars write `\r`-heavy lines to stdout, so the log tail is
    not reliable evidence — the Iceberg table is the source of truth.
-9. **15:11** — commit `f0354e1` "Plan: dq_check deployed and verified live on the CDE vcluster"; pushed and synced.
+9. **15:11** — commit `a480163` "Plan: dq_check deployed and verified live on the CDE vcluster"; pushed and synced.
 
 ### Evening: prefix question, Airflow-captured orchestration
 
@@ -152,7 +152,7 @@ Moved end to end from go01 to federal, the same way as Customer-Churn-Prediction
   `--parquet-dir` outside the repo (printing a relative path); fixed.
 - TabICL on the laptop CPU (`COLL_MODEL_DEVICE=cpu`), 10,000-row context: fit 6.1 s,
   61 rows/s scoring.
-- Commit `029fc12`, pushed.
+- Commit `7632aa0`, pushed.
 
 ### Phase 10: federal, from scratch (times UTC)
 
@@ -239,7 +239,7 @@ Moved end to end from go01 to federal, the same way as Customer-Churn-Prediction
   10:56:51: 29.9 min end to end. The airflow run replaced the manual row for
   2026-10-02 (one row per run date).
 - GitHub secrets `CAI_URL`, `CAI_API_KEY`, `CAI_PROJECT_ID` set from `.env`. Push of
-  `d2d054e`: CI run 37118112471 green. `test` job, then `cai-pipeline`: sync-code
+  `90fd5d8` (`d2d054e` before the trailer rewrite): CI run 37118112471 green. `test` job, then `cai-pipeline`: sync-code
   `wm2hq93xyveyu42u` 11:00:25-11:00:41 (requirements unchanged, at the pushed sha),
   dry-run daily score `9uqwskf3663e4kuk` running 11:01:15-11:10:40, nothing written.
 - Backfill `h6e1v52gn32hffbz` (`COLL_BACKFILL_WEEKS=3`, one process per date):
@@ -262,6 +262,9 @@ Moved end to end from go01 to federal, the same way as Customer-Churn-Prediction
   77-83% (DPD 72-76%), value 52-56%. go01 (GPU, 50,000-row context, nine runs): AUC
   0.85-0.87, 30-37% (DPD 28-30%), 80-82% (DPD 72-74%), 52-56%. The model beats DPD
   alone on every run date; one week of backfill is 9-12 min on CPU.
+- History rewrite: the `Co-Authored-By` trailer removed from three 27 Sep commits
+  with `git filter-branch --msg-filter`; the seven commits from `308fe10` on have new
+  ids (same trees, authors and dates), `main` force-pushed.
 - `set_airflow_variables.py`: the four `COLL_CAI_*` Variables created; a second run
   reports them up to date. `deploy_dag.sh`: `rsingh-coll-dlq-orchestration` created,
   schedule `30 0 * * *`, `paused: true`, `pausedUponCreation: true`, no runs.
