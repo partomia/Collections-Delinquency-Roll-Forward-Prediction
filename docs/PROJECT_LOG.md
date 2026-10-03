@@ -265,6 +265,13 @@ Moved end to end from go01 to federal, the same way as Customer-Churn-Prediction
 - History rewrite: the `Co-Authored-By` trailer removed from three 27 Sep commits
   with `git filter-branch --msg-filter`; the seven commits from `308fe10` on have new
   ids (same trees, authors and dates), `main` force-pushed.
+- The CDE repository then refused to sync ("non-fast-forward update"; it only pulls).
+  All five jobs mount it, so they were pointed at a temporary repository
+  `rsingh-coll-dlq-pipeline-tmp` (`cde job update --mount-1-resource`, which replaces
+  mount 1 and keeps the job and its schedule), `rsingh-coll-dlq-pipeline` deleted,
+  recreated (13:05 UTC) and synced, the jobs pointed back and the temporary repository
+  deleted. Airflow afterwards: DAG not paused, active, no import errors, next run the
+  2026-10-03 interval (4 Oct 00:30 UTC). No job had to be re-run.
 - `set_airflow_variables.py`: the four `COLL_CAI_*` Variables created; a second run
   reports them up to date. `deploy_dag.sh`: `rsingh-coll-dlq-orchestration` created,
   schedule `30 0 * * *`, `paused: true`, `pausedUponCreation: true`, no runs.
