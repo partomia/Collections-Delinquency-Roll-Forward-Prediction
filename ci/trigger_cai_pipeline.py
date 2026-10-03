@@ -22,6 +22,7 @@ import os
 import ssl
 import sys
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 from pathlib import Path
@@ -32,6 +33,8 @@ from ci.cai_jobs import DAILY_JOB, DEADLINE_MIN, GITHUB_CHAIN, github_env  # noq
 OK = {"succeeded"}
 BAD = {"failed", "stopped", "timedout", "killed"}
 POLL_S = 20
+GET_RETRIES = 10                      # federal drops TLS connections now and then (SSL EOF)
+RETRY_S = 10
 
 
 def status_of(run: dict) -> str:
@@ -48,10 +51,20 @@ class Api:
     def __call__(self, method: str, path: str, body: dict | None = None, params: dict | None = None) -> dict:
         url = self.base + path + (f"?{urllib.parse.urlencode(params)}" if params else "")
         data = json.dumps(body).encode() if body is not None else None
-        req = urllib.request.Request(url, data=data, headers=self.headers, method=method)
-        with urllib.request.urlopen(req, timeout=60, context=self.ctx) as r:
-            text = r.read().decode()
-        return json.loads(text) if text else {}
+        # Only GETs are retried: a repeated POST could start a second job run.
+        for attempt in range(1, (GET_RETRIES if method == "GET" else 1) + 1):
+            req = urllib.request.Request(url, data=data, headers=self.headers, method=method)
+            try:
+                with urllib.request.urlopen(req, timeout=60, context=self.ctx) as r:
+                    text = r.read().decode()
+                return json.loads(text) if text else {}
+            except (urllib.error.URLError, ConnectionError, TimeoutError) as e:
+                http_code = getattr(e, "code", None)
+                if method != "GET" or (http_code is not None and http_code < 500) or attempt == GET_RETRIES:
+                    raise
+                print(f"GET {path}: {type(e).__name__}, retry {attempt}/{GET_RETRIES - 1}", flush=True)
+                time.sleep(RETRY_S)
+        raise AssertionError("unreachable")
 
 
 def job_ids(api) -> dict:

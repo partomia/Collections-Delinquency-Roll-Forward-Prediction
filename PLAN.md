@@ -82,8 +82,11 @@ Names:
    the churn move a 1-GPU run, and 8 vCPU / 32 GB, sat in `ENGINE_SCHEDULING`), so the
    daily job and the model are 4 vCPU / 16 GB with no GPU. This project has no model
    family switch: TabICL picks `cuda`, then `mps`, then `cpu`, and without CUDA the
-   context is `rows_cpu` = 10,000 rows (go01: 50,000 on an L4). Gate numbers on CPU
-   against go01: phase 10.
+   context is `rows_cpu` = 10,000 rows (go01: 50,000 on an L4). First federal run
+   (2026-10-02, 10.2 min on 4 vCPU): AUC 0.850, top 10% capture 32.2% (DPD 29.8%),
+   top 40% 80.4% (DPD 71.7%), value capture 55.2%; inside go01's nine-run ranges
+   (AUC 0.85-0.87, 30-37%, 80-82%, 52-56%), AUC at the low end with the 5x smaller
+   context. The context stays at 10,000 rows on CPU.
 11. **CDE jobs are sized for the shared federal queue** (27 vCPU / ~110 GB): a 2-core /
    4 GB driver and 4-core / 8 GB executors, 1 min / 2 initial / 4 max, all overridable
    in `deploy_jobs.sh`. go01's 4-core driver with 4 initial executors is rejected

@@ -152,6 +152,57 @@ Moved end to end from go01 to federal, the same way as Customer-Churn-Prediction
   `--parquet-dir` outside the repo (printing a relative path); fixed.
 - TabICL on the laptop CPU (`COLL_MODEL_DEVICE=cpu`), 10,000-row context: fit 6.1 s,
   61 rows/s scoring.
+- Commit `029fc12`, pushed.
+
+### Phase 10: federal, from scratch (times UTC)
+
+- 07:32-07:39 `deploy_jobs.sh`: repository `rsingh-coll-dlq-pipeline`, python-env
+  `rsingh-coll-dlq-python-env` (built in ~6 min) and the four jobs, 395 s in all.
+- 07:47-08:03 chain for as_of 2026-10-02, run by run (`cde run describe` polled):
+  generate 249 (235 s), dq bronze 250 (158 s), silver 251 (112 s), dq silver 252
+  (159 s), gold 253 (108 s), dq gold 254 (102 s); 16.5 min in all, no queue rejection
+  at 2-core / 4 GB driver, 1 / 2 / 4 executors.
+- `ref.dq_results` for `manual-2026-10-02`: bronze 41 critical + 14 warning, silver
+  24 + 1, gold 12 + 12; 104 checks, 0 critical failures; one warning, latest labelled
+  roll rate 46.8% on 2026-08-28 (n=1,306), the same as on go01 (the generator is
+  prefix-stable).
+- Impala after the chain: bronze `loan_master` 106,556, `loan_instalments` 2,042,966,
+  `nach_presentations` 1,701,525, `dialler_contacts` 780,769, `casa_credits` 976,303,
+  `bureau_snapshot` 2,140,067; silver `loan` 106,556, `instalment` 2,042,568,
+  `collection_contact` 780,575; gold `collections_features` 187,942 rows, 79 snapshots
+  (2025-04-04 .. 2026-10-02), labelled to 2026-08-28, roll rate 24.5%, 756 SMA-0
+  loans on 2026-10-02. Location
+  `s3a://federal-buk-574bcea0/data/warehouse/tablespace/external/hive/rsingh_collections_delinquency_prediction_gold.db/collections_features`.
+- `setup_cai.py --no-serving --sync`: project `rsingh-coll-dlq` (`z436-4kbz-4uvi-q3sh`)
+  cloned; jobs sync-code `xgby-791p-l0oz-4p3p`, daily-score `tdi8-nf35-teoc-8mv3`,
+  backfill-history `t0fq-8rwv-2oj1-wch8`. Two calls right after the project was
+  created failed with `SSL: UNEXPECTED_EOF_WHILE_READING` (a job POST, then the
+  environment PATCH); re-running the idempotent script converged (three runs, the
+  last two "up to date"). The laptop's polls kept dropping too (URLError,
+  RemoteDisconnected), so `ci/trigger_cai_pipeline.py` now retries GETs (10 tries,
+  4xx not retried); POSTs are never retried (a second run).
+- Sync-code run: scheduled 07:51:05, running 07:54:16, succeeded 08:06:05 (11.8 min,
+  requirements installed).
+- First daily run, `triggered_by=manual`, run date 2026-10-02: scheduling 13 s
+  (4 vCPU / 16 GB), running 08:08:01-08:18:12 (10.2 min; pipeline 601.9 s). Run
+  `20261002-488d4d04`, device cpu, context 10,000 rows (2025-08-29 .. 2026-08-28),
+  holdout 2026-08-07 .. 08-28 on 9,638 loans with a 10,000-row context: roll rate
+  24.4%, AUC 0.850, top 10% catch 32.2% of rolls (DPD alone 29.8%), top 40% 80.4%
+  (DPD alone 71.7%), top 10% catch 55.2% of rolled overdue. 756 scored: 75
+  AGENT_CALL_TODAY, 227 AGENT_OR_IVR, 454 SMS_REMINDER; 10 holdout deciles.
+  Against go01 (L4, 50,000 rows, nine runs): AUC 0.85-0.87, top 10% 30-37% (DPD
+  28-30%), top 40% 80-82% (DPD 72-74%), value 52-56%. Federal sits inside the go01
+  ranges, AUC at the low end: same data, a 5x smaller context on CPU.
+- `setup_cai.py` with `COLL_ENDPOINT_API_KEY` = the CAI API key (as in churn): model
+  `rsingh-coll-dlq-roll-scorer` (`5f90c5d1-f165-4fb9-9a75-b209934e64b9`, build
+  `df8e8680-f1a7-43a3-9320-5676eda7722e`, 4 vCPU / 16 GB, no GPU), endpoint URL and
+  keys in the project environment, application `rsingh-coll-dlq-call-list`
+  (`wloe-l1ll-u2bm-31c0`).
+- Backfill-history run `lzwh60yx5d1984jm` started (8 weeks; one week is about one
+  daily run, ~10 min).
+- `set_airflow_variables.py`: the four `COLL_CAI_*` Variables created; a second run
+  reports them up to date. `deploy_dag.sh`: `rsingh-coll-dlq-orchestration` created,
+  schedule `30 0 * * *`, `paused: true`, `pausedUponCreation: true`, no runs.
 
 ## Recovery cheat-sheet
 

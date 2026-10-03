@@ -98,6 +98,11 @@ amount; the agent bands (top 40%) catch 80-82% (DPD alone 72-74%). DPD is a stro
 baseline by construction (a loan at 25 DPD only has to stay unpaid 6 more days);
 the model adds most on low-DPD loans that will still roll, and on value.
 
+On federal (CPU, 10,000-row context, run date 2026-10-02): AUC 0.850; the top 10%
+catch 32% of rolls (DPD alone 30%) and 55% of the rolled overdue amount; the top
+40% catch 80% (DPD alone 72%). Inside the go01 ranges, AUC at the low end, with a
+5x smaller context; the daily job takes about 10 min on 4 vCPU.
+
 Synthetic data: 150,000 loans (about 106,000 active by the as-of date) from
 April 2024. Each loan has a hidden monthly stress level (loan risk from product
 and origination bureau, AR(1) noise, occasional income shocks, a book-wide

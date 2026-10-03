@@ -81,6 +81,43 @@ def test_a_run_that_never_ends_times_out():
     assert trig.run_job(api, SYNC, "id-0", {}, poll_s=0, deadline_s=0.05) == "timedout"
 
 
+def test_a_dropped_get_is_retried_but_a_post_is_not(monkeypatch):
+    calls = []
+
+    class Body(io.BytesIO):
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *a):
+            return False
+
+    def urlopen(req, timeout=None, context=None):
+        calls.append(req.get_method())
+        if len(calls) <= 2:
+            raise urllib.error.URLError("[SSL: UNEXPECTED_EOF_WHILE_READING]")
+        return Body(b'{"status": "ENGINE_RUNNING"}')
+
+    monkeypatch.setattr(trig.urllib.request, "urlopen", urlopen)
+    monkeypatch.setattr(trig, "RETRY_S", 0)
+    api = trig.Api("https://cai", "k", "p1")
+    assert api("GET", "/jobs/j/runs/r") == {"status": "ENGINE_RUNNING"} and calls == ["GET"] * 3
+    calls.clear()
+    with pytest.raises(urllib.error.URLError):
+        api("POST", "/jobs/j/runs", body={"environment": {}})
+    assert calls == ["POST"]
+    calls[:] = ["x", "x", "x"]
+
+    def forbidden(req, timeout=None, context=None):
+        calls.append(req.get_method())
+        raise urllib.error.HTTPError(req.full_url, 403, "Forbidden", {}, None)
+
+    monkeypatch.setattr(trig.urllib.request, "urlopen", forbidden)
+    calls.clear()
+    with pytest.raises(urllib.error.HTTPError):
+        api("GET", "/jobs")
+    assert calls == ["GET"]
+
+
 def test_missing_jobs_are_named():
     with pytest.raises(SystemExit, match=DAILY):
         trig.job_ids(FakeApi(names=cai_jobs.GITHUB_CHAIN[:-1]))

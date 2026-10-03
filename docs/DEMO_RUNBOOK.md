@@ -7,10 +7,10 @@ or your own User Settings each time.
 | What | Name | ID |
 |---|---|---|
 | CAI workbench | federal | `https://federal-cml.federal.dp5i-5vkq.cloudera.site` |
-| CAI project | `rsingh-coll-dlq` | (set by `ci/setup_cai.py`) |
-| CAI jobs | `rsingh-coll-dlq-daily-score`, `rsingh-coll-dlq-sync-code`, `rsingh-coll-dlq-backfill-history` | |
-| Model | `rsingh-coll-dlq-roll-scorer` | |
-| Application | `rsingh-coll-dlq-call-list` | |
+| CAI project | `rsingh-coll-dlq` | `z436-4kbz-4uvi-q3sh` |
+| CAI jobs | `rsingh-coll-dlq-daily-score`, `rsingh-coll-dlq-sync-code`, `rsingh-coll-dlq-backfill-history` | `tdi8-nf35-teoc-8mv3`, `xgby-791p-l0oz-4p3p`, `t0fq-8rwv-2oj1-wch8` |
+| Model | `rsingh-coll-dlq-roll-scorer` | `5f90c5d1-f165-4fb9-9a75-b209934e64b9` |
+| Application | `rsingh-coll-dlq-call-list` | `wloe-l1ll-u2bm-31c0` |
 | CDE jobs | `rsingh-coll-dlq-{generate-loan-bronze,dq-check,build-silver,build-gold-features}` | |
 | CDE DAG job | `rsingh-coll-dlq-orchestration` | dagID `collections_roll_forward_pipeline` |
 
