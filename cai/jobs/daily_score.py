@@ -55,12 +55,15 @@ def main() -> None:
     p.add_argument("--dry-run", action="store_true", default=os.environ.get("COLL_DRY_RUN") == "1",
                    help="do not write any table (env COLL_DRY_RUN=1: the GitHub -> CAI check)")
     p.add_argument("--triggered-by", default=os.environ.get("COLL_TRIGGERED_BY") or "cai-job")
+    p.add_argument("--no-context-file", action="store_true",
+                   help="keep models/coll_context.parquet (backfill runs score older dates)")
     args, _ = p.parse_known_args()  # a Jupyter-kernel job runtime adds -f <kernel.json>
 
     run_date = datetime.strptime(args.run_date, "%Y-%m-%d").date() if args.run_date else None
     out = run_daily(get_storage(args.backend), factory=StubClassifier if args.stub else new_classifier,
                     run_date=run_date, triggered_by=args.triggered_by, write=not args.dry_run,
-                    n_context=args.context_rows, run_holdout=not args.no_holdout)
+                    n_context=args.context_rows, run_holdout=not args.no_holdout,
+                    save_context_file=not args.no_context_file)
     s = out["summary"]
     print(f"\nrun {s['run_id']}: {s['scored_loans']} SMA-0 loans scored, bands {s['bands']}")
     if s.get("capture_top10") is not None:

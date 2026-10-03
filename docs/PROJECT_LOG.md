@@ -198,8 +198,45 @@ Moved end to end from go01 to federal, the same way as Customer-Churn-Prediction
   `df8e8680-f1a7-43a3-9320-5676eda7722e`, 4 vCPU / 16 GB, no GPU), endpoint URL and
   keys in the project environment, application `rsingh-coll-dlq-call-list`
   (`wloe-l1ll-u2bm-31c0`).
-- Backfill-history run `lzwh60yx5d1984jm` started (8 weeks; one week is about one
-  daily run, ~10 min).
+- The model deployment (`3dbd3305-fa53-42ca-a640-65932f7f2382`) sat in `deploying`
+  with empty logs: the workbench CPU group `mlcpu-d697` (m5.2xlarge) was at its max,
+  10 of 10. `cdp ml modify-cluster-instance-group --min 4 --max 14` returned
+  "INTERNAL: workbench not in a modifiable state" (500), yet the change applied
+  (autoscale 4-14, 11 nodes) and the model deployed. The workbench stayed in
+  `modify:started` afterwards.
+- Endpoint from the laptop: 2.15 s, context from Impala, run `20261002-488d4d04`,
+  10,000 rows; p_roll 0.3915, with the what-if 0.2226. App `APPLICATION_RUNNING`;
+  its URL answers 302 to the CAI login.
+- Backfill-history run `lzwh60yx5d1984jm` (8 weeks): scheduling 08:19:36, running
+  08:22:30, `ENGINE_SUCCEEDED` 09:16:02, but only 08-07 .. 08-28 were written
+  (608-729 s each, published 08:32, 08:43, 08:53, 09:06). The 09-04 run spent the
+  usual ~10 min and wrote nothing; the job still reported success. The same date
+  scores fine from the laptop (stub, read-only), the date list picks all eight
+  Fridays, and the run overlapped the workbench modify, so the engine was most
+  likely ended by the resize. The run log is only in the CAI UI (the v2 API has no
+  log endpoint).
+- Re-run `4qxwzru14qjmn4vt` with `COLL_BACKFILL_WEEKS=4` (09-04 .. 09-25): running
+  09:25:53, 09-04 written 09:36:02 (606.8 s, AUC 0.830, top 10% 29.9%, DPD 29.3%,
+  top 40% 77.4%, value 51.9%), then `ENGINE_SUCCEEDED` 09:47:33 during 09-11 with
+  nothing written. Two silent ends, the second after the workbench modify, so not
+  only the resize. Laptop CPU, one process, no writes: 09-04 253 s, 09-11 305 s,
+  09-18 246 s; peak RSS 9.3, 9.3, 10.4 GiB, rising across dates (6.4 GiB still held
+  after the third). Same AUC as CAI for 09-04 (0.8298). Most likely the 16 GB engine
+  ran out of memory in its second or later date, and the Jupyter-kernel runtime
+  reports a killed kernel as success. Fix: `backfill_history.py` runs each date as
+  `daily_score.py --run-date D --triggered-by backfill --no-context-file` in its own
+  process; a non-zero or killed child fails the job by name.
+- Workbench back to `modify:finished`, CPU group autoscaled 11 -> 6 nodes.
+- 10:26:59 `cde job schedule unpause`: the DAG ran the 2026-10-02 interval at once
+  (run 255). generate 256 10:27:16-10:31:21 (245 s), dq bronze 257 (225 s), silver 258
+  (118 s), dq silver 259 (138 s), gold 260 (96 s), dq gold 261 10:42:25-10:43:56
+  (91 s): 16.7 min for the six CDE tasks. `ref.dq_results` for
+  `scheduled__2026-10-02T00:30:00+00:00`: 104 checks, 0 critical failures, the same
+  one gold warning. CAI run `uz52sw3rprpgc5k5`: created 10:44:11, running 10:47:01
+  (2.8 min scheduling: the CPU group had scaled down), succeeded 10:56:19; run
+  `20261002-b8b77853`, `triggered_by=airflow`, pipeline 548.4 s, the same numbers as
+  the manual run (756 scored, AUC 0.850, 32.2% / 80.4% / 55.2%). DAG run 255 succeeded
+  10:56:51: 29.9 min end to end.
 - `set_airflow_variables.py`: the four `COLL_CAI_*` Variables created; a second run
   reports them up to date. `deploy_dag.sh`: `rsingh-coll-dlq-orchestration` created,
   schedule `30 0 * * *`, `paused: true`, `pausedUponCreation: true`, no runs.

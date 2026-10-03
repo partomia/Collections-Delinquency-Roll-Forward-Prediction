@@ -152,6 +152,34 @@ def test_the_dry_run_flag_comes_from_the_environment(monkeypatch):
     assert seen["write"] is True
 
 
+def test_backfill_scores_each_date_in_its_own_process_and_a_kill_fails_it(monkeypatch):
+    import pandas as pd
+    from datetime import date
+
+    job = _load(ROOT / "cai" / "jobs" / "backfill_history.py")
+    fridays = [date(2026, 8, 7), date(2026, 8, 14), date(2026, 8, 21), date(2026, 8, 28)]
+    unlabelled = [date(2026, 9, 4), date(2026, 9, 11), date(2026, 9, 18)]
+
+    class Storage:
+        snapshot_id = staticmethod(lambda table: None)
+        latest_snapshot_date = staticmethod(lambda snap: unlabelled[-1])
+        labelled_dates = staticmethod(lambda snap: fridays)
+        features = staticmethod(lambda **kw: pd.DataFrame({"snapshot_date": fridays[-1:] + unlabelled}))
+
+    calls, codes = [], iter([0, 0, -9])
+    monkeypatch.setattr(job, "get_storage", lambda backend: Storage())
+    monkeypatch.setattr(job.subprocess, "run",
+                        lambda cmd, env: calls.append((cmd, env)) or subprocess.CompletedProcess(cmd, next(codes)))
+    monkeypatch.setattr(sys, "argv", ["backfill_history.py", "--weeks", "4"])
+    monkeypatch.setenv("COLL_RUN_DATE", "2026-10-02")
+    with pytest.raises(SystemExit, match="2026-09-04: daily_score exited -9 .*out of memory"):
+        job.main()
+    assert [cmd[cmd.index("--run-date") + 1] for cmd, _ in calls] == ["2026-08-21", "2026-08-28", "2026-09-04"]
+    cmd, env = calls[0]
+    assert cmd[1].endswith("daily_score.py") and "--no-context-file" in cmd
+    assert cmd[cmd.index("--triggered-by") + 1] == "backfill" and "COLL_RUN_DATE" not in env
+
+
 def test_every_job_is_in_the_runbook_and_its_script_exists():
     runbook = (ROOT / "docs" / "DEMO_RUNBOOK.md").read_text()
     for job in cai_jobs.JOBS:

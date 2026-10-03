@@ -314,6 +314,7 @@ Troubleshooting seen while deploying:
 | `ParseException` on insert | Impala reserved word as a column name (e.g. `rows`); rename the column |
 | First Impala query hangs for minutes | the virtual warehouse is resuming from auto-suspend; wait, or open the app a few minutes before a demo |
 | `cuda False` on a GPU session (go01) | torch built for a newer CUDA than the driver: `pip3 install --force-reinstall --no-deps torch --index-url https://download.pytorch.org/whl/cu126` |
+| CAI backfill `ENGINE_SUCCEEDED` with dates missing | the engine was ended mid-date (two runs on federal, one during a workbench resize); each date now runs in its own process and a killed date fails the job. Re-run with `COLL_BACKFILL_WEEKS` covering the gap |
 | CDE run rejected: "queue ... cannot fit application" | driver plus initial executors exceed the shared federal queue; use the `deploy_jobs.sh` defaults |
 | `cde job run --wait` returns while the run is still going | poll `cde run describe --id <id>` until `succeeded` / `failed` |
 | CAI job or model stays in `ENGINE_SCHEDULING` | a GPU, or more than 4 vCPU / 16 GB, cannot be scheduled from this project on federal; keep `ci/cai_jobs.py` at 4 vCPU / 16 GB / 0 GPU |
