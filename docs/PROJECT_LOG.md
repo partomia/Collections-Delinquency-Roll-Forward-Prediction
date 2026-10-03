@@ -236,7 +236,32 @@ Moved end to end from go01 to federal, the same way as Customer-Churn-Prediction
   (2.8 min scheduling: the CPU group had scaled down), succeeded 10:56:19; run
   `20261002-b8b77853`, `triggered_by=airflow`, pipeline 548.4 s, the same numbers as
   the manual run (756 scored, AUC 0.850, 32.2% / 80.4% / 55.2%). DAG run 255 succeeded
-  10:56:51: 29.9 min end to end.
+  10:56:51: 29.9 min end to end. The airflow run replaced the manual row for
+  2026-10-02 (one row per run date).
+- GitHub secrets `CAI_URL`, `CAI_API_KEY`, `CAI_PROJECT_ID` set from `.env`. Push of
+  `d2d054e`: CI run 37118112471 green. `test` job, then `cai-pipeline`: sync-code
+  `wm2hq93xyveyu42u` 11:00:25-11:00:41 (requirements unchanged, at the pushed sha),
+  dry-run daily score `9uqwskf3663e4kuk` running 11:01:15-11:10:40, nothing written.
+- Backfill `h6e1v52gn32hffbz` (`COLL_BACKFILL_WEEKS=3`, one process per date):
+  running 11:13:00, succeeded 11:43:05, all three dates written. Nine run dates in
+  `collections_model_run` (the last eight weeks plus today's airflow run):
+
+  | Run date | Loans | AUC | Top 10% | DPD alone | Top 40% | DPD alone | Value top 10% | Pipeline s |
+  |---|---|---|---|---|---|---|---|---|
+  | 08-07 | 2,783 | 0.839 | 32.9% | 31.5% | 79.3% | 74.9% | 55.2% | 626 |
+  | 08-14 | 3,175 | 0.854 | 32.4% | 31.5% | 80.6% | 73.8% | 54.6% | 608 |
+  | 08-21 | 2,374 | 0.862 | 35.5% | 33.8% | 83.1% | 75.5% | 56.2% | 620 |
+  | 08-28 | 1,306 | 0.846 | 34.7% | 33.2% | 80.9% | 74.2% | 55.0% | 729 |
+  | 09-04 | 2,066 | 0.830 | 29.9% | 29.3% | 77.4% | 71.9% | 51.9% | 607 |
+  | 09-11 | 4,125 | 0.847 | 30.8% | 28.5% | 79.7% | 74.2% | 53.5% | 678 |
+  | 09-18 | 2,767 | 0.862 | 30.0% | 27.8% | 81.1% | 73.0% | 53.4% | 527 |
+  | 09-25 | 1,270 | 0.859 | 31.5% | 29.8% | 81.3% | 72.9% | 55.3% | 566 |
+  | 10-02 (airflow) | 756 | 0.850 | 32.2% | 29.8% | 80.4% | 71.7% | 55.2% | 548 |
+
+  Federal over nine runs: AUC 0.83-0.86, top 10% 30-36% (DPD 28-34%), top 40%
+  77-83% (DPD 72-76%), value 52-56%. go01 (GPU, 50,000-row context, nine runs): AUC
+  0.85-0.87, 30-37% (DPD 28-30%), 80-82% (DPD 72-74%), 52-56%. The model beats DPD
+  alone on every run date; one week of backfill is 9-12 min on CPU.
 - `set_airflow_variables.py`: the four `COLL_CAI_*` Variables created; a second run
   reports them up to date. `deploy_dag.sh`: `rsingh-coll-dlq-orchestration` created,
   schedule `30 0 * * *`, `paused: true`, `pausedUponCreation: true`, no runs.

@@ -9,10 +9,11 @@ or your own User Settings each time.
 | CAI workbench | federal | `https://federal-cml.federal.dp5i-5vkq.cloudera.site` |
 | CAI project | `rsingh-coll-dlq` | `z436-4kbz-4uvi-q3sh` |
 | CAI jobs | `rsingh-coll-dlq-daily-score`, `rsingh-coll-dlq-sync-code`, `rsingh-coll-dlq-backfill-history` | `tdi8-nf35-teoc-8mv3`, `xgby-791p-l0oz-4p3p`, `t0fq-8rwv-2oj1-wch8` |
-| Model | `rsingh-coll-dlq-roll-scorer` | `5f90c5d1-f165-4fb9-9a75-b209934e64b9` |
+| Model | `rsingh-coll-dlq-roll-scorer` | `5f90c5d1-f165-4fb9-9a75-b209934e64b9`, deployment `3dbd3305-fa53-42ca-a640-65932f7f2382` |
 | Application | `rsingh-coll-dlq-call-list` | `wloe-l1ll-u2bm-31c0` |
 | CDE jobs | `rsingh-coll-dlq-{generate-loan-bronze,dq-check,build-silver,build-gold-features}` | |
-| CDE DAG job | `rsingh-coll-dlq-orchestration` | dagID `collections_roll_forward_pipeline` |
+| CDE DAG job | `rsingh-coll-dlq-orchestration` (`30 0 * * *`, unpaused 3 Oct) | dagID `collections_roll_forward_pipeline` |
+| CDE resources | `rsingh-coll-dlq-pipeline` (repository), `rsingh-coll-dlq-python-env` | |
 
 ## Setup (one-time, scripted from the laptop)
 

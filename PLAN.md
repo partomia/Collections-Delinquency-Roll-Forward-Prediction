@@ -91,6 +91,12 @@ Names:
    4 GB driver and 4-core / 8 GB executors, 1 min / 2 initial / 4 max, all overridable
    in `deploy_jobs.sh`. go01's 4-core driver with 4 initial executors is rejected
    before it starts ("cannot fit application").
+12. **The backfill scores each date in its own process.** Two federal backfill runs
+   stopped mid-date and still reported `ENGINE_SUCCEEDED`; on the laptop one process
+   peaks at 9.3-10.4 GiB and holds memory between dates, so the 16 GB engine most
+   likely ran out. `backfill_history.py` now runs `daily_score.py` per date; memory is
+   released each time and a killed date fails the job by name. The re-run wrote every
+   date (527-678 s each).
 
 ## Phases
 
@@ -117,7 +123,22 @@ Names:
   tolerant CAI poll, federal Impala host and CDE sizing (decisions 10-11).
 - [ ] **10. Federal, from scratch**: CDE jobs and the chain for one as_of, CAI project and
   first CPU run, model and app, 8-week backfill, Airflow Variables, DAG (paused, then
-  unpaused), first scheduled run, GitHub -> CAI check.
+  unpaused), first scheduled run, GitHub -> CAI check. Done on 3 Oct except the first
+  scheduled run (4 Oct 00:30 UTC); the unpause run (2026-10-02 interval) succeeded in
+  30 min, CI run 37118112471 green.
+
+## Open (federal, 3 Oct 2026)
+
+- First scheduled DAG run, 4 Oct 00:30 UTC: not yet observed.
+- A CAI engine that is killed can be reported as `ENGINE_SUCCEEDED` (decision 12).
+  The daily job is one date (peak ~9-10 GiB of 16 GB), but Airflow would not notice a
+  silent end; a check that the run date reached `collections_model_run` would.
+- GPU group `mlgpu-c63b` (g5.12xlarge, max 1) exists but jobs here cannot get a GPU.
+- CPU group `mlcpu-d697` raised from max 10 to 4-14 for the model deployment; the
+  modify call returned a 500 but applied.
+- Collector outcomes from the app not yet exercised on federal.
+- Three older commits carry `Co-Authored-By` trailers; left as they are (history
+  already pushed).
 
 ## Paused (27 Sep 2026) — possible next steps
 
