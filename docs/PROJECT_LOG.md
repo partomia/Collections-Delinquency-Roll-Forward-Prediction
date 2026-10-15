@@ -337,7 +337,11 @@ that repo was not changed.
   job has a run in `running` / `starting`.
 - `tests/test_platform_ctl.py`: prefix filtering, Spark children killed before orchestration,
   dry run changes nothing, platform scope needs `--yes-shared`, no `scripts/*.py` named after a
-  stdlib module, DAG bounds. 72 tests pass.
+  stdlib module, DAG bounds. 72 tests pass. Commit `764cfd2`, pushed.
+- 04:32 UTC DAG redeployed (`deploy_dag.sh`: no run in flight, repository synced in 2 s, job
+  updated). Airflow 2.11.2 REST afterwards: no import errors, still paused, `max_active_runs` 1,
+  `dag_run_timeout` 14,400 s, `execution_timeout` 3,600 s on the six CDE tasks and 6,000 s on
+  `cai_daily_score`; `next_dagrun` 2026-10-15 00:30 UTC, so an unpause runs that interval at once.
 
 ## Recovery cheat-sheet
 
