@@ -45,6 +45,9 @@ project, so the job and model run TabICL on CPU with the 10,000-row context
 
 ## Before the demo (30 minutes ahead)
 
+- Stopped since the last demo? `python scripts/platform_ctl.py status`, then `start` (model
+  deployment and app take a few minutes); `stop` again afterwards.
+
 - CDE Job Runs: today's 06:00 IST DAG run succeeded (all seven tasks green,
   including the three `dq_*` Great Expectations gates).
 - App History tab: today's run with `triggered_by = airflow`, plus 4+ backfilled run dates.

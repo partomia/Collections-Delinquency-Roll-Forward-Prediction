@@ -301,6 +301,44 @@ Moved end to end from go01 to federal, the same way as Customer-Churn-Prediction
   reports them up to date. `deploy_dag.sh`: `rsingh-coll-dlq-orchestration` created,
   schedule `30 0 * * *`, `paused: true`, `pausedUponCreation: true`, no runs.
 
+## 2026-10-15 — Stop/start/status script (Cursor, Opus 5.5)
+
+Ported from O-G-Asset-Integrity-Lakehouse (`scripts/platform.py`, `config/platform.json`);
+that repo was not changed.
+
+- Live inventory, read-only (04:00-04:20 UTC):
+  - CAI `rsingh-coll-dlq` (`z436-4kbz-4uvi-q3sh`): app `rsingh-coll-dlq-call-list`
+    `APPLICATION_STOPPED`; model `rsingh-coll-dlq-roll-scorer`, one build `df8e8680`, one
+    deployment `3dbd3305` `stopped`; jobs sync-code, daily-score, backfill-history, all manual
+    (no schedule), none active. Last daily-score runs `ENGINE_FAILED` on 10-08 and 10-09.
+  - CDE `federal-cde-vc`: four Spark jobs `rsingh-coll-dlq-*` and the Airflow job
+    `rsingh-coll-dlq-orchestration` (`30 0 * * *`), schedule **paused** at the time of the check;
+    no run in flight. Its nightly runs 596, 601, 606, 621, 625, 634 (10-10 .. 10-15) all
+    `failed`, 634 after 92 min, with no Spark child run after 585 (10-09): the tasks never got
+    a run on the shared vcluster. No streaming jobs.
+  - No NiFi process groups, Kafka topics or Flink jobs in this project.
+  - CDW `federal-impala-1` (`Running`); Data Visualization `IndianBank-Spend-analytics`
+    (`Running`, shared with Spend; `COLL_CDV_URL` points at it, not at `federal-data-viz`).
+    CAI workspace `federal-cml-ws` `modify:finished`.
+- `config/platform.json`: layers `cai`, `cde`, `cdw`; stop CAI, CDE, CDW; start the reverse.
+- `scripts/platform_ctl.py` (not `platform.py`: a `scripts/platform.py` shadows the standard
+  library `platform` for CI's `python scripts/run_cde_local.py` on Linux). Differences from OGX:
+  stdlib CAI client from `ci/` (GETs retried, POST/PATCH never); `cde job schedule unpause`
+  (CLI 1.23 has no `resume`); read-only `cde` calls retried; CAI job runs listed with
+  `sort=-created_at` (the API default is oldest first, so the newest 20 runs, where an active
+  run would be, were not in the page); prefix checked again client-side after each CLI filter;
+  no NiFi/Kafka/Flink layers.
+- Verified live: `status` and `status --scope platform` (output as above); `stop --dry-run`
+  "nothing to stop" on CAI and CDE; `start --dry-run` would unpause the DAG schedule, restart
+  deployment `3dbd3305`, start the app; `stop --scope platform --dry-run` would suspend
+  `federal-cml-ws`, `federal-cde-vc`, `federal-impala-1`. No real stop or start run.
+- DAG: `max_active_runs=1`, `dagrun_timeout` 4 h, `execution_timeout` 60 min per CDE task and
+  100 min on `cai_daily_score` (its own deadline is 90 min). `deploy_dag.sh` exits when the DAG
+  job has a run in `running` / `starting`.
+- `tests/test_platform_ctl.py`: prefix filtering, Spark children killed before orchestration,
+  dry run changes nothing, platform scope needs `--yes-shared`, no `scripts/*.py` named after a
+  stdlib module, DAG bounds. 72 tests pass.
+
 ## Recovery cheat-sheet
 
 **Environment.** Federal from 3 Oct 2026 (go01 before, left as it was): see

@@ -1,0 +1,24 @@
+{
+  "_comment": "scripts/platform_ctl.py: what 'stop' and 'start' touch. project = this demo's workloads only; platform = the shared CDP services of the environment as well (also used by sibling demos). Names are resolved by the CDP CLI at run time. No NiFi, Kafka, Flink or streaming in this project.",
+  "environment": "federal-cdp-env",
+  "project": {
+    "cai_project": "rsingh-coll-dlq",
+    "cai_job_prefix": "rsingh-coll-dlq-",
+    "cai_apps": ["rsingh-coll-dlq-call-list"],
+    "cai_models": ["rsingh-coll-dlq-roll-scorer"],
+    "cai_scheduled_jobs": [],
+    "cde_job_prefix": "rsingh-coll-dlq-",
+    "cde_streaming_jobs": [],
+    "cde_dag_jobs": ["rsingh-coll-dlq-orchestration"]
+  },
+  "platform": {
+    "cai_workspace": "federal-cml-ws",
+    "cde_service": "federal-cde",
+    "cde_vc": "federal-cde-vc",
+    "cdw_vws": ["federal-impala-1"],
+    "cdw_dbc": null,
+    "cdw_dataviz": ["IndianBank-Spend-analytics"]
+  },
+  "stop_order": ["cai", "cde", "cdw"],
+  "start_order": ["cdw", "cde", "cai"]
+}

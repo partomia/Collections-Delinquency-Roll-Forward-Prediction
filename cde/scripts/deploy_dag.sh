@@ -10,6 +10,14 @@ REPO_NAME="${REPO_NAME:-rsingh-coll-dlq-pipeline}"
 DAG_JOB_NAME="${DAG_JOB_NAME:-rsingh-coll-dlq-orchestration}"
 DAG_PATH="cde/dags/collections_dag.py"
 
+# An in-flight run keeps the old DAG and would fail on the change: redeploy only when idle.
+in_flight="$(cde run list --filter 'status[in]running,starting' --filter "job[eq]${DAG_JOB_NAME}" \
+  | python3 -c "import json,sys; print(' '.join(str(r['id']) for r in json.load(sys.stdin) or []))")"
+if [[ -n "${in_flight}" ]]; then
+  echo "${DAG_JOB_NAME} has runs in flight (${in_flight}): redeploy after they end"
+  exit 1
+fi
+
 cde repository sync --name "${REPO_NAME}"
 
 if cde job describe --name "${DAG_JOB_NAME}" &>/dev/null; then

@@ -52,6 +52,11 @@ TERMINAL_BAD = {"failed", "stopped", "timedout"}
 DAILY = "30 0 * * *"
 CAI_DEADLINE_MIN = 90
 MAX_POLL_ERRORS = 10
+# The vcluster quota is shared: a run stuck "running" holds it and leaves every other
+# project's stages in "starting". A CDE stage takes 2-4 min, plus any queue.
+CDE_TASK_TIMEOUT = timedelta(minutes=60)
+CAI_TASK_TIMEOUT = timedelta(minutes=CAI_DEADLINE_MIN + 10)
+DAGRUN_TIMEOUT = timedelta(hours=4)
 
 
 def trigger_cai_job(as_of: str, **_):
@@ -102,6 +107,7 @@ default_args = {
     "depends_on_past": False,
     "retries": 1,
     "retry_delay": timedelta(minutes=5),
+    "execution_timeout": CDE_TASK_TIMEOUT,
 }
 
 with DAG(
@@ -112,6 +118,8 @@ with DAG(
     # In the past, or manual triggers run no tasks.
     start_date=datetime(2026, 9, 26, 0, 30),
     catchup=False,
+    max_active_runs=1,
+    dagrun_timeout=DAGRUN_TIMEOUT,
     # Registered paused. Registering unpaused, or unpausing later, runs the latest closed
     # interval at once.
     is_paused_upon_creation=True,
@@ -147,6 +155,7 @@ with DAG(
         python_callable=trigger_cai_job,
         op_kwargs={"as_of": AS_OF},
         retries=0,
+        execution_timeout=CAI_TASK_TIMEOUT,
     )
 
     generate >> dq_bronze >> silver >> dq_silver >> gold >> dq_gold >> score

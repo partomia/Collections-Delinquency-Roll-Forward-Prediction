@@ -337,6 +337,25 @@ Troubleshooting seen while deploying:
 | CAI job or model stays in `ENGINE_SCHEDULING` | a GPU, or more than 4 vCPU / 16 GB, cannot be scheduled from this project on federal; keep `ci/cai_jobs.py` at 4 vCPU / 16 GB / 0 GPU |
 | Airflow task fails on one CAI poll (`Connection reset by peer`) | the CAI run goes on; the DAG now retries failed polls instead of failing |
 
+### Stopping and starting the demo
+
+`scripts/platform_ctl.py` (config in `config/platform.json`) releases this project's share of
+the federal environment between demos. CAI credentials are read from `.env`; the `cde` and `cdp`
+CLIs use their own profiles. No value is printed.
+
+| Command | Effect |
+|---|---|
+| `status [--scope platform]` | app, model deployment, job runs on CAI; DAG schedule and active `rsingh-coll-dlq-*` CDE runs; with platform scope also the CAI workspace, CDE virtual cluster, CDW `federal-impala-1` and the Data Visualization instance |
+| `stop` | stops the app and model deployment and any active `rsingh-coll-dlq-*` CAI job run; pauses the DAG schedule and kills `rsingh-coll-dlq-*` CDE runs in `running` / `starting` (Spark children first) |
+| `start` | unpauses the DAG schedule (Airflow then runs the latest closed interval at once), restarts the newest model deployment, then the app |
+| `stop/start --scope platform --yes-shared` | the above plus the CAI workspace, CDE virtual cluster and CDW Impala warehouse, which sibling demos share |
+| `--only cai,cde` / `--dry-run` | limit the layers / print without acting |
+
+No NiFi, Kafka or streaming jobs in this project. The CAI jobs are manual (Airflow starts the
+daily score), so there is no CAI schedule to pause. Data Visualization has no suspend in the CDP
+CLI and stays running. The DAG has `max_active_runs=1`, a 4 h `dagrun_timeout` and per-task
+`execution_timeout`s; `deploy_dag.sh` refuses to redeploy while a DAG run is in flight.
+
 ### 6. Run anywhere else
 
 The app has no Cloudera-only dependency: `docker build -t collections-app .`
@@ -353,11 +372,11 @@ cai/jobs/      daily_score.py, backfill_history.py, sync_code.py
 ci/            CAI resources (cai_jobs.py), setup_cai.py (API v2), trigger_cai_pipeline.py (GitHub -> CAI)
 cai/model/     predict.py (endpoint), test_endpoint.py
 app/           Streamlit app + CAI launcher
-config/        collections.yaml (names, storage, model), policy.yaml (context, holdout, treatment bands)
+config/        collections.yaml (names, storage, model), policy.yaml (context, holdout, treatment bands), platform.json (stop/start)
 sql/           Hue report and time-travel queries, dataviz_views.sql (Data Visualization views)
 dataviz/       build_dashboard.py (dashboards as code), collections_dashboards.json (export file)
 docs/          demo runbook, DATAVIZ.md, PROJECT_LOG.md (dated history of the build and every platform change)
-scripts/       run_cde_local.py (CDE jobs on a laptop), run_impala_sql.py
+scripts/       run_cde_local.py (CDE jobs on a laptop), run_impala_sql.py, platform_ctl.py (status/stop/start)
 ```
 
 ## Sources
